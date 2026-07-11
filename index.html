@@ -313,9 +313,13 @@ body {
     }
     ctx.stroke();
 
-    // equilibrium point (intersection approx.)
-    const eqX = ox + axW * 0.47;
-    const eqY = oy - axH * 0.55;
+    // equilibrium point (exact intersection of the two shifted curves)
+    // demand: y-param = 1 - 0.82*tt (at x = ox + tt*axW + shift)
+    // supply: y-param = 0.08 + 0.78*ss (at x = ox + ss*axW - shift)
+    // equate x and y to solve for tt
+    const eqT = (0.92 - 1.56 * shift / axW) / 1.6;
+    const eqX = ox + eqT * axW + shift;
+    const eqY = oy - (1 - eqT * 0.82) * axH * 0.95;
     const pulse = 4 + Math.sin(t * 3) * 1.5;
     ctx.beginPath();
     ctx.arc(eqX, eqY, pulse, 0, Math.PI * 2);
