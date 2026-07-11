@@ -1,6 +1,6 @@
 (function() {
   var VALID_ID = 'ku';
-  var VALID_PASS = 'economics';
+  var VALID_PASS = 'econ';
   var KEY = 'shared_note_auth';
 
   if (sessionStorage.getItem(KEY) === 'ok') return;
