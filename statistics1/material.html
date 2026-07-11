@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>統計学1 期末 Rコード一般形まとめ</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{
+  --accent:#2563eb; --accent-light:#dbeafe;
+  --ink:#1f2937; --sub:#6b7280;
+  --warn-bg:#fef9c3; --warn-edge:#eab308;
+  --ok-bg:#ecfdf5; --ok-edge:#10b981;
+  --bg:#f8fafc; --card:#ffffff; --line:#e5e7eb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
+  line-height:1.8;font-size:16px}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+header.page{background:var(--accent);color:#fff;border-radius:12px;padding:24px 28px;margin:16px 0}
+header.page h1{margin:0;font-size:1.6em}
+header.page .meta{margin:6px 0 0;opacity:.85;font-size:.9em}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 24px;margin-bottom:24px}
+nav.toc h2{margin:0 0 8px;font-size:1.05em;color:var(--accent)}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--accent);text-decoration:underline}
+section.chapter{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:28px}
+section.chapter h2{margin:0 0 16px;padding-bottom:10px;border-bottom:3px solid var(--accent);font-size:1.35em}
+section.chapter h3{margin:24px 0 8px;font-size:1.05em;color:var(--accent);display:flex;align-items:center;gap:6px}
+.summary{background:var(--accent-light);border-radius:8px;padding:12px 16px}
+.summary ul{margin:0;padding-left:1.3em}
+.summary li{margin:4px 0}
+dl.terms{margin:0}
+dl.terms dt{font-weight:bold;color:var(--accent);margin-top:10px}
+dl.terms dt::before{content:"■ "}
+dl.terms dd{margin:2px 0 0 1.2em}
+.figure{text-align:center;margin:16px 0;padding:16px;border:1px dashed var(--line);border-radius:8px;background:#fff}
+.figure svg{max-width:100%;height:auto}
+.figure figcaption{font-size:.88em;color:var(--sub);margin-top:8px}
+.ref-note{background:#f1f5f9;border-left:4px solid var(--sub);padding:8px 14px;border-radius:0 8px 8px 0;font-size:.92em;color:var(--sub)}
+.example{background:var(--ok-bg);border-left:4px solid var(--ok-edge);padding:12px 16px;border-radius:0 8px 8px 0;margin:10px 0}
+.example .label,.pitfall .label{font-weight:bold;font-size:.9em;display:block;margin-bottom:4px}
+.example .label{color:#047857}
+.pitfall{background:var(--warn-bg);border-left:4px solid var(--warn-edge);padding:12px 16px;border-radius:0 8px 8px 0;margin:10px 0}
+.pitfall .label{color:#a16207}
+footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32px}
+pre.code{background:#1e293b;color:#e2e8f0;border-radius:8px;padding:14px 16px;overflow-x:auto;font-family:"Consolas","Monaco","Courier New",monospace;font-size:.9em;line-height:1.6;margin:8px 0}
+pre.code .comment{color:#94a3b8}
+pre.code .keyword{color:#7dd3fc}
+pre.code .string{color:#86efac}
+pre.code .general{color:#fbbf24;font-weight:bold}
+.fn-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.93em}
+.fn-table th{background:var(--accent);color:#fff;padding:8px 10px;text-align:left}
+.fn-table td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.fn-table tr:nth-child(even) td{background:#f8fafc}
+.fn-table code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.92em}
+@media print{
+  body{background:#fff;font-size:12px;line-height:1.6}
+  section.chapter{border:none;padding:0 0 16px;break-inside:avoid-page}
+  header.page{border-radius:0}
+  nav.toc{border:none}
+  pre.code{background:#f1f5f9;color:#1e293b}
+}
+</style>
+</head>
+<body>
+<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
+  <a href="../index.html" style="color:#2563eb;text-decoration:none;font-weight:700">&#9664; 共有ノート</a>
+  <span style="color:#6b7280">／</span>
+  <span style="font-weight:600">統計学1</span>
+</nav>
+<div class="wrap">
+
+<header class="page">
+  <h1>統計学1 期末 Rコード一般形まとめ</h1>
+  <p class="meta">第1章〜第3章のRコードの一般形（テンプレート）を網羅的に整理</p>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1">基本操作（算術・オブジェクト・コメント）</a></li>
+    <li><a href="#ch2">ベクトルとデータ型</a></li>
+    <li><a href="#ch3">関数の基本と自作関数</a></li>
+    <li><a href="#ch4">データフレーム操作（読み込み・加工・保存）</a></li>
+    <li><a href="#ch5">データ集計（group_by・summarize・table）</a></li>
+    <li><a href="#ch6">ggplotによるグラフ作成</a></li>
+    <li><a href="#ch7">統計分析（相関・k平均法・Q-Qプロット）</a></li>
+<!--TOC-END-->
+  </ol>
+</nav>
+
+<main>
+
+<!-- ==================== 第1章 ==================== -->
+<section class="chapter" id="ch1">
+  <h2>第1章 基本操作（算術・オブジェクト・コメント）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>Rは電卓のように算術演算ができる（<code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>^</code>）</li>
+    <li><code>#</code> 以降はコメント（実行されない）</li>
+    <li>計算結果は <code>&lt;-</code>（代入演算子）でオブジェクトに保存できる</li>
+    <li>オブジェクト名の大文字・小文字は区別される（<code>result</code> と <code>Result</code> は別物）</li>
+    <li>オブジェクトは上書き可能</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>算術演算</dt>
+    <dd>
+      <pre class="code"><span class="general">数値 + 数値</span>    <span class="comment"># 加算</span>
+<span class="general">数値 - 数値</span>    <span class="comment"># 減算</span>
+<span class="general">数値 * 数値</span>    <span class="comment"># 乗算</span>
+<span class="general">数値 / 数値</span>    <span class="comment"># 除算</span>
+<span class="general">数値 ^ 数値</span>    <span class="comment"># べき乗</span>
+<span class="keyword">sqrt</span>(<span class="general">数値</span>)     <span class="comment"># 平方根</span>
+<span class="keyword">abs</span>(<span class="general">数値</span>)      <span class="comment"># 絶対値</span></pre>
+    </dd>
+
+    <dt>コメント</dt>
+    <dd>
+      <pre class="code"><span class="general">コード</span>    <span class="comment"># コメント（この部分は実行されない）</span></pre>
+    </dd>
+
+    <dt>オブジェクトへの代入</dt>
+    <dd>
+      <pre class="code"><span class="general">オブジェクト名</span> <span class="keyword">&lt;-</span> <span class="general">値</span></pre>
+    </dd>
+  </dl>
+
+  <h3>🧮 具体例</h3>
+  <div class="example"><span class="label">例</span>
+    <pre class="code">5 + 3          <span class="comment"># → 8</span>
+5 ^ 3          <span class="comment"># → 125</span>
+sqrt(4)        <span class="comment"># → 2</span>
+result &lt;- 5 + 3  <span class="comment"># resultに8が保存される</span>
+result         <span class="comment"># → 8</span></pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    大文字・小文字は区別される。<code>result</code> と <code>Result</code> は別のオブジェクト。未定義のオブジェクトを参照すると <code>Error: object 'Result' not found</code> になる。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>10^20</code> は <code>1e+20</code>、<code>1 / 9^50</code> は <code>1.940325e-48</code> のように表示される。<code>e+N</code> は $10^N$ を意味する。
+  </div>
+</section>
+
+<!-- ==================== 第2章 ==================== -->
+<section class="chapter" id="ch2">
+  <h2>第2章 ベクトルとデータ型</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>ベクトルは <code>c()</code> で作成。同じデータ型の要素を複数持つ</li>
+    <li>インデックスは <b>1始まり</b>。<code>x[2]</code> で2番目の要素</li>
+    <li>主なデータ型：<b>numeric</b>（数値）、<b>character</b>（文字）、<b>logical</b>（論理）</li>
+    <li>ベクトル内で型が混在すると自動的に型変換される（数値→文字）</li>
+    <li>比較演算子 <code>==</code> <code>!=</code> <code>&gt;</code> <code>&lt;</code> は論理値を返す</li>
+    <li>論理値は数値演算時に TRUE=1、FALSE=0 に変換される</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>ベクトルの作成</dt>
+    <dd>
+      <pre class="code"><span class="keyword">c</span>(<span class="general">要素1</span>, <span class="general">要素2</span>, <span class="general">...</span>)</pre>
+    </dd>
+
+    <dt>ベクトルの結合</dt>
+    <dd>
+      <pre class="code"><span class="keyword">c</span>(<span class="general">ベクトル1</span>, <span class="general">ベクトル2</span>)</pre>
+    </dd>
+
+    <dt>要素の取り出し</dt>
+    <dd>
+      <pre class="code"><span class="general">ベクトル</span>[<span class="general">インデックス</span>]          <span class="comment"># 1つ取り出し</span>
+<span class="general">ベクトル</span>[<span class="keyword">c</span>(<span class="general">i</span>, <span class="general">j</span>)]           <span class="comment"># 複数取り出し</span>
+<span class="general">ベクトル</span>[<span class="keyword">-c</span>(<span class="general">i</span>, <span class="general">j</span>)]          <span class="comment"># 指定を除外</span>
+<span class="general">ベクトル</span>[<span class="string">"名前"</span>]             <span class="comment"># 名前で取り出し</span></pre>
+    </dd>
+
+    <dt>ベクトルの演算（要素ごと）</dt>
+    <dd>
+      <pre class="code"><span class="general">ベクトル</span> / <span class="general">数値</span>              <span class="comment"># 全要素を割る</span>
+<span class="general">ベクトル</span> / <span class="general">ベクトル</span>[1]        <span class="comment"># 最初の要素で基準化</span></pre>
+    </dd>
+
+    <dt>ベクトルに名前をつける</dt>
+    <dd>
+      <pre class="code"><span class="keyword">names</span>(<span class="general">ベクトル</span>) <span class="keyword">&lt;-</span> <span class="general">名前のベクトル</span></pre>
+    </dd>
+
+    <dt>数列の生成</dt>
+    <dd>
+      <pre class="code"><span class="keyword">seq</span>(<span class="keyword">from =</span> <span class="general">開始</span>, <span class="keyword">to =</span> <span class="general">終了</span>, <span class="keyword">by =</span> <span class="general">間隔</span>)
+<span class="general">開始</span><span class="keyword">:</span><span class="general">終了</span>    <span class="comment"># 1刻みの連続整数</span></pre>
+    </dd>
+
+    <dt>データ型の確認・変換・判定</dt>
+    <dd>
+      <table class="fn-table">
+        <tr><th>一般形</th><th>説明</th></tr>
+        <tr><td><code>class(x)</code></td><td>xのデータ型を返す</td></tr>
+        <tr><td><code>as.numeric(x)</code></td><td>xを数値型に変換</td></tr>
+        <tr><td><code>as.factor(x)</code></td><td>xを因子型に変換</td></tr>
+        <tr><td><code>as.integer(x)</code></td><td>xを整数型に変換（TRUE→1, FALSE→0）</td></tr>
+        <tr><td><code>is.numeric(x)</code></td><td>xが数値型ならTRUE</td></tr>
+        <tr><td><code>is.character(x)</code></td><td>xが文字型ならTRUE</td></tr>
+        <tr><td><code>is.na(x)</code></td><td>xが欠損値(NA)ならTRUE</td></tr>
+      </table>
+    </dd>
+
+    <dt>比較演算子</dt>
+    <dd>
+      <table class="fn-table">
+        <tr><th>演算子</th><th>意味</th><th>返り値</th></tr>
+        <tr><td><code>==</code></td><td>等しい</td><td>TRUE / FALSE</td></tr>
+        <tr><td><code>!=</code></td><td>等しくない（≠）</td><td>TRUE / FALSE</td></tr>
+        <tr><td><code>&gt;</code></td><td>より大きい</td><td>TRUE / FALSE</td></tr>
+        <tr><td><code>&lt;</code></td><td>より小さい</td><td>TRUE / FALSE</td></tr>
+        <tr><td><code>&gt;=</code></td><td>以上</td><td>TRUE / FALSE</td></tr>
+        <tr><td><code>&lt;=</code></td><td>以下</td><td>TRUE / FALSE</td></tr>
+      </table>
+    </dd>
+
+    <dt>論理演算子（条件の組み合わせ）</dt>
+    <dd>
+      <table class="fn-table">
+        <tr><th>演算子</th><th>意味</th></tr>
+        <tr><td><code>&amp;</code></td><td>かつ（AND）</td></tr>
+        <tr><td><code>|</code></td><td>または（OR）</td></tr>
+        <tr><td><code>!</code></td><td>否定（NOT）</td></tr>
+      </table>
+    </dd>
+  </dl>
+
+  <h3>🧮 具体例</h3>
+  <div class="example"><span class="label">例：ベクトルの作成と操作</span>
+    <pre class="code">world.pop &lt;- c(2525779, 3026003, 3691173)
+world.pop[2]                <span class="comment"># → 3026003</span>
+world.pop[c(1, 3)]          <span class="comment"># → 2525779 3691173</span>
+pop.million &lt;- world.pop / 1000  <span class="comment"># 各要素を1000で割る</span></pre>
+  </div>
+  <div class="example"><span class="label">例：数列</span>
+    <pre class="code">seq(from = 1950, to = 2010, by = 10)  <span class="comment"># → 1950 1960 ... 2010</span>
+2008:2012                   <span class="comment"># → 2008 2009 2010 2011 2012</span></pre>
+  </div>
+  <div class="example"><span class="label">例：論理値の数値演算</span>
+    <pre class="code">x &lt;- c(TRUE, FALSE, TRUE)
+mean(x)    <span class="comment"># → 0.6667（TRUEの割合）</span>
+sum(x)     <span class="comment"># → 2（TRUEの個数）</span></pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    ベクトル内で型が混在すると、<b>数値が文字に自動変換</b>される。<br>
+    <code>c(1, 2, "a")</code> → <code>"1" "2" "a"</code>（全部文字型になる）
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    文字型の <code>"3.14"</code> と数値型の <code>3.14</code> は別物。<code>"3.14" + 1</code> はエラーになる。<code>as.numeric("3.14")</code> で変換が必要。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    文字列の比較でも大文字・小文字は区別される。<code>"Hello" == "hello"</code> は <code>FALSE</code>。
+  </div>
+</section>
+
+<!-- ==================== 第3章 ==================== -->
+<section class="chapter" id="ch3">
+  <h2>第3章 関数の基本と自作関数</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>関数は<b>特定の入力（引数）に対して特定の出力を返す</b>もの</li>
+    <li>引数は位置（順序）でも、名前でも指定できる</li>
+    <li>引数にはデフォルト値を設定できる</li>
+    <li><code>?関数名</code> でヘルプを確認できる</li>
+    <li><code>function(){}</code> で自作関数を定義できる</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>組み込み関数（1変数）</dt>
+    <dd>
+      <table class="fn-table">
+        <tr><th>一般形</th><th>説明</th></tr>
+        <tr><td><code>length(x)</code></td><td>ベクトルの要素数</td></tr>
+        <tr><td><code>min(x)</code></td><td>最小値</td></tr>
+        <tr><td><code>max(x)</code></td><td>最大値</td></tr>
+        <tr><td><code>range(x)</code></td><td>範囲（最小値と最大値）</td></tr>
+        <tr><td><code>mean(x)</code></td><td>平均値</td></tr>
+        <tr><td><code>median(x)</code></td><td>中央値</td></tr>
+        <tr><td><code>sum(x)</code></td><td>合計値</td></tr>
+        <tr><td><code>sd(x)</code></td><td>標準偏差</td></tr>
+        <tr><td><code>var(x)</code></td><td>分散</td></tr>
+        <tr><td><code>summary(x)</code></td><td>要約統計量（最小・四分位・最大・平均）</td></tr>
+        <tr><td><code>log(x)</code></td><td>自然対数（底は $e$）</td></tr>
+      </table>
+    </dd>
+
+    <dt>組み込み関数（多変数）</dt>
+    <dd>
+      <table class="fn-table">
+        <tr><th>一般形</th><th>説明</th></tr>
+        <tr><td><code>rep(x, times)</code></td><td>xをtimes回繰り返すベクトル</td></tr>
+        <tr><td><code>paste(x, y, sep = "区切り")</code></td><td>文字列の結合</td></tr>
+        <tr><td><code>quantile(x, probs = 確率ベクトル)</code></td><td>指定した分位数を計算</td></tr>
+        <tr><td><code>cor(x, y)</code></td><td>相関係数</td></tr>
+      </table>
+    </dd>
+
+    <dt>NA対応引数</dt>
+    <dd>
+      <pre class="code"><span class="keyword">mean</span>(<span class="general">x</span>, <span class="keyword">na.rm =</span> <span class="keyword">TRUE</span>)    <span class="comment"># NAを除外して計算</span>
+<span class="keyword">sd</span>(<span class="general">x</span>, <span class="keyword">na.rm =</span> <span class="keyword">TRUE</span>)
+<span class="keyword">var</span>(<span class="general">x</span>, <span class="keyword">na.rm =</span> <span class="keyword">TRUE</span>)</pre>
+      <p>NAを含むベクトルにそのまま <code>mean(x)</code> すると結果も <code>NA</code> になる</p>
+    </dd>
+
+    <dt>関数のヘルプ</dt>
+    <dd>
+      <pre class="code"><span class="keyword">?</span><span class="general">関数名</span>    <span class="comment"># RStudio右下のペインにヘルプが表示</span></pre>
+    </dd>
+
+    <dt>自作関数の定義</dt>
+    <dd>
+      <pre class="code"><span class="general">関数名</span> <span class="keyword">&lt;-</span> <span class="keyword">function</span>(<span class="general">引数1</span>, <span class="general">引数2</span>, ...) {
+  <span class="general">処理</span>
+  <span class="keyword">return</span>(<span class="general">出力</span>)
+}</pre>
+    </dd>
+
+    <dt>デフォルト引数付き関数</dt>
+    <dd>
+      <pre class="code"><span class="general">関数名</span> <span class="keyword">&lt;-</span> <span class="keyword">function</span>(<span class="general">引数1</span>, <span class="general">引数2</span> = <span class="general">デフォルト値</span>) {
+  <span class="general">処理</span>
+  <span class="keyword">return</span>(<span class="general">出力</span>)
+}</pre>
+    </dd>
+
+    <dt>引数の指定方法</dt>
+    <dd>
+      <pre class="code"><span class="general">関数</span>(<span class="general">値1</span>, <span class="general">値2</span>)                <span class="comment"># 位置（順序）で指定</span>
+<span class="general">関数</span>(<span class="general">引数名1</span> = <span class="general">値1</span>, <span class="general">引数名2</span> = <span class="general">値2</span>)  <span class="comment"># 名前で指定（順序自由）</span></pre>
+    </dd>
+  </dl>
+
+  <h3>🧮 具体例</h3>
+  <div class="example"><span class="label">例：自作関数の定義と使用</span>
+    <pre class="code">my.difference &lt;- function(input1, input2) {
+  output &lt;- input1 - input2
+  return(output)
+}
+my.difference(1, 3)            <span class="comment"># → -2</span>
+my.difference(input2 = 3, input1 = 1)  <span class="comment"># → -2（名前指定なら順序自由）</span></pre>
+  </div>
+  <div class="example"><span class="label">例：記述統計の自作関数</span>
+    <pre class="code">my.summary &lt;- function(x) {
+  s.out &lt;- sum(x)
+  l.out &lt;- length(x)
+  m.out &lt;- s.out / l.out
+  out &lt;- c(s.out, l.out, m.out)
+  names(out) &lt;- c("sum", "length", "mean")
+  return(out)
+}</pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>na.rm = TRUE</code> を忘れると、NAが1つでもあれば結果がNAになる。<br>
+    <code>mean(c(1, 2, NA))</code> → <code>NA</code><br>
+    <code>mean(c(1, 2, NA), na.rm = TRUE)</code> → <code>1.5</code>
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>log(x)</code> は自然対数（底は $e = 2.71828...$）。0や負の値には適用できない（<code>-Inf</code> や <code>NaN</code> を返す）。
+  </div>
+</section>
+
+<!-- ==================== 第4章 ==================== -->
+<section class="chapter" id="ch4">
+  <h2>第4章 データフレーム操作（読み込み・加工・保存）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>tidyverse（readrなど）を使う現代的な書き方が授業推奨</li>
+    <li>パイプ演算子 <code>|&gt;</code> でコードを上から下に読める</li>
+    <li><code>filter()</code> で行の選択、<code>select()</code> で列の選択</li>
+    <li><code>mutate()</code> で新しい列の追加・変換</li>
+    <li><code>pivot_longer()</code> で横→縦変換、<code>pivot_wider()</code> で縦→横変換</li>
+    <li>整然データ（tidy data）: 各変数＝列、各観測＝行、各値＝セル</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>パッケージの導入</dt>
+    <dd>
+      <pre class="code"><span class="keyword">install.packages</span>(<span class="string">"パッケージ名"</span>)    <span class="comment"># 初回のみ</span>
+<span class="keyword">library</span>(<span class="general">パッケージ名</span>)              <span class="comment"># 毎回読み込み</span></pre>
+    </dd>
+
+    <dt>データの読み込み</dt>
+    <dd>
+      <pre class="code"><span class="general">データ名</span> <span class="keyword">&lt;-</span> <span class="keyword">read_csv</span>(<span class="string">"ファイルパス.csv"</span>)</pre>
+    </dd>
+
+    <dt>パイプ演算子</dt>
+    <dd>
+      <pre class="code"><span class="general">x</span> <span class="keyword">|&gt;</span> <span class="general">f</span>()    <span class="comment"># f(x) と同じ意味</span>
+<span class="general">x</span> <span class="keyword">|&gt;</span> <span class="general">f</span>() <span class="keyword">|&gt;</span> <span class="general">g</span>()    <span class="comment"># g(f(x)) と同じ意味</span></pre>
+      <p><code>%&gt;%</code> と <code>|&gt;</code> は基本的に同じ。授業では <code>|&gt;</code> を使用。</p>
+    </dd>
+
+    <dt>行の選択（filter）</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">filter</span>(<span class="general">条件式</span>)
+<span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">filter</span>(<span class="general">条件1</span> <span class="keyword">&amp;</span> <span class="general">条件2</span>)    <span class="comment"># AND</span>
+<span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">filter</span>(<span class="general">条件1</span> <span class="keyword">|</span> <span class="general">条件2</span>)    <span class="comment"># OR</span>
+<span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">filter</span>(<span class="general">列名</span> <span class="keyword">%in%</span> <span class="keyword">c</span>(<span class="string">"値1"</span>, <span class="string">"値2"</span>))  <span class="comment"># 複数値のいずれか</span>
+<span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">filter</span>(<span class="keyword">!</span><span class="keyword">is.na</span>(<span class="general">列名</span>))    <span class="comment"># NAを除外</span></pre>
+    </dd>
+
+    <dt>列の選択（select）</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">select</span>(<span class="general">列名1</span>, <span class="general">列名2</span>)          <span class="comment"># 指定列を残す</span>
+<span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">select</span>(<span class="keyword">-c</span>(<span class="general">列名1</span>, <span class="general">列名2</span>))     <span class="comment"># 指定列を除外</span></pre>
+    </dd>
+
+    <dt>列の追加・変換（mutate）</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">mutate</span>(
+  <span class="general">新列名</span> = <span class="general">計算式</span>,
+  <span class="general">新列名2</span> = <span class="keyword">as.factor</span>(<span class="general">既存列</span>),
+  <span class="general">新列名3</span> = <span class="keyword">ifelse</span>(<span class="general">条件</span>, <span class="general">TRUEの値</span>, <span class="general">FALSEの値</span>)
+)</pre>
+    </dd>
+
+    <dt>ifelse関数</dt>
+    <dd>
+      <pre class="code"><span class="keyword">ifelse</span>(<span class="general">条件</span>, <span class="general">TRUEのときの値</span>, <span class="general">FALSEのときの値</span>)</pre>
+    </dd>
+
+    <dt>列名の確認・変更</dt>
+    <dd>
+      <pre class="code"><span class="keyword">colnames</span>(<span class="general">データ</span>)              <span class="comment"># 列名を確認</span>
+<span class="keyword">colnames</span>(<span class="general">データ</span>) <span class="keyword">&lt;-</span> <span class="general">新しい名前のベクトル</span>  <span class="comment"># 列名を変更</span></pre>
+    </dd>
+
+    <dt>データの形状変換</dt>
+    <dd>
+      <pre class="code"><span class="comment"># 横→縦（ロング形式に変換）</span>
+<span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">pivot_longer</span>(
+  <span class="keyword">cols =</span> <span class="general">変換する列の指定</span>,    <span class="comment"># everything() で全列</span>
+  <span class="keyword">names_to =</span> <span class="string">"新しい列名（元の列名が入る）"</span>,
+  <span class="keyword">values_to =</span> <span class="string">"新しい列名（値が入る）"</span>
+)
+
+<span class="comment"># 縦→横（ワイド形式に変換）</span>
+<span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">pivot_wider</span>(
+  <span class="keyword">names_from =</span> <span class="general">列名にする列</span>,
+  <span class="keyword">values_from =</span> <span class="general">値にする列</span>
+)</pre>
+    </dd>
+
+    <dt>並び替え</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">arrange</span>(<span class="general">列名</span>)     <span class="comment"># 昇順</span>
+<span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">arrange</span>(<span class="keyword">desc</span>(<span class="general">列名</span>))  <span class="comment"># 降順</span></pre>
+    </dd>
+
+    <dt>重複の除去</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">distinct</span>(<span class="general">列名</span>)    <span class="comment"># 指定列の一意な値を返す</span></pre>
+    </dd>
+
+    <dt>値の取り出し</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">pull</span>(<span class="general">列名</span>)       <span class="comment"># 列をベクトルとして取り出す</span>
+<span class="general">データ</span><span class="keyword">$</span><span class="general">列名</span>                  <span class="comment"># 同じ効果（Base R記法）</span>
+<span class="general">データ</span><span class="keyword">$</span><span class="general">列名</span>[<span class="general">行番号</span>]          <span class="comment"># 特定の行の値</span></pre>
+    </dd>
+
+    <dt>データフレームの結合</dt>
+    <dd>
+      <table class="fn-table">
+        <tr><th>一般形</th><th>説明</th></tr>
+        <tr><td><code>inner_join(x, y, by = "列名")</code></td><td>共通の値が一致する行のみ結合</td></tr>
+        <tr><td><code>left_join(x, y, by = "列名")</code></td><td>左側を全て保持し、右側をマッチ</td></tr>
+        <tr><td><code>right_join(x, y, by = "列名")</code></td><td>右側を全て保持し、左側をマッチ</td></tr>
+        <tr><td><code>full_join(x, y, by = "列名")</code></td><td>両方の全行を保持</td></tr>
+      </table>
+    </dd>
+
+    <dt>データの保存</dt>
+    <dd>
+      <pre class="code"><span class="keyword">write_csv</span>(<span class="general">データ</span>, <span class="string">"パス/ファイル名.csv"</span>)    <span class="comment"># CSVとして保存（型情報なし）</span>
+<span class="keyword">saveRDS</span>(<span class="general">データ</span>, <span class="string">"パス/ファイル名.rds"</span>)      <span class="comment"># RDS形式で保存（型情報あり）</span></pre>
+    </dd>
+
+    <dt>作業ディレクトリ・ファイル操作</dt>
+    <dd>
+      <pre class="code"><span class="keyword">getwd</span>()                      <span class="comment"># 現在の作業ディレクトリを確認</span>
+<span class="keyword">list.files</span>(<span class="string">"フォルダパス"</span>)     <span class="comment"># フォルダ内のファイル一覧</span></pre>
+    </dd>
+  </dl>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    列名にスペースが含まれる場合はバッククォートで囲む。<br>
+    <code>filter(`Country Name` == "Japan")</code>
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    CSVは型情報を保持しない。RDSは型情報を保持する。大きなデータではparquet形式が推奨。
+  </div>
+</section>
+
+<!-- ==================== 第5章 ==================== -->
+<section class="chapter" id="ch5">
+  <h2>第5章 データ集計（group_by・summarize・table）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li><code>group_by() |&gt; summarize()</code> はtidyverseでのグループ別集計の基本パターン</li>
+    <li>ダミー変数（0/1）の平均値 ＝ 条件を満たす割合</li>
+    <li>論理条件の <code>mean()</code> も割合を返す（TRUE=1, FALSE=0）</li>
+    <li><code>table()</code> はクロス集計表を作成</li>
+    <li>sapply() で複数列に関数を一括適用</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>グループ別集計（最重要パターン）</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">group_by</span>(<span class="general">グループ列</span>) <span class="keyword">|&gt;</span>
+  <span class="keyword">summarize</span>(
+    <span class="general">新列名</span> = <span class="keyword">mean</span>(<span class="general">列名</span>),    <span class="comment"># 平均</span>
+    <span class="general">新列名</span> = <span class="keyword">sum</span>(<span class="general">列名</span>),     <span class="comment"># 合計</span>
+    <span class="general">新列名</span> = <span class="keyword">median</span>(<span class="general">列名</span>)   <span class="comment"># 中央値</span>
+  )</pre>
+    </dd>
+
+    <dt>複数変数でグループ化</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">group_by</span>(<span class="general">列名1</span>, <span class="general">列名2</span>) <span class="keyword">|&gt;</span>
+  <span class="keyword">summarize</span>(<span class="general">新列名</span> = <span class="general">集計関数</span>(<span class="general">列名</span>))</pre>
+    </dd>
+
+    <dt>ダミー変数の平均 ＝ 割合（数式）</dt>
+    <dd>
+      <p>ダミー変数 $x_i \in \{0, 1\}$ について:</p>
+      <p>$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i = \frac{k}{n}$$</p>
+      <p>$k$ は条件を満たす($x_i = 1$)データの数。つまり <code>mean(call)</code> = 書類通過<b>率</b>。</p>
+    </dd>
+
+    <dt>論理条件の割合を計算</dt>
+    <dd>
+      <pre class="code"><span class="keyword">mean</span>(<span class="general">列名</span> == <span class="string">"値"</span>)        <span class="comment"># "値"と一致する割合</span>
+<span class="keyword">mean</span>(<span class="general">列名</span> &lt; <span class="general">数値</span>)         <span class="comment"># 数値未満の割合</span>
+<span class="keyword">mean</span>(<span class="keyword">is.na</span>(<span class="general">列名</span>))        <span class="comment"># 欠損の割合</span>
+<span class="keyword">sum</span>(<span class="keyword">is.na</span>(<span class="general">列名</span>))         <span class="comment"># 欠損の個数</span></pre>
+    </dd>
+
+    <dt>クロス集計表</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">select</span>(<span class="general">列名1</span>, <span class="general">列名2</span>) <span class="keyword">|&gt;</span>
+  <span class="keyword">table</span>()                   <span class="comment"># クロス集計</span>
+
+<span class="keyword">addmargins</span>(<span class="general">集計表</span>)          <span class="comment"># 行・列の合計を追加</span>
+<span class="keyword">prop.table</span>(<span class="general">集計表</span>)          <span class="comment"># 比率に変換</span>
+
+<span class="keyword">table</span>(<span class="keyword">exclude =</span> <span class="keyword">NULL</span>)      <span class="comment"># NAも集計に含める</span></pre>
+    </dd>
+
+    <dt>sapply（複数列に関数を適用）</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">sapply</span>(
+    <span class="general">関数名</span>,
+    <span class="general">追加引数...</span>
+  )</pre>
+    </dd>
+
+    <dt>十分位数の計算</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">select</span>(<span class="general">列名1</span>, <span class="general">列名2</span>) <span class="keyword">|&gt;</span>
+  <span class="keyword">sapply</span>(<span class="keyword">quantile</span>, <span class="keyword">probs =</span> <span class="keyword">seq</span>(0, 1, <span class="keyword">by =</span> 0.1), <span class="keyword">na.rm =</span> <span class="keyword">TRUE</span>)</pre>
+    </dd>
+  </dl>
+
+  <h3>🧮 具体例</h3>
+  <div class="example"><span class="label">例：人種別書類通過率</span>
+    <pre class="code">resume |&gt;
+  group_by(race) |&gt;
+  summarize(
+    call_rate = mean(call),   <span class="comment"># 通過率</span>
+    call_count = sum(call)    <span class="comment"># 通過数</span>
+  )</pre>
+  </div>
+  <div class="example"><span class="label">例：差の差分法（DID）</span>
+    <pre class="code">did &lt;- minwage |&gt;
+  group_by(state) |&gt;
+  summarize(
+    fullBefore_prop = mean(fullBefore_prop),
+    fullAfter_prop = mean(fullAfter_prop)
+  ) |&gt;
+  mutate(diff_before_after = fullAfter_prop - fullBefore_prop)
+<span class="comment"># DID推定値:</span>
+did$diff_before_after[1] - did$diff_before_after[2]</pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>group_by()</code> は見た目を変えないが、以降の <code>summarize()</code> がグループごとに計算される。<code># Groups:</code> の表示で確認可能。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>table()</code> はデフォルトでNAを無視する。NAも集計に含めたい場合は <code>table(exclude = NULL)</code> を使う。
+  </div>
+</section>
+
+<!-- ==================== 第6章 ==================== -->
+<section class="chapter" id="ch6">
+  <h2>第6章 ggplotによるグラフ作成</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>ggplotの基本構造: <code>ggplot(aes()) + geom_xxx() + labs() + theme()</code></li>
+    <li>グラフの種類: 棒グラフ(<code>geom_bar</code>)、ヒストグラム(<code>geom_histogram</code>)、箱ひげ図(<code>geom_boxplot</code>)、散布図(<code>geom_point</code>)、線グラフ(<code>geom_line</code>)</li>
+    <li><code>aes()</code> でデータと見た目（x軸・y軸・色・形）の対応を指定</li>
+    <li><code>ggsave()</code> でグラフを画像として保存</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>ggplotの基本構造</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">ggplot</span>(<span class="keyword">aes</span>(<span class="keyword">x =</span> <span class="general">x軸の列</span>, <span class="keyword">y =</span> <span class="general">y軸の列</span>)) <span class="keyword">+</span>
+  <span class="general">geom_xxx</span>() <span class="keyword">+</span>
+  <span class="keyword">labs</span>(<span class="keyword">x =</span> <span class="string">"x軸ラベル"</span>, <span class="keyword">y =</span> <span class="string">"y軸ラベル"</span>, <span class="keyword">title =</span> <span class="string">"タイトル"</span>) <span class="keyword">+</span>
+  <span class="keyword">theme_minimal</span>(<span class="keyword">base_family =</span> <span class="string">"フォント名"</span>)</pre>
+    </dd>
+
+    <dt>棒グラフ</dt>
+    <dd>
+      <pre class="code"><span class="keyword">geom_bar</span>(<span class="keyword">stat =</span> <span class="string">"identity"</span>)    <span class="comment"># y軸の値をそのまま使う</span></pre>
+      <p><code>stat = "identity"</code> を指定すると、データの値をそのまま棒の高さに使う。</p>
+    </dd>
+
+    <dt>ヒストグラム</dt>
+    <dd>
+      <pre class="code"><span class="keyword">ggplot</span>(<span class="keyword">aes</span>(<span class="keyword">x =</span> <span class="general">列名</span>, <span class="keyword">y =</span> <span class="keyword">after_stat</span>(density))) <span class="keyword">+</span>
+<span class="keyword">geom_histogram</span>(
+  <span class="keyword">binwidth =</span> <span class="general">ビンの幅</span>,
+  <span class="keyword">boundary =</span> <span class="general">ビンの境界値</span>,
+  <span class="keyword">color =</span> <span class="string">"枠線色"</span>,
+  <span class="keyword">fill =</span> <span class="string">"塗り色"</span>
+)</pre>
+      <p><code>after_stat(density)</code>: y軸を密度にする。<code>binwidth</code>: 各ビンの幅。<code>boundary</code>: ビンの開始位置。</p>
+    </dd>
+
+    <dt>箱ひげ図</dt>
+    <dd>
+      <pre class="code"><span class="keyword">ggplot</span>(<span class="keyword">aes</span>(<span class="keyword">x =</span> <span class="general">グループ列</span>, <span class="keyword">y =</span> <span class="general">数値列</span>)) <span class="keyword">+</span>
+<span class="keyword">geom_boxplot</span>(
+  <span class="keyword">fill =</span> <span class="string">"塗り色"</span>,
+  <span class="keyword">color =</span> <span class="string">"枠線色"</span>,
+  <span class="keyword">outlier.shape =</span> <span class="general">数値</span>,    <span class="comment"># 外れ値の形状</span>
+  <span class="keyword">outlier.size =</span> <span class="general">数値</span>,     <span class="comment"># 外れ値のサイズ</span>
+  <span class="keyword">outlier.alpha =</span> <span class="general">数値</span>     <span class="comment"># 外れ値の透明度</span>
+)</pre>
+      <p>箱ひげ図の要素: 最小値、第1四分位数(Q1)、中央値、第3四分位数(Q3)、最大値。</p>
+    </dd>
+
+    <dt>散布図</dt>
+    <dd>
+      <pre class="code"><span class="keyword">ggplot</span>(<span class="keyword">aes</span>(<span class="keyword">x =</span> <span class="general">列名1</span>, <span class="keyword">y =</span> <span class="general">列名2</span>, <span class="keyword">color =</span> <span class="general">グループ列</span>, <span class="keyword">shape =</span> <span class="general">グループ列</span>)) <span class="keyword">+</span>
+<span class="keyword">geom_point</span>(
+  <span class="keyword">size =</span> <span class="general">点のサイズ</span>,
+  <span class="keyword">alpha =</span> <span class="general">透明度(0〜1)</span>
+)</pre>
+    </dd>
+
+    <dt>線グラフ</dt>
+    <dd>
+      <pre class="code"><span class="keyword">ggplot</span>(<span class="keyword">aes</span>(<span class="keyword">x =</span> <span class="general">列名1</span>, <span class="keyword">y =</span> <span class="general">列名2</span>, <span class="keyword">color =</span> <span class="general">グループ列</span>, <span class="keyword">linetype =</span> <span class="general">グループ列</span>)) <span class="keyword">+</span>
+<span class="keyword">geom_line</span>(<span class="keyword">linewidth =</span> <span class="general">線の太さ</span>)</pre>
+    </dd>
+
+    <dt>色・形状の手動設定</dt>
+    <dd>
+      <pre class="code"><span class="keyword">scale_color_manual</span>(
+  <span class="keyword">name =</span> <span class="string">"凡例タイトル"</span>,
+  <span class="keyword">labels =</span> <span class="keyword">c</span>(<span class="string">"元の値"</span> = <span class="string">"表示名"</span>, ...),
+  <span class="keyword">values =</span> <span class="keyword">c</span>(<span class="string">"元の値"</span> = <span class="string">"色コード"</span>, ...)
+)
+
+<span class="keyword">scale_shape_manual</span>(
+  <span class="keyword">name =</span> <span class="string">"凡例タイトル"</span>,
+  <span class="keyword">values =</span> <span class="keyword">c</span>(<span class="string">"元の値"</span> = <span class="general">形状番号</span>, ...)
+)
+
+<span class="keyword">scale_color_brewer</span>(<span class="keyword">palette =</span> <span class="string">"パレット名"</span>)  <span class="comment"># ColorBrewerのパレット</span></pre>
+    </dd>
+
+    <dt>軸のカスタマイズ</dt>
+    <dd>
+      <pre class="code"><span class="keyword">scale_x_continuous</span>(<span class="keyword">limits =</span> <span class="keyword">c</span>(<span class="general">最小</span>, <span class="general">最大</span>), <span class="keyword">breaks =</span> <span class="general">目盛りベクトル</span>)
+<span class="keyword">scale_x_discrete</span>(<span class="keyword">labels =</span> <span class="keyword">c</span>(<span class="string">"ラベル1"</span>, <span class="string">"ラベル2"</span>, ...))  <span class="comment"># 離散軸のラベル変更</span></pre>
+    </dd>
+
+    <dt>グラフの保存</dt>
+    <dd>
+      <pre class="code"><span class="keyword">ggsave</span>(<span class="string">"フォルダ/ファイル名.png"</span>)</pre>
+    </dd>
+  </dl>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    ggplotの各要素は <code>+</code> でつなぐ（パイプ <code>|&gt;</code> ではない）。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    日本語フォントの指定: Macでは <code>"Hiragino Sans"</code>、Windowsでは <code>"Yu Gothic"</code> を使う。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>ggsave()</code> はフォルダが存在しないとエラー。事前に <code>dir.create("figure")</code> が必要。
+  </div>
+</section>
+
+<!-- ==================== 第7章 ==================== -->
+<section class="chapter" id="ch7">
+  <h2>第7章 統計分析（相関・k平均法・Q-Qプロット）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>相関係数 <code>cor(x, y)</code> は2変数の線形関係の強さ（-1〜1）</li>
+    <li>Q-Qプロットは2つの分布の同一性を視覚的に確認する方法</li>
+    <li>$k$平均法は、データを$k$個のクラスターに分けるアルゴリズム</li>
+    <li>対数変換 <code>log()</code> は分布の偏りを修正し、差を変化率に変換する</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>相関係数</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">summarise</span>(<span class="general">相関名</span> = <span class="keyword">cor</span>(<span class="general">列名1</span>, <span class="general">列名2</span>))</pre>
+    </dd>
+
+    <dt>Q-Qプロット</dt>
+    <dd>
+      <pre class="code"><span class="keyword">qqplot</span>(
+  <span class="general">ベクトル1</span>,
+  <span class="general">ベクトル2</span>,
+  <span class="keyword">xlab =</span> <span class="string">"x軸ラベル"</span>,
+  <span class="keyword">ylab =</span> <span class="string">"y軸ラベル"</span>,
+  <span class="keyword">main =</span> <span class="string">"タイトル"</span>,
+  <span class="keyword">xlim =</span> <span class="keyword">c</span>(<span class="general">最小</span>, <span class="general">最大</span>),
+  <span class="keyword">ylim =</span> <span class="keyword">c</span>(<span class="general">最小</span>, <span class="general">最大</span>)
+)
+<span class="keyword">abline</span>(<span class="general">切片</span>, <span class="general">傾き</span>, <span class="keyword">lwd =</span> <span class="general">線の太さ</span>)  <span class="comment"># 45度線: abline(0, 1)</span></pre>
+    </dd>
+
+    <dt>k平均法</dt>
+    <dd>
+      <pre class="code"><span class="general">結果</span> <span class="keyword">&lt;-</span> <span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">select</span>(<span class="general">変数1</span>, <span class="general">変数2</span>) <span class="keyword">|&gt;</span>
+  <span class="keyword">kmeans</span>(<span class="keyword">centers =</span> <span class="general">k</span>, <span class="keyword">nstart =</span> <span class="general">試行回数</span>)
+
+<span class="general">結果</span><span class="keyword">$</span>centers     <span class="comment"># 各クラスターの中心点</span>
+<span class="general">結果</span><span class="keyword">$</span>cluster     <span class="comment"># 各データポイントのクラスター番号</span></pre>
+    </dd>
+
+    <dt>クラスターと政党のクロス集計</dt>
+    <dd>
+      <pre class="code"><span class="keyword">table</span>(
+  <span class="general">party =</span> <span class="general">データ</span><span class="keyword">$</span><span class="general">列名</span>,
+  <span class="general">cluster =</span> <span class="general">結果</span><span class="keyword">$</span>cluster
+)</pre>
+    </dd>
+
+    <dt>自然対数変換</dt>
+    <dd>
+      <pre class="code"><span class="keyword">log</span>(<span class="general">x</span>)    <span class="comment"># 底はe（ネイピア数）</span></pre>
+      <p>対数変換の性質: $\log(x_2) - \log(x_1) = \log\left(\frac{x_2}{x_1}\right) \approx \frac{x_2 - x_1}{x_1}$（変化率への変換）</p>
+    </dd>
+  </dl>
+
+  <h3>🧮 具体例</h3>
+  <div class="example"><span class="label">例：k平均法の実行と結果確認</span>
+    <pre class="code">result &lt;- congress |&gt;
+  filter(congress == 112) |&gt;
+  select(dwnom1, dwnom2) |&gt;
+  kmeans(centers = 2, nstart = 5)
+
+result$centers    <span class="comment"># 中心点の座標</span>
+table(
+  party = congress$party[congress$congress == 112],
+  cluster = result$cluster
+)  <span class="comment"># クラスターと政党の対応</span></pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    $k$平均法のクラスター番号（1, 2, 3...）に意味はない。実行するたびに番号と中心点の対応が変わりうる。<code>nstart</code>で複数回試行し最良の結果を選ぶ。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>log(0)</code> は <code>-Inf</code>、<code>log(-1)</code> は <code>NaN</code> を返す。対数変換する前にデータに0や負の値がないか確認すること。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    Q-Qプロットで点が45度線上にあれば2つの分布は同じ。線より上＝y側の方が大きい、線より下＝x側の方が大きい。
+  </div>
+</section>
+
+<!--CHAPTERS-END-->
+</main>
+
+<footer class="page">test-prep システムで生成 ｜ 元資料とあわせて使ってください</footer>
+
+</div>
+</body>
+</html>
