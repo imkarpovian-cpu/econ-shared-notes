@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>情報処理入門 期末試験対策資料</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{
+  --accent:#2563eb; --accent-light:#dbeafe;
+  --ink:#1f2937; --sub:#6b7280;
+  --warn-bg:#fef9c3; --warn-edge:#eab308;
+  --ok-bg:#ecfdf5; --ok-edge:#10b981;
+  --bg:#f8fafc; --card:#ffffff; --line:#e5e7eb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
+  line-height:1.8;font-size:16px}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+header.page{background:var(--accent);color:#fff;border-radius:12px;padding:24px 28px;margin:16px 0}
+header.page h1{margin:0;font-size:1.6em}
+header.page .meta{margin:6px 0 0;opacity:.85;font-size:.9em}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 24px;margin-bottom:24px}
+nav.toc h2{margin:0 0 8px;font-size:1.05em;color:var(--accent)}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--accent);text-decoration:underline}
+section.chapter{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:28px}
+section.chapter h2{margin:0 0 16px;padding-bottom:10px;border-bottom:3px solid var(--accent);font-size:1.35em}
+section.chapter h3{margin:24px 0 8px;font-size:1.05em;color:var(--accent);display:flex;align-items:center;gap:6px}
+.summary{background:var(--accent-light);border-radius:8px;padding:12px 16px}
+.summary ul{margin:0;padding-left:1.3em}
+.summary li{margin:4px 0}
+dl.terms{margin:0}
+dl.terms dt{font-weight:bold;color:var(--accent);margin-top:10px}
+dl.terms dt::before{content:"■ "}
+dl.terms dd{margin:2px 0 0 1.2em}
+.figure{text-align:center;margin:16px 0;padding:16px;border:1px dashed var(--line);border-radius:8px;background:#fff}
+.figure svg{max-width:100%;height:auto}
+.figure figcaption{font-size:.88em;color:var(--sub);margin-top:8px}
+.ref-note{background:#f1f5f9;border-left:4px solid var(--sub);padding:8px 14px;border-radius:0 8px 8px 0;font-size:.92em;color:var(--sub)}
+.example{background:var(--ok-bg);border-left:4px solid var(--ok-edge);padding:12px 16px;border-radius:0 8px 8px 0}
+.example .label,.pitfall .label{font-weight:bold;font-size:.9em;display:block;margin-bottom:4px}
+.example .label{color:#047857}
+.pitfall{background:var(--warn-bg);border-left:4px solid var(--warn-edge);padding:12px 16px;border-radius:0 8px 8px 0}
+.pitfall .label{color:#a16207}
+footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32px}
+@media print{
+  body{background:#fff;font-size:12px;line-height:1.6}
+  section.chapter{border:none;padding:0 0 16px;break-inside:avoid-page}
+  header.page{border-radius:0}
+  nav.toc{border:none}
+}
+</style>
+</head>
+<body>
+<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
+  <a href="../index.html" style="color:#2563eb;text-decoration:none;font-weight:700">&#9664; 共有ノート</a>
+  <span style="color:#6b7280">／</span>
+  <span style="font-weight:600">情報処理入門</span>
+</nav>
+<div class="wrap">
+
+<header class="page">
+  <h1>情報処理入門 期末試験対策資料</h1>
+  <p class="meta">第2回〜第14回（全14回・11資料） ｜ 最終更新: 2026-07-10</p>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1">第2回 情報倫理</a></li>
+    <li><a href="#ch2">第2回（続き） 著作権</a></li>
+    <li><a href="#ch3">第3回 情報システム</a></li>
+    <li><a href="#ch4">第4回 情報ネットワークと社会</a></li>
+    <li><a href="#ch5">第4回（続き） Webの世代論</a></li>
+    <li><a href="#ch6">第4回（続き） 情報通信産業の変化と電子商取引</a></li>
+    <li><a href="#ch7">第5回 情報理論（アナログとディジタル）</a></li>
+    <li><a href="#ch8">第5回 情報理論（情報量とエントロピー）</a></li>
+    <li><a href="#ch9">第6回 データモデル（情報の表現とモデル化）</a></li>
+    <li><a href="#ch10">第6回 データモデル（データモデルの種類と性質）</a></li>
+    <li><a href="#ch11">第7回 データ構造とアルゴリズム</a></li>
+    <li><a href="#ch12">第8回 データと分析（1）データ科学とデータ・統計</a></li>
+    <li><a href="#ch13">第8回 データと分析（2）分析手法の例（回帰・機械学習・クラスタリング）</a></li>
+    <li><a href="#ch14">第9回 人工知能（前編）―AIとは／AIの動作原理</a></li>
+    <li><a href="#ch15">第10回 人工知能（後編）―AI利用の留意点</a></li>
+    <li><a href="#ch16">第11回・第12回 文書作成（Word）</a></li>
+    <li><a href="#ch17">第11回・第12回 表計算（Excel）</a></li>
+    <li><a href="#ch18">第11回・第12回 プレゼンテーション（PowerPoint）</a></li>
+    <li><a href="#ch19">第13回 ネットワークと暗号・情報セキュリティ（1）インターネットの通信のしくみ</a></li>
+    <li><a href="#ch20">第13回 ネットワークと暗号・情報セキュリティ（2）通信の暗号化</a></li>
+    <li><a href="#ch21">第13回 ネットワークと暗号・情報セキュリティ（3）情報セキュリティ</a></li>
+    <li><a href="#ch22">第14回 ハードウェアとソフトウェア（ハードウェア）</a></li>
+    <li><a href="#ch23">第14回 ハードウェアとソフトウェア（ソフトウェア）</a></li>
+  </ol>
+</nav>
+
+<main>
+<section class="chapter" id="ch1">
+  <h2>第2回 情報倫理</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>情報技術・ネットワークの発達により、情報の複製・伝播が容易になり、匿名の個人でも世界中に発信できるようになった。</li>
+    <li>その一方で、不正アクセス・情報漏洩・権利侵害・デマの流布などの問題も生じている。</li>
+    <li>情報化社会への対応としては、技術的対応（暗号化・認証・電子透かし）、社会的対応（情報倫理）、法制度（個人情報保護法・著作権法など）、行動規範（コンプライアンス・CSR）、教育の5つの側面がある。</li>
+    <li>個人情報とは、氏名・住所など単独または組み合わせで個人を特定・特定しうる情報であり、個人識別符号を含む。</li>
+    <li>個人情報保護法は個人情報取扱事業者に対し、利用目的の特定・制限、適正な取得、正確性の確保、安全管理措置、第三者提供の制限などを義務付けている。</li>
+    <li>個人情報は仮名加工情報・匿名加工情報に加工することで、保護と利用（第三者提供など）を両立させることができる。</li>
+    <li>個人関連情報（Cookieなど、単独では個人を識別しない情報）についても、第三者提供先で個人情報になりうる場合は本人の同意が必要となる。</li>
+    <li>AIは大量データから統計的に学習するため、入力した個人情報が生成に利用されるおそれがある。</li>
+    <li>一度ネットワークに流出した個人情報は完全には消せない（デジタル・タトゥー）。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>個人情報</dt><dd>個人についての様々な情報で、それ単独または組み合わせによって個人が特定され、または特定され得る情報（氏名・生年月日・住所・肖像・個人番号・生体情報など）。</dd>
+    <dt>要配慮個人情報</dt><dd>人種・信条・病歴など、特に配慮を要する個人情報。</dd>
+    <dt>個人識別符号</dt><dd>個人番号（学籍番号・マイナンバーなど）や生体情報（指紋・DNAなど）のように、それ自体で特定の個人を識別できる符号。</dd>
+    <dt>仮名加工情報</dt><dd>他の情報と照合しない限り個人がわからないように加工した情報。利用目的の変更は可能だが、第三者提供は原則禁止されている。</dd>
+    <dt>匿名加工情報</dt><dd>個人がわからず情報の復元もできないように加工した情報。利用目的の規制はなく、公表すれば第三者提供も可能。</dd>
+    <dt>個人関連情報</dt><dd>個人情報・仮名加工情報・匿名加工情報のいずれにも該当しない、個人に関する情報（例：Cookie＋閲覧履歴）。第三者提供により個人情報になる場合は同意が必要。</dd>
+    <dt>プライバシーポリシー</dt><dd>事業者が個人情報の収集・利用方法などを定めた方針。</dd>
+    <dt>ディジタル・タトゥー</dt><dd>一度ネットワークに流出した情報は完全には消せないこと。</dd>
+    <dt>コンプライアンス</dt><dd>企業における法令遵守。</dd>
+    <dt>CSR</dt><dd>企業の社会的責任（Corporate Social Responsibility）。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <table>
+    <tr><th></th><th>加工の程度</th><th>利用目的の制限</th><th>第三者提供</th></tr>
+    <tr><td>個人情報（未加工）</td><td>加工なし</td><td>特定・制限される（事前同意が必要）</td><td>原則、本人の同意が必要</td></tr>
+    <tr><td>仮名加工情報</td><td>他の情報と照合しない限り個人がわからないよう加工</td><td>変更可能</td><td>原則禁止</td></tr>
+    <tr><td>匿名加工情報</td><td>個人がわからず復元もできないよう加工</td><td>規制なし</td><td>公表すれば可能</td></tr>
+  </table>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>京都大学の学生募集要項では、入学者選抜で取得した個人情報を、入学者選抜・合格発表・入学手続、および入学後は教務・学生支援・授業料徴収のために利用し、受託業者や大学入試センター等に必要な範囲で提供するとされている。</div>
+  <div class="example"><span class="label">例</span>Googleのプライバシーポリシーでは、アカウント作成時の氏名・パスワード等に加え、検索キーワード・視聴動画・購入履歴・通話ログ・位置情報・Chrome閲覧履歴などを収集するとされている。Googleは米国企業のため、原則としてカリフォルニア州法が適用される。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>「個人情報」「仮名加工情報」「匿名加工情報」は混同しやすい。未加工の個人情報は第三者提供に本人の同意が必要だが、仮名加工情報は利用目的の変更ができる一方で第三者提供は原則禁止、匿名加工情報は利用目的の規制がなく公表すれば第三者提供も可能という、加工の程度に応じて規制が段階的に緩和される構造になっている点を混同しないよう注意する。</div>
+  <div class="pitfall"><span class="label">注意</span>個人関連情報（Cookieなど）は単独では個人情報に該当しないが、提供先が既に保有する情報と組み合わせることで特定個人を識別できてしまう場合があるため、そのようなケースでは第三者提供に同意が必要になる。「個人情報でなければ常に自由に提供できる」わけではない点に注意する。</div>
+</section>
+
+<section class="chapter" id="ch2">
+  <h2>第2回（続き） 著作権</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>知的財産権は著作権と工業所有権（産業財産権：特許権・実用新案権・意匠権・商標権）に大別される。</li>
+    <li>著作権は譲渡不可能な著作者人格権と、譲渡可能な著作（財産）権からなる。</li>
+    <li>著作物とは「思想又は感情を創作的に表現したもので、文芸・学術・美術・音楽の範囲に属するもの」であり、日本では創作時に自動的に権利が発生する（無方式主義）。</li>
+    <li>事実・データなど創作性のないもの（ニュースの事実そのもの、電話帳の単純な並びなど）やアイデア・アルゴリズムは著作物にならない。</li>
+    <li>著作物を翻訳・翻案した「二次的著作物」、選択・配列に創作性がある「編集著作物」も保護され、いずれも原著作物の著作者の権利には影響しない。</li>
+    <li>コンピュータプログラムは1985年の法改正で著作物として扱われるようになった。</li>
+    <li>著作者人格権には公表権・氏名表示権・同一性保持権があり、著作者の生存中保護され、死後も原則として侵害は認められない。</li>
+    <li>著作（財産）権には複製権・上演/上映権・公衆送信権（自動公衆送信の場合は送信可能化権を含む）・翻訳翻案権などがあり、私的複製・引用など一定の例外がある。</li>
+    <li>私的複製は認められるが、公衆用自動複製機器の利用、技術的保護手段（DVD/BDの暗号）の回避、違法配信からのデジタル録音録画は対象外である。</li>
+    <li>引用は「公正な慣行に合致」「正当な範囲内」「出所の明示」を満たせば許される。</li>
+    <li>思想・感情の享受を目的としない利用（AI開発のためのデータ解析など）は著作物を許諾なく利用できるが、選択的利用やAI生成物の権利については議論が残る。</li>
+    <li>著作（財産）権の保護期間は創作から著作者の死後70年（映画は公表から70年）である。</li>
+    <li>著作権侵害には刑事罰があり、著作財産権侵害は10年以下の懲役・1,000万円以下の罰金（併科可）、著作者人格権侵害は5年以下の懲役・500万円以下の罰金、違法ダウンロードは2年以下の懲役・200万円以下の罰金。これとは別に民事上の責任も生じうる。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>著作権</dt><dd>著作物を排他的に利用する権利。</dd>
+    <dt>著作者人格権</dt><dd>公表権・氏名表示権・同一性保持権からなる、著作者の人格的利益を保護する権利。譲渡不可。</dd>
+    <dt>著作（財産）権</dt><dd>複製権・上演上映権・公衆送信権・翻訳翻案権などからなる、財産的利益を保護する権利。譲渡可能。</dd>
+    <dt>工業所有権（産業財産権）</dt><dd>特許権（発明）・実用新案権（考案）・意匠権（物品のデザイン）・商標権（商品・役務の標識）の総称。</dd>
+    <dt>二次的著作物</dt><dd>著作物を翻訳・翻案などして創作した著作物。</dd>
+    <dt>編集著作物</dt><dd>素材の選択や配列に創作性がある著作物（例：職業別電話帳、気象データを見やすく編集したWebサイト）。</dd>
+    <dt>公衆送信権</dt><dd>無線放送・有線放送・自動公衆送信（インターネット）など公衆に向けて送信する権利。</dd>
+    <dt>送信可能化権</dt><dd>インターネット等で自動公衆送信ができる状態に置く権利。実際にアクセスがあったかは問わない。</dd>
+    <dt>私的複製</dt><dd>私的利用のための複製は原則認められるが、公衆設置の自動複製機器の利用、技術的保護手段の回避、違法配信からのデジタル録音録画は対象外。</dd>
+    <dt>引用</dt><dd>公表された著作物を自分の著作物の中で使用すること。公正な慣行への合致・正当な範囲内・出所の明示が条件。</dd>
+    <dt>同一性保持権</dt><dd>著作物を意に反して変更・改変されない権利。ただしバグ修正やバージョンアップなどでの改変は許容される。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">元資料 p.○ の図を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>スペースインベーダーパートII事件（1982）：コンピュータプログラムそのものが著作物であると認めた判例。</div>
+  <div class="example"><span class="label">例</span>パックマン事件（1984）：プログラム実行によるブラウン管上の映像を映画の著作物と認めた判例。</div>
+  <div class="example"><span class="label">例</span>「台風19号が室戸岬に上陸」という事実そのものは著作物にならないが、それを報じるニュース記事自体は著作物になりうる。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>著作者人格権と著作（財産）権は混同しやすい。著作者人格権（公表権・氏名表示権・同一性保持権）は著作者の人格的利益を保護するもので譲渡不可能であるのに対し、著作（財産）権（複製権・公衆送信権など）は財産的利益を保護するもので譲渡可能である点を区別する。</div>
+  <div class="pitfall"><span class="label">注意</span>公衆送信権と送信可能化権の違いにも注意する。従来の公衆送信権は実際にアクセスがあって初めて侵害となったが、送信可能化権によりインターネット上で送信可能な状態に置いた時点で権利侵害を問えるようになった。</div>
+</section>
+<section class="chapter" id="ch3">
+  <h2>第3回 情報システム</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>情報システムとは、情報を加工・整理・検索・蓄積・収集・通信するためのシステムであり、狭義には「コンピュータを利用したもの」を指すが、現在はその形態が多様化している。</li>
+    <li>情報システムは形態と目的により、非コンピュータ（家電など）、1台のコンピュータによるもの、複数のコンピュータ・機器によるシステム、複数システムの連携という段階に分類できる。</li>
+    <li>情報システムを構成する5要素は、ハードウェア・ソフトウェア・ネットワーク・データ・人間/プロセスである。</li>
+    <li>処理の分類には、事務処理／制御処理、文字数値処理／マルチメディア処理、リアルタイム処理／バッチ処理、集中処理／分散処理、オープンシステム／クローズドシステムがある。</li>
+    <li>情報システムは機能・サービスごとに分かれて構成され、それらが連携することで複雑な処理を実現している。この構成により開発・保守はしやすくなる一方、障害が発生した場合に影響が多方面に及ぶリスクもある。</li>
+    <li>クライアント・サーバ方式では、サービスを依頼する側（クライアント）と提供する側（サーバ）に分かれており、同じコンピュータが仕事の内容によりどちらの役割にもなりうる。</li>
+    <li>ネットワークは範囲によりLAN（構内）とWAN（広域、インターネットなど）に分類され、その境界にはファイアーウォールを設置して不要・危険な通信を遮断する。</li>
+    <li>情報システムの留意点として、利用者にとっての使いやすさ（UI/UX）、データ・システムの保護（個人情報保護、攻撃への頑健性）、処理の一貫性（セッションを正しく完了させ、失敗時は元の状態に戻す）が挙げられる。</li>
+    <li>組み込みシステムは機器に組み込まれた情報システムであり、リアルタイム処理・高信頼性・高操作性・低コストが求められる。</li>
+    <li>企業活動を支える情報システムには、POS（販売時点管理）、CRM（顧客関係管理）、ERP（経営資源の統合管理）、SCM（供給連鎖管理）がある。</li>
+    <li>PDCAサイクル（Plan・Do・Check・Act）は企業・組織における継続的改善活動であり、POSシステムの運用にも当てはめて考えることができる。</li>
+    <li>システム障害の原因には、ハードウェア故障、ソフトウェア不具合、ヒューマンエラー、連携システムの障害、情報セキュリティ上の問題（ランサムウェア、DDoS攻撃）があり、企業にとって重大な損失につながりうる。</li>
+    <li>情報システムの評価指標はRASIS（信頼性・可用性・保守性・完全性・機密性）であり、信頼性はMTBF、保守性はMTTR、可用性は稼働率＝MTBF/(MTBF+MTTR)で表される。</li>
+    <li>クラウドコンピューティングは機器を所有せずサブスクリプションで利用する形態であり、初期コスト・管理コストの低減や場所を選ばない利用が可能になる一方、通信環境への依存やサービス障害・セキュリティのリスクもある。</li>
+    <li>クラウドはSaaS（ソフトウェア機能を提供、一般利用者向け）、PaaS（開発基盤を提供、開発者向け）、IaaS（ハードウェア＋OSを仮想マシンとして提供、開発者向け）に分類される。</li>
+    <li>IoT（モノのインターネット）は、コンピュータでない機器がインターネットにつながり、機器間で人を介さず通信する仕組み（M2M）であり、自動制御による経済性の向上と大量データ収集（ビッグデータ）につながる。</li>
+    <li>IoTは1999年に提唱されたが、当時は技術・コスト面で実現が難しく、近年の機器の小型化・高性能化・低コスト化、ネットワークインフラの普及、データ分析技術の進歩により現実的になった。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>情報システム</dt><dd>情報を加工・整理・検索・蓄積・収集・通信するためのシステム</dd>
+    <dt>リアルタイム処理</dt><dd>データが発生した時点で処理する方式</dd>
+    <dt>バッチ処理</dt><dd>発生したデータを蓄積し、一括して処理する方式</dd>
+    <dt>集中処理</dt><dd>仕事を1台のコンピュータで処理する方式</dd>
+    <dt>分散処理</dt><dd>仕事を複数のコンピュータに分けて処理する方式</dd>
+    <dt>クライアント・サーバ方式</dt><dd>あるコンピュータ（クライアント）が別のコンピュータ（サーバ）にネットワーク経由で接続してサービスを依頼する方式</dd>
+    <dt>LAN（Local Area Network）</dt><dd>構内情報通信網。家庭内・企業内のネットワーク</dd>
+    <dt>WAN（Wide Area Network）</dt><dd>広域情報通信網。インターネットなど</dd>
+    <dt>ファイアーウォール</dt><dd>LANとWANの境界に設置し、不要・危険な通信を遮断する仕組み</dd>
+    <dt>組み込みシステム</dt><dd>制御のため機器に組み込まれた情報システム（自動車、家電など）</dd>
+    <dt>POS（Point Of Sales）</dt><dd>販売時点情報管理。販売時刻・商品・個数・顧客情報などを登録し全体に集約する</dd>
+    <dt>CRM（Customer Relationship Management）</dt><dd>顧客のデータや販売履歴を管理し、ビジネス戦略や顧客満足度向上に活かす</dd>
+    <dt>ERP（Enterprise Resource Planning）</dt><dd>人事給与・勤務管理・財務会計・生産管理・在庫管理などを統合した経営資源管理システム</dd>
+    <dt>SCM（Supply Chain Management）</dt><dd>需要予測・生産計画に基づく調達、在庫管理、物流管理を行うシステム</dd>
+    <dt>PDCAサイクル</dt><dd>Plan（計画）→Do（実施）→Check（評価）→Act（対策）の継続的改善活動</dd>
+    <dt>RASIS</dt><dd>情報システムの評価指標（Reliability信頼性、Availability可用性、Serviceability保守性、Integrity完全性、Security機密性）</dd>
+    <dt>MTBF（Mean Time Between Failure）</dt><dd>平均故障間隔。信頼性の指標</dd>
+    <dt>MTTR（Mean Time To Repair）</dt><dd>平均修理時間。保守性の指標</dd>
+    <dt>稼働率</dt><dd>可用性の指標。稼働率＝MTBF/(MTBF+MTTR)</dd>
+    <dt>クラウドコンピューティング</dt><dd>機器を所有せず、インターネット経由でサブスクリプションによりコンピュータ資源・データ・機能を利用する形態</dd>
+    <dt>SaaS（Software as a Service）</dt><dd>ソフトウェアの機能を必要な分だけサービスとして利用できる形態</dd>
+    <dt>PaaS（Platform as a Service）</dt><dd>サービスの開発・動作に必要なハードウェアや基盤ソフトウェア（OS＋実行環境）を提供するサービス</dd>
+    <dt>IaaS（Infrastructure as a Service）</dt><dd>ハードウェア（＋OS）を仮想マシンとして提供するサービス</dd>
+    <dt>IoT（Internet of Things）</dt><dd>モノのインターネット。コンピュータでない機器がインターネットにつながる仕組み</dd>
+    <dt>M2M（Machine to Machine）</dt><dd>機器どうしが人を介さず通信すること</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <svg viewBox="0 0 560 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="クライアント・サーバ方式の模式図">
+    <rect x="20" y="55" width="140" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="90" y="85" text-anchor="middle" font-size="16" fill="#1f2d3d">クライアント</text>
+    <rect x="400" y="55" width="140" height="50" rx="6" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="470" y="85" text-anchor="middle" font-size="16" fill="#1f2d3d">サーバ</text>
+    <line x1="160" y1="65" x2="398" y2="65" stroke="#4a6fa5" stroke-width="2" marker-end="url(#arrow1)"/>
+    <text x="280" y="55" text-anchor="middle" font-size="13" fill="#1f2d3d">リクエスト</text>
+    <line x1="398" y1="95" x2="160" y2="95" stroke="#4a6fa5" stroke-width="2" marker-end="url(#arrow2)"/>
+    <text x="280" y="115" text-anchor="middle" font-size="13" fill="#1f2d3d">レスポンス</text>
+    <defs>
+      <marker id="arrow1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,3 L0,6 Z" fill="#4a6fa5"/>
+      </marker>
+      <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,3 L0,6 Z" fill="#4a6fa5"/>
+      </marker>
+    </defs>
+  </svg>
+  <p class="ref-note">チケット予約システムの構成図（利用者機器－インターネット－Webサーバ／メールサーバ／データベースサーバのLAN構成－クレジットカード会社のシステム）は元資料 p.○ の図を参照</p>
+  <p>稼働率（可用性の指標）は次の式で表される。</p>
+  <p>$稼働率 = \dfrac{MTBF}{MTBF+MTTR}$</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>京都大学の情報システムでは、認証システムを中心に、KUMOI（Microsoft・学生メール）、KUMAIL（Google・教職員メール）、グループウェア（Cybozu・学内業務）、E-learning、KULMS・KULASIS（学務）、教育用コンピュータなどが連携している。オンプレミス運用とクラウド運用が混在している点も特徴である。</div>
+  <div class="example"><span class="label">例</span>コンビニでは、POSシステムで販売・ポイントデータを収集し、ERPで会計・在庫・人事管理を行い、CRMで購入履歴から顧客プロファイルを分析し、SCMで配送・発注予測を行うなど、複数の情報システムが統合されて業務を支えている。</div>
+  <div class="example"><span class="label">例</span>POSシステムにおけるPDCAサイクルは、Plan＝前日の販売データから仕入計画を立て、Do＝POSレジで購入者情報とともに商品データを入力・蓄積し、Check＝販売実績を集計して計画と比較し、Act＝差異の原因を分析して対策を検討する、という流れになる。</div>
+  <div class="example"><span class="label">例</span>IoTの例として、家に近づくと自動で施錠・解錠するスマートロック、音声による家電操作、バス・鉄道の位置情報からの到着予測表示や車内混雑度のカメラ推定、スマートメーターによる電力使用量のリアルタイム計測と電力会社による需給調整などがある。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>MTBF（平均故障間隔）とMTTR（平均修理時間）を混同しないこと。MTBFは「信頼性」の指標であり故障までの間隔の長さ、MTTRは「保守性」の指標であり修理にかかる時間の短さを表す。稼働率＝MTBF/(MTBF+MTTR)なので、MTBFが大きいほど、またMTTRが小さいほど稼働率は高くなる。</div>
+  <div class="pitfall"><span class="label">注意</span>クラウドのSaaS・PaaS・IaaSは提供される範囲と利用者層で区別する。SaaSはソフトウェアの機能そのものを一般利用者向けに提供し、PaaSは開発・動作の基盤（OS＋実行環境）を開発者向けに提供し、IaaSはハードウェア（＋OS）を仮想マシンとして開発者向けに提供する。「何を提供し、誰が使うか」で整理すると混同を防げる。</div>
+</section>
+<section class="chapter" id="ch4">
+  <h2>第4回 情報ネットワークと社会</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>（日本の）通信サービスは1990年代（固定電話・2G、メール/Web掲示板、Web1.0）→2000年代（ADSL・3G、ブログ/メッセンジャー）→2010年代（光・4G、SNS/スマートフォン、Web2.0）→2020年代（光・5G、AI、Web3.0）と発展してきた。</li>
+    <li>コミュニケーションは、リアルタイムかどうか（同期性・非同期性）と、情報伝達の人数（1対1／1対多／多対多）で分類できる。1対1はプライベート（限定的）、1対多・多対多はパブリック（拡散的）に区分される。</li>
+    <li>情報利用の主体性により、利用者が主体的に情報を引き出すpull型（Web・掲示板など）と、情報が利用者に送りつけられるpush型（メール・SNSなど）に分類される。push型は必ず情報が届き個人に応じてカスタマイズできる利点がある一方、大量の情報送信が必要で、利用者が不要と感じる情報も送りつけられる恐れがあるという欠点がある。</li>
+    <li>コミュニケーション手段には、メッセンジャー・チャット（1対1、push型、リアルタイム）、メーリングリスト（push型、非リアルタイム）、Webページ・ブログ（1対多、pull型、非リアルタイム）、掲示板（多対多、pull型、非リアルタイム）、SNS（複合機能）がある。</li>
+    <li>SNSの普及により、コミュニケーションにおけるプライベートとパブリックの境界が曖昧になり、プライベートのつもりの情報がパブリックに拡散してしまう問題が生じている。</li>
+    <li>非同期のメールより同期性のあるチャットが好まれる傾向がある一方、非同期であることへのストレスと、同期しなければならないこと（＝即時返信）へのストレスの双方があり、「つながらない権利」が論点となっている。</li>
+    <li>エコーチェンバー（SNS等で同じような興味・関心の人が集まるため同じような意見が聞かれる現象）とフィルターバブル（個人の嗜好や履歴に合わせて情報が提供されるため他の情報が得られない現象）により、意見が先鋭化・二極化する。</li>
+    <li>フェイクニュースはSNS等で拡散されやすく、その背景にはアテンション・エコノミー（人々の注目を利益化する仕組み）がある。対応としてプラットフォーム側による確認、第三者による検証（ファクトチェック）、利用者のリテラシー向上が挙げられる。</li>
+    <li>炎上とは、ブログやSNSなどでの不適切な発言・行為に対して批判・非難・誹謗中傷が殺到すること。原因は世間や周囲の注目を集めたい心理、法令や規則の認識不足、一方的・根拠のない言説など様々である。</li>
+    <li>新型コロナウイルス感染症流行により、SNS・メッセンジャー・ビデオ会議などを活用した非接触・非対面の活動（テレワーク、オンライン授業）が急速に普及し、場所を問わない働き方や国境を超えた協業・労働が広がった。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>pull型</dt><dd>利用者が主体的に情報を引き出す情報利用の形態（例：Web、掲示板）。</dd>
+    <dt>push型</dt><dd>情報が利用者に送りつけられる情報利用の形態（例：メール、SNS）。必ず情報が届き個人に応じてカスタマイズできる利点があるが、大量の情報送信が必要で、不要な情報も送りつけられる恐れがあるという欠点がある。</dd>
+    <dt>メッセンジャー・チャット</dt><dd>1対1（または少数どうし）、push型、リアルタイムのコミュニケーション手段。確実にすぐ情報を伝えられる利点がある一方、オフラインだと伝わらない、長文は向かない、サービス間の相互運用性がないという欠点がある。</dd>
+    <dt>メーリングリスト</dt><dd>特定のメールアドレスにメールを送信すると、あらかじめ登録されたメンバーのメールアドレスにその内容が自動転送される仕組み。誰もが送信できる／メンバーしか送信できない／発行者しか送信できない（メールマガジン）という送信者による分類がある。</dd>
+    <dt>ブログ（Web Log→blog）</dt><dd>Web上での日記のようなもの。出来事に関する感想・意見等を時系列に記したもの。コメント機能やトラックバック機能を持つ。</dd>
+    <dt>スレッド形式掲示板</dt><dd>大きなテーマ毎に掲示板が設置され、その中に小さなテーマを単位とした小さな掲示板（スレッド）が存在する形式。</dd>
+    <dt>SNS（Social Networking Service）</dt><dd>インターネット上で社会的ネットワークを構築するための仕組み。プロフィール機能・ブログ機能・掲示板機能・メッセージング機能・ニュースの提供などを持つ。</dd>
+    <dt>エコーチェンバー</dt><dd>SNSなどで同じような興味・関心の人が集まるため、同じような意見が聞かれること。</dd>
+    <dt>フィルターバブル</dt><dd>個人の嗜好や履歴に合わせて情報が提供されるため、他の情報が得られないこと。</dd>
+    <dt>フェイクニュース</dt><dd>偽りを書いた記事（特に話題性のある記事）。ディープフェイクによる偽の画像・映像の生成やSNS等での拡散が問題となる。</dd>
+    <dt>アテンション・エコノミー</dt><dd>人々の注目を利益化する仕組み・考え方。</dd>
+    <dt>炎上</dt><dd>ブログやSNSなどでの不適切な発言・行為に対して批判・非難・誹謗中傷が殺到すること。</dd>
+    <dt>つながらない権利</dt><dd>同期しなければならないこと（＝即時返信）へのストレスから議論される権利。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">元資料 p.3（通信サービスの発展の表）・p.4（コミュニケーションの分類図）を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>通信速度の年代別の目安（元資料 p.3の表）：1990年代＝固定電話 数十Kbps／2G 数Kbps、2000年代＝ADSL 数Mbps～数十Mbps／3G 数百Kbps～数Mbps、2010年代＝光 数十Mbps～数Gbps／4G 数Mbps～数十Mbps、2020年代＝光 数Gbps～／5G 数Gbps～。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>push型とpull型は逆に覚えやすい。pull型は「利用者が自分から情報を引き出す（Web・掲示板）」、push型は「情報の側から利用者に送りつけられる（メール・SNS）」であり、push型にも個人へのカスタマイズという利点がある点に注意する。また、エコーチェンバー（同じ興味関心の人が集まることで同じ意見が聞かれる現象）とフィルターバブル（個人の嗜好・履歴に合わせた情報提供により他の情報が得られなくなる現象）は原因が異なるので混同しないこと。</div>
+</section>
+
+<section class="chapter" id="ch5">
+  <h2>第4回（続き） Webの世代論</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>Web1.0（1990年代、インターネット黎明期）は、情報の送り手が事業者・専門家などに限られ、情報伝達は一方通行で、静的なコンテンツ（作られた内容を見るだけ）が中心だった（例：企業や組織のWeb、ニュースサイト、メールマガジンなど）。</li>
+    <li>Web2.0（2000年代～、インターネットの普及以降）は、誰もが情報の送り手になれ、情報伝達は双方向、利用者による更新・反応がある動的なコンテンツが中心となった（例：ブログやSNSなど）。Tim O'Reillyが論文"What is Web2.0"（2005年）で提唱し、"The Web as Platform"と表現した。</li>
+    <li>Web2.0の特性としてCGM（Consumer Generated Media）があり、ブログやSNSの登場によって参加者自身がコンテンツを作成・公開し、知識体系がボトムアップに構築されていく。</li>
+    <li>CGMによって構築された知識体系を集合知（Collective Intelligence）と呼ぶ。例としてWikipedia（参加者が自由に編集できる百科事典）や、Google検索のPageRank（多くのページからリンクがなされているページを有用であると判断して検索上位に表示する仕組み）がある。</li>
+    <li>CGMの背景には「少品種大量生産から多品種少量生産へ」という変化がある。モノがありふれた時代には、多種多様な人の好みに合わせて、ユーザが嗜好にあったモノをいろいろな種類少しずつ作成する必要が生じた。</li>
+    <li>ビジネスの観点からのWeb2.0としてロングテールがある。商品を売り上げ順に横軸に並べ縦軸に売り上げ個数を記すと、80：20の法則（売り上げ上位20%の商品が全体の売り上げの80%を占める）が見られる。ロングテール論は、従来切り捨てられていたテール部分からもIT技術によって利益を出すという考え方である。</li>
+    <li>ロングテールのビジネスモデルには、テール部分を集積するアグリゲータ、需要と供給のマッチングを行うフィルタ、コンテンツ制作の敷居を低くさせるツールメーカ・プロデューサがある。</li>
+    <li>Web3.0（2020年代～）は、Web2.0が進展した結果、プラットフォーマーの影響力が大きくなり、情報が集中して寡占が進んだことへの対応として、中央集権から分散管理へと向かう動きである。</li>
+    <li>Web3.0では、ブロックチェーン技術（データを検証可能な形で分散保存することで改ざんを防ぐ技術）を用い、プラットフォームに依存せず情報を自己所有・自律的に扱うことを目指す。例として仮想通貨・NFT（Non-Fungible Token）などがある。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>Web1.0</dt><dd>1990年代のインターネット黎明期のWebのあり方。情報の送り手が限られ（事業者・専門家など）、情報伝達は一方通行、静的なコンテンツが中心。</dd>
+    <dt>Web2.0</dt><dd>2000年代以降のインターネット普及後のWebのあり方。誰もが情報の送り手になれ、情報伝達は双方向、動的なコンテンツが中心（例：ブログ・SNS）。</dd>
+    <dt>CGM（Consumer Generated Media）</dt><dd>ブログやSNSの登場により、参加者自身がコンテンツを作成・公開し、知識体系がボトムアップに構築されていくこと。</dd>
+    <dt>集合知（Collective Intelligence）</dt><dd>CGMによって構築された知識体系（例：Wikipedia、Google検索のPageRank）。</dd>
+    <dt>PageRank</dt><dd>多くのページからリンクがなされているページを有用であると判断して、検索結果の上位に表示するGoogle検索の仕組み。</dd>
+    <dt>ロングテール</dt><dd>商品を売り上げ順に横軸に並べたときにできる、売り上げ下位の細長く続く部分（テール）。IT技術によりこのテール部分からも利益を出すという考え方。</dd>
+    <dt>80：20の法則</dt><dd>売り上げ上位20%の商品が全体の売り上げの80%を占めるという法則。</dd>
+    <dt>アグリゲータ</dt><dd>ロングテールのテール部分を集積するビジネスモデル。</dd>
+    <dt>フィルタ</dt><dd>需要と供給のマッチングを行うロングテールのビジネスモデル。</dd>
+    <dt>Web3.0</dt><dd>2020年代以降、プラットフォーマーへの情報集中・寡占への対応として、中央集権から分散管理へと向かう動き。</dd>
+    <dt>プラットフォーマー</dt><dd>取引などの土台（プラットフォーム）をネットワークを通じて提供する企業。比較的新しい企業が多く（例：GAFA）、大規模化し、利用者の情報を収集して活用する。商取引の分野に限られない。</dd>
+    <dt>ブロックチェーン技術</dt><dd>データを検証可能な形で分散保存することで改ざんも防ぐ技術。</dd>
+    <dt>NFT（Non-Fungible Token）</dt><dd>Web3.0の例としてあげられる非代替性トークン。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <figure class="figure">
+    <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="60" width="180" height="100" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+      <text x="110" y="95" text-anchor="middle" font-size="18" font-weight="bold" fill="currentColor">Web1.0</text>
+      <text x="110" y="120" text-anchor="middle" font-size="12" fill="currentColor">一方通行・静的</text>
+      <text x="110" y="138" text-anchor="middle" font-size="12" fill="currentColor">送り手：事業者・専門家</text>
+
+      <rect x="260" y="60" width="180" height="100" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+      <text x="350" y="95" text-anchor="middle" font-size="18" font-weight="bold" fill="currentColor">Web2.0</text>
+      <text x="350" y="120" text-anchor="middle" font-size="12" fill="currentColor">双方向・動的</text>
+      <text x="350" y="138" text-anchor="middle" font-size="12" fill="currentColor">送り手：誰でも（CGM）</text>
+
+      <rect x="500" y="60" width="180" height="100" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+      <text x="590" y="95" text-anchor="middle" font-size="18" font-weight="bold" fill="currentColor">Web3.0</text>
+      <text x="590" y="120" text-anchor="middle" font-size="12" fill="currentColor">分散管理</text>
+      <text x="590" y="138" text-anchor="middle" font-size="12" fill="currentColor">脱プラットフォーマー</text>
+
+      <line x1="200" y1="110" x2="258" y2="110" stroke="currentColor" stroke-width="2" marker-end="url(#arrow1)"/>
+      <line x1="440" y1="110" x2="498" y2="110" stroke="currentColor" stroke-width="2" marker-end="url(#arrow1)"/>
+      <defs>
+        <marker id="arrow1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="currentColor"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption>Web1.0→Web2.0→Web3.0の3世代比較（情報の送り手と伝達の方向性の変化）</figcaption>
+  </figure>
+  <figure class="figure">
+    <svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+      <line x1="60" y1="20" x2="60" y2="220" stroke="currentColor" stroke-width="2"/>
+      <line x1="60" y1="220" x2="670" y2="220" stroke="currentColor" stroke-width="2"/>
+      <text x="30" y="30" font-size="12" fill="currentColor">売上個数</text>
+      <text x="640" y="245" font-size="12" fill="currentColor">商品</text>
+      <path d="M 70 40 C 130 60, 160 140, 220 175 C 320 205, 500 215, 660 218" fill="none" stroke="currentColor" stroke-width="3"/>
+      <line x1="180" y1="20" x2="180" y2="220" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5,5"/>
+      <text x="90" y="55" font-size="12" fill="currentColor">ヘッド（上位20%）</text>
+      <text x="400" y="200" font-size="12" fill="currentColor">テール（残り80%）</text>
+    </svg>
+    <figcaption>ロングテール曲線（元資料 p.20）：横軸に商品を売り上げ順に、縦軸に売り上げ個数をとった曲線。上位20%の「ヘッド」部分が全体売り上げの80%を占める（80：20の法則）</figcaption>
+  </figure>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>80：20の法則：売り上げ上位20%の商品が全体の売り上げの80%を占める。Tim O'Reilly "What is Web2.0"（2005年）："The Web as Platform"という表現。James Surowiecki『The Wisdom of Crowds: Why the Many Are Smarter Than the Few and How Collective Wisdom Shapes Business』（2004年）。Chris Anderson『The Long Tail: Why the Future of Business Is Selling Less of More』（2006年）。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>Web2.0とWeb3.0を混同しないこと。Web2.0は「誰もが情報の送り手になれるようになったこと（双方向化）」を指すのに対し、Web3.0は「プラットフォーマーへの情報集中・寡占に対応して、中央集権から分散管理へ向かう動き」を指す。また、CGM（コンテンツを作成・公開していく仕組み・プロセス）と集合知（CGMによって結果的に構築された知識体系そのもの）も混同しやすいので区別すること。</div>
+</section>
+
+<section class="chapter" id="ch6">
+  <h2>第4回（続き） 情報通信産業の変化と電子商取引</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>情報通信産業の構造は、～1995年の「固定電話中心の垂直統合時代」（通信事業者・大手ベンダが中心）、1995～2005年の「インターネットがもたらした通信と情報の融合時代」（ITベンダやネット系専業事業者が台頭）、2005年～の「モバイルとクラウドによる共創と競争の時代」（水平統合・垂直分離によりレイヤの上下進出や連携が進展）へと変化してきた。</li>
+    <li>電子商取引（Electronic Commerce）とは、コンピュータネットワークを利用した情報のやりとりにより、契約や決済等の商取引を行うこと。初期の電子商取引は専用の情報システム・専用のネットワーク回線を用い、特定企業や系列企業との取引に限られていた。</li>
+    <li>インターネットの普及により電子商取引の対象は拡大し、企業間の電子商取引（BtoB/B2B。EDI＝商取引に関する電子データの書式を統一し電子的にやりとりする仕組み）、企業の消費者向けの電子商取引（BtoC/B2C。例：チケット予約、オンラインショッピング）、消費者間の電子商取引（CtoC/C2C。例：インターネットオークション）に分類される。</li>
+    <li>プラットフォーマーは、取引などの土台をネットワークを通じて提供する企業で、比較的新しい企業が多く（例：GAFA）、大規模化し、利用者の情報を収集して活用（商品の推薦など）する。商取引の分野に限られているわけではない。</li>
+    <li>シェアリング・エコノミーは、個人の資産（物品・移動・住居・資金・能力）を他の人が利用（シェア）する仕組み。物品＝フリマ・レンタル（例：メルカリ）、移動（例：Uber・Lyft）、住居＝民泊（例：Airbnb）、資金＝クラウドファンディング（例：Kickstarter）、能力＝クラウドソーシングを含む。CtoC（C2C）の取引であり、ネットワーク上で企業が取引のプラットフォームを提供する。</li>
+    <li>フィンテック（FinTech＝Finance＋Technology）は、先進的な情報技術を活用した金融サービスで、決済サービス（○○Pay）・送金サービス、会計・資産管理、融資（人工知能技術を活用した判断）、投資（アドバイザー）、仮想通貨（暗号通貨・暗号資産）などが含まれる。</li>
+    <li>クラウドソーシングは、業務の一部を不特定多数に委託すること（従来のアウトソーシングは業務の一部を特定の専門業者に委託すること）。インターネットを利用したオープンな人的ネットワークを活用する。</li>
+    <li>クラウドソーシングには、専門的スキルが必要な「専門家へのクラウドソーシング」（プログラム開発・Webデザインなど、比較的長期で単価が高い）と、特にスキルを必要としない「非専門家へのクラウドソーシング」（データ入力・加工やアンケートなど、ごく短期で単価も安い）がある。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>電子商取引（Electronic Commerce）</dt><dd>コンピュータネットワークを利用した情報のやりとりにより、契約や決済等の商取引を行うこと。</dd>
+    <dt>EDI（Electronic Data Interchange）</dt><dd>商取引に関する電子データの書式を統一し、電子的にやりとりする仕組み。</dd>
+    <dt>BtoB/B2B（Business to Business）</dt><dd>企業間の電子商取引。</dd>
+    <dt>BtoC/B2C（Business to Consumer）</dt><dd>企業の消費者向けの電子商取引（例：チケット予約、オンラインショッピング）。</dd>
+    <dt>CtoC/C2C（Consumer to Consumer）</dt><dd>消費者間の電子商取引（例：インターネットオークション）。</dd>
+    <dt>プラットフォーマー</dt><dd>取引の土台（プラットフォーム）をネットワークを通じて提供する企業。比較的新しい企業が多く（例：GAFA）、大規模化し、利用者の情報を収集して活用する。商取引の分野に限られない。</dd>
+    <dt>シェアリング・エコノミー</dt><dd>個人の資産（物品・移動・住居・資金・能力）を他の人が利用（シェア）する仕組み。CtoCの取引で、企業がそのプラットフォームを提供する。</dd>
+    <dt>フィンテック（FinTech）</dt><dd>Finance＋Technologyの略。先進的な情報技術を活用した金融サービス（決済・送金、会計・資産管理、融資、投資、仮想通貨など）。</dd>
+    <dt>アウトソーシング</dt><dd>業務の一部を特定の専門業者に委託すること。</dd>
+    <dt>クラウドソーシング</dt><dd>業務の一部を不特定多数に委託すること。インターネットを利用したオープンな人的ネットワークを活用する。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">元資料 p.23 の図を参照（総務省「グローバルICT産業の構造変化及び将来展望等に関する調査研究」〈平成27年〉による、～1995年／1995～2005年／2005年～の3時代について、サービス・インフラ・端末の各レイヤにおける主要事業者の変遷を示したオリジナルの複雑な図）</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>クラウドソーシングの単価：専門家へのクラウドソーシング（プログラム開発・Webデザインなど）は比較的長期で単価は数千円～数十万円、非専門家へのクラウドソーシング（データ入力・加工、アンケートなど）はごく短期で単価は数十円～数百円。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>クラウドソーシングとアウトソーシングを混同しないこと。アウトソーシングは業務を特定の専門業者に委託するのに対し、クラウドソーシングは不特定多数に委託する。また、BtoB（EDIによる企業間取引）・BtoC（チケット予約やオンラインショッピングなど企業対消費者）・CtoC（インターネットオークションなど消費者間）は取引の当事者の組み合わせで区別されるため、具体例とセットで覚えること。</div>
+</section>
+<section class="chapter" id="ch7">
+  <h2>第5回 情報理論（アナログとディジタル）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>アナログ量は物理現象のように連続的に変化する量で、無限の段階（精度）を持つためコンピュータに直接取り込むことができない。</li>
+    <li>アナログ量は複製や伝送によりノイズが混入して表現が劣化する。</li>
+    <li>ディジタル量はある間隔で区切って近い値に寄せて（近似して）離散的に表したもので、有限の段階を持つためコンピュータで取り扱うことができる。</li>
+    <li>ディジタル量は離散量を物理的に表す際に工夫されているので、複製や伝送で（基本的には）劣化しない。</li>
+    <li>アナログ→ディジタル変換（AD変換）は「量子化」（大きさの離散化、ビット数で表す）と「標本化」（時間の離散化、単位時間あたりの回数＝Hzで表す）からなる。</li>
+    <li>標本化定理：等間隔に十分狭く（多く）標本化を行えば、もとの曲線を復元できる。ただし量子化では必ず誤差が発生する。</li>
+    <li>コンピュータ内部ではデータは{0, 1}の組み合わせ（2進数）で表現される。1桁を1 bit（ビット）といい、2進数8桁（8 bits）をまとめたものを1 byte（バイト、B）という。</li>
+    <li>nビットでは2^n通りの組み合わせを表現できる（8桁なら2^8=256通り）。</li>
+    <li>補助単位：K（キロ）=2^10=1024倍、M（メガ）=2^20、G（ギガ）=2^30、T（テラ）=2^40。</li>
+    <li>データ圧縮には、もとの表現を必ず復元できる「可逆圧縮」（ハフマン符号化、ランレングス圧縮、ZIPなど）と、もとの表現を復元できない「非可逆圧縮」（MP3・AAC、JPEG、MP4など、圧縮の過程で情報を削減している）がある。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>アナログ</dt><dd>物理現象のように連続的に変化するもの。無限の段階（精度）がある。たとえば温度、色、音（水銀式温度計、フィルム写真、レコード、カセットテープ）。</dd>
+    <dt>ディジタル</dt><dd>ある間隔で区切って、近い値に寄せて（近似して）離散的に表したもの。有限の段階を持つ。たとえば電子式温度計、デジカメ写真、CD、DVD。</dd>
+    <dt>AD変換</dt><dd>アナログの表現をコンピュータに取り込むために、ディジタル表現に変換すること。</dd>
+    <dt>量子化</dt><dd>大きさの離散化。ビット数で表す。</dd>
+    <dt>標本化</dt><dd>時間の離散化。単位時間（1秒）あたりの回数（Hz、ヘルツ）で表す。</dd>
+    <dt>標本化定理</dt><dd>標本化を等間隔に十分に狭く（多く）行えば、もとの曲線を復元できるという定理。</dd>
+    <dt>bit（ビット）</dt><dd>{0, 1}の1桁分の情報単位。</dd>
+    <dt>byte（バイト、B）</dt><dd>2進数の8桁（8 bits）をまとめた単位。1Bで256通りの情報を表すことができる（例：半角アルファベット1文字は1Bで表される）。</dd>
+    <dt>ハフマン符号化</dt><dd>よく出てくる記号（例：A）は短いビット数で、あまり出てこない記号（例：D）は長いビット数で表すことで、全体としてよりコンパクトに表す符号化方法。</dd>
+    <dt>可逆圧縮</dt><dd>もとの表現を必ず復元できる圧縮方式。ファイルの圧縮（ZIPなど）、ファックス（ランレングス圧縮）など。表し方の工夫であり、情報は削減していない。</dd>
+    <dt>非可逆圧縮</dt><dd>もとの表現（情報）を復元できない圧縮方式。音声はMP3・AACなど（cf. CD、WAVファイル）、画像はJPEGなど（cf. BMP・PNGファイル）、映像はMP4など。圧縮の過程で情報を削減している。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">元資料 p.4〜p.6 の図を参照</p>
+  <ul>
+    <li>アナログの温度変化のグラフ（p.4）：横軸「時間」、縦軸「温度」に連続的な曲線が描かれ、ある1点の値が「24.576312…」のように無限桁の数値で示されている。</li>
+    <li>ディジタルの温度変化のグラフ（p.5）：同じ軸構成だが、値が離散的な点（複数の点）として示され、ある1点の値が「24.6」のように有限桁の数値で示されている。</li>
+    <li>AD変換の図（p.6）：左に「量子化」（大きさの離散化）を示す縦方向に区切られたグラフ、右に「標本化」（時間の離散化）を示す横方向に点をとったグラフが並んでいる。</li>
+  </ul>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>数値123の2進数表現：01111011</div>
+  <div class="example"><span class="label">例</span>文字列 "ABC" の2進数表現：01000001 01000010 01000011</div>
+  <div class="example"><span class="label">例</span>8桁（8 bits）の組み合わせの総数：$2^8 = 256$通り → 0～255の範囲の整数を1つ、あるいは256種類の文字から1つを表すことができる</div>
+  <div class="example"><span class="label">例</span>進数変換の例：2進数 01111011（8桁）＝16進数 7B（＝16×7＋11）＝10進数 123（2進数4桁が16進数1桁に対応）</div>
+  <div class="example"><span class="label">例</span>CDの音：16 bits＝65,536段階の音の大きさ、44 kHz＝1秒間に44,000回の標本化。16 bits（2B）×ステレオ（2）×44,000/秒＝176,00/秒（原文ママ）＝172KB/秒＝10MB/分</div>
+  <div class="example"><span class="label">例</span>ハイレゾ音源の音（例）：24 bits＝16,777,216段階の音の大きさ、96 kHz＝1秒間に96,000回の標本化。24 bits（3B）×ステレオ（2）×96,000/秒＝176,000/秒＝563KB/秒＝33MB/分</div>
+  <div class="example"><span class="label">例</span>コンピュータの画面やデジカメ写真の色：赤・青・緑（RGB）がそれぞれ8 bits（256段階）、全部で8×3＝24 bits（16,777,216色）。Full HDの画像：1,920×1,080×24 bits (3B)＝6MB</div>
+  <div class="example"><span class="label">例</span>アルファベットの文字列の圧縮例：ABCDAABABCBAAABCDCA…（01000001 01000010 01000011…、どの文字も8 bits）→よく出てくるもの（例：A）は短いビット数、あまり出てこないもの（例：D）は長いビット数で表すと全体としてよりコンパクトに表せる（ハフマン符号化）</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>bit（ビット）とbyte（バイト）の単位を混同しないよう注意する。1桁の{0,1}が1 bitであり、8 bits（2進数8桁）をまとめたものが1 byteである。nビットでは$2^n$通りの組み合わせを表現でき、1 byte（8 bits）なら$2^8=256$通りである。</div>
+  <div class="pitfall"><span class="label">注意</span>CDの音のビットレート計算では、原資料自体に「16 bits（2B）×ステレオ（2）×44,000/秒＝176,00/秒（原文ママ）＝172KB/秒」という表記の乱れがある（176,00という桁の書き方が原文のまま）。この点は暗記時に数値そのものを疑わず、原文の表記通りに扱うこと。</div>
+</section>
+
+<section class="chapter" id="ch8">
+  <h2>第5回 情報理論（情報量とエントロピー）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>情報量（自己エントロピー）は事象の起こりにくさを表す指標で、事象の発生確率によって決定される。式は $I(a) = -\log_2 P(a)$（単位はbit）。</li>
+    <li>起こりにくい事象ほど情報量が大きくなる。</li>
+    <li>独立な事象については情報量の加法性が成り立つ（例：「スペードのAだった」の情報量＝「スペードだった」の情報量＋「Aだった」の情報量）。</li>
+    <li>平均情報量（エントロピー）は自己エントロピーの期待値であり、$H(A) = -\sum P(a)\log_2 P(a)$ で表される。</li>
+    <li>事象が等確率に発生するときエントロピーは最大となる。常に同じ結果しか出ない（確率1の）事象からは全く情報が得られない（エントロピー0）。</li>
+    <li>情報量・エントロピーを用いると、ある予想（優勝チーム予想など）がどれくらい難しいかを定量的に比較できる。</li>
+    <li>天秤でボールの中から異常なボール（軽い／重さが異なる）を特定する問題では、天秤を1回使うことで得られる情報量（左右の均等な3パターンに分ければ最大 $\log_2 3 \approx 1.585$ bit）と、問題解決に必要な情報量（もとの不確かさ）を比較することで、必要な最小回数を求めることができる。</li>
+    <li>「できるだけ天秤を使う回数を少なくして、問題解決に必要な情報量を獲得したい」という考え方が中心テーマ。</li>
+    <li>分類問題（"buys computer"を当てる例）でも、ある属性を調べた後の「Yes/No判定」のエントロピー期待値を計算し、これが最も小さくなる属性を選ぶという考え方が使われる（決定木の考え方につながる）。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>情報量（自己エントロピー）</dt><dd>事象の起こりにくさを表す指標。事象の発生確率によって決定される。$I(a) = -\log_2 P(a)$（単位はbit）。</dd>
+    <dt>情報量の加法性</dt><dd>独立な事象については、情報量について加法性が成り立つという性質。</dd>
+    <dt>平均情報量（エントロピー）</dt><dd>自己エントロピーの期待値。$H(A) = -\sum P(a)\log_2 P(a)$。事象が等確率に発生するとき最大となる。</dd>
+    <dt>天秤問題（ボールの重さ比較問題）</dt><dd>複数のボールの中から重さの異なる1個を、天秤を使って特定する問題。天秤を1回使うことで得られる情報量（左右均等な3パターンに分ければ最大 $\log_2 3 \approx 1.585$ bit）と、問題解決に必要な情報量を比較し、必要な最小使用回数を考える。</dd>
+    <dt>エントロピーによる属性選択</dt><dd>分類問題（"buys computer"の例）において、ある属性を調べた後の「Yes/No判定」のエントロピー期待値を各属性について計算し、それが最も小さくなる属性を選ぶという考え方。決定木の考え方につながる。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">この節は主に確率表・データ表と数式による説明が中心で、標準的に再現すべき図は無い。セ・パ両リーグの優勝確率表（p.13, p.18）、8個・12個のボール問題の説明（p.14, p.20〜22）、"buys computer" のデータ表（p.23）はいずれも下記「🧮 具体例・計算例」に数値を書き写した。</p>
+  <p>中心となる式：$I(a) = -\log_2 P(a)$（情報量／自己エントロピー）、$H(A) = -\sum P(a)\log_2 P(a)$（平均情報量／エントロピー）。</p>
+
+  <h3>🧮 具体例・計算例</h3>
+
+  <div class="example"><span class="label">例</span><strong>情報量の基本例（p.15）</strong><br>
+  コインを投げたら表が出た：$I = -\log_2(1/2) = 1$<br>
+  トランプの中から1枚ぬきだしたとき<br>
+  ・スペードだった：$I = -\log_2(1/4) = 2$<br>
+  ・Aだった：$I = -\log_2(1/13) \approx 3.7$<br>
+  ・スペードのAだった：$I = -\log_2(1/52) = -\log_2(1/4) - \log_2(1/13) \approx 5.7$</div>
+
+  <div class="example"><span class="label">例</span><strong>平均情報量の基本例（p.16）</strong><br>
+  「コインを投げる」のエントロピー：$H = -\frac{1}{2}\log_2(1/2) - \frac{1}{2}\log_2(1/2) = 1$<br>
+  「常に表しか出ないコインを投げる」場合：$H = -0\log_2(0) - 1\log_2(1) = 0$（注：$\lim_{x\to+0} x\log x = 0$）</div>
+
+  <div class="example"><span class="label">例</span><strong>準備運動（1）優勝確率の表（p.13）</strong><br>
+  セ・リーグ：巨人0.28、ヤクルト0.27、広島0.25、中日0.10、DeNA0.07、阪神0.03<br>
+  パ・リーグ：楽天0.25、ソフトバンク0.25、西武0.16、オリックス0.14、ロッテ0.12、日本ハム0.08</div>
+
+  <div class="example"><span class="label">例</span><strong>優勝チーム予想の問題（p.18）：各チームの優勝確率と情報量</strong><br>
+  セ・リーグ：巨人0.28→1.84、ヤクルト0.27→1.89、広島0.25→2.06、中日0.10→3.32、DeNA0.07→3.84、阪神0.03→5.06<br>
+  パ・リーグ：楽天0.25→2.00、ソフトバンク0.25→2.00、西武0.16→2.64、オリックス0.14→2.84、ロッテ0.12→3.06、日本ハム0.08→3.64<br>
+  「セ・リーグの優勝チームが決まる（決める）」のエントロピー＝0.28×1.84＋0.27×1.89＋…≒2.28<br>
+  「パ・リーグの優勝チームが決まる（決める）」のエントロピー＝0.25×2.00＋0.25×2.00＋…≒2.48<br>
+  → パ・リーグの方が予想が難しい<br>
+  ちなみに優勝確率が等確率（1/6）だと約2.58</div>
+
+  <div class="example"><span class="label">例</span><strong>準備運動（2）天秤問題の設定（p.14）</strong><br>
+  8個のボールがある。そのうち7個は同じ重さであるが、残り1個は他の7個と比べて軽い。天秤を使ってこのボールを特定したい。何回天秤を使用する必要があるか？<br>
+  12個のボールがある。そのうち11個は同じ重さであるが、残り1個は他の11個と重さが異なる（軽いか重いかはわからない）。天秤を使ってこのボールを特定したい。何回天秤を使用する必要があるか？</div>
+
+  <div class="example"><span class="label">例</span><strong>8個のボールの問題（1）（p.20）</strong><br>
+  「8個のボールの中から1個の軽いボールを見つけた」事象の情報量：確率1/8だから $I = -\log_2(1/8) = 3$<br>
+  {①②③}と{④⑤⑥}を天秤に乗せる<br>
+  ・「{①②③}と{④⑤⑥}が同じ重さ」の場合：1/4の確率で発生→情報量は $I = -\log_2(1/4) = 2$<br>
+  ・軽いボールは⑦⑧のいずれかに絞られる<br>
+  ・「2個のボールの中から1個の軽いボールを見つけた」事象の情報量：$I = -\log_2(1/2) = 1$<br>
+  ・天秤に乗せることによって得た情報によって、情報量を3から1に減らすことができた</div>
+
+  <div class="example"><span class="label">例</span><strong>8個のボールの問題（2）（p.21）</strong><br>
+  「{①②③}の方が軽い」場合：3/8の確率で発生、情報量 $I = -\log_2(3/8) \approx 1.415$<br>
+  軽いボールは①②③のいずれか。残った情報量：$I = -\log_2(1/3) \approx 1.585$<br>
+  「①と②」を天秤に乗せる<br>
+  ・「①と②が同じ重さ」：$I = -\log_2(1/3) \approx 1.585$<br>
+  ・「①の方が軽い」：$I = -\log_2(1/3) \approx 1.585$<br>
+  ・「②の方が軽い」：$I = -\log_2(1/3) \approx 1.585$<br>
+  → いずれの場合も残った情報量を0にすることができる</div>
+
+  <div class="example"><span class="label">例</span><strong>12個のボールの問題（p.22）</strong><br>
+  「天秤を使う」事象の情報量：「右より左が重い」「左より右が重い」「左右同じ重さ」の3パターンのうち1つが観測される。この3パターンが均等な確率で発生するようボールの天秤への乗せ方を工夫すると $I = -\log_2(1/3) \approx 1.585$<br>
+  「12個のボールの中から重さが異なるボールを見つけた」事象の情報量：12個の中から1個見つける確率は1/12、重さの違うボールが他のボールより軽い（重い）確率は1/2。$I = -\log_2(1/12) - \log_2(1/2) \approx 4.585$<br>
+  4.585 bitの情報を得るためには天秤を最低3回使う必要がある（1.585×3＝4.755）</div>
+
+  <div class="example"><span class="label">例</span><strong>過去の定期試験で出した問題：buys computer データ（p.23）</strong>
+  <table>
+    <tr><th>ID</th><th>age</th><th>income</th><th>student</th><th>credit_rating</th><th>buys computer</th></tr>
+    <tr><td>1</td><td>youth</td><td>low</td><td>yes</td><td>fair</td><td>no</td></tr>
+    <tr><td>2</td><td>youth</td><td>low</td><td>yes</td><td>fair</td><td>no</td></tr>
+    <tr><td>3</td><td>middle aged</td><td>high</td><td>no</td><td>excellent</td><td>yes</td></tr>
+    <tr><td>4</td><td>youth</td><td>high</td><td>no</td><td>excellent</td><td>yes</td></tr>
+    <tr><td>5</td><td>senior</td><td>medium</td><td>no</td><td>excellent</td><td>yes</td></tr>
+    <tr><td>6</td><td>senior</td><td>low</td><td>no</td><td>fair</td><td>no</td></tr>
+    <tr><td>7</td><td>middle aged</td><td>high</td><td>yes</td><td>fair</td><td>yes</td></tr>
+    <tr><td>8</td><td>youth</td><td>high</td><td>yes</td><td>excellent</td><td>yes</td></tr>
+    <tr><td>9</td><td>youth</td><td>medium</td><td>no</td><td>fair</td><td>no</td></tr>
+    <tr><td>10</td><td>senior</td><td>high</td><td>no</td><td>excellent</td><td>yes</td></tr>
+    <tr><td>11</td><td>youth</td><td>medium</td><td>no</td><td>excellent</td><td>no</td></tr>
+    <tr><td>12</td><td>middle aged</td><td>low</td><td>no</td><td>fair</td><td>no</td></tr>
+    <tr><td>13</td><td>middle aged</td><td>high</td><td>no</td><td>excellent</td><td>yes</td></tr>
+    <tr><td>14</td><td>senior</td><td>medium</td><td>no</td><td>fair</td><td>yes</td></tr>
+    <tr><td>15</td><td>youth</td><td>medium</td><td>no</td><td>fair</td><td>no</td></tr>
+    <tr><td>16</td><td>youth</td><td>medium</td><td>no</td><td>excellent</td><td>no</td></tr>
+  </table></div>
+
+  <div class="example"><span class="label">例</span><strong>"buys computer"を当てる：エントロピーによる属性選択（p.24〜26）</strong><br>
+  age・income・student・credit ratingすべて不明の場合：16人中8名がYes、8名がNo（確率1/2）。「buys computerがyesかnoかがわかる」のエントロピーを求める設問（スライド上は空欄で、$H(A)=-\sum P(a)\log_2P(a)$ の式を用いて自分で計算する形式）。<br>
+  age, income, student, credit ratingのうち1つだけ調査できる場合、どの項目を調査するのがお得かを考える。<br>
+  incomeを調査した結果mediumだった場合：income=mediumな人6名の内訳はYes:2名、No:4名。このときの「buys computerがyesかnoかがわかる」のエントロピーを求める設問（スライド上は空欄）。<br>
+  同様にincome=low、income=highだったときの「Yes/No判定」のエントロピーも計算する（スライド上は空欄）。<br>
+  income=low・income=high・income=mediumである確率をそれぞれ計算し、income調査後の「Yes/No判定」のエントロピーの期待値を計算する（スライド上は空欄）。<br>
+  同様のことを age, student, credit ratingについても計算し、最も「Yes/No判定」のエントロピー期待値が小さくなるものを探す。それが答え（別資料参照、本スライドには数値・結論の記載なし）。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>「情報量（自己エントロピー）$I(a)=-\log_2 P(a)$」は個々の事象1つに対する値であるのに対し、「平均情報量（エントロピー）$H(A)=-\sum P(a)\log_2 P(a)$」はすべての事象について確率で重みづけした期待値である点を混同しないよう注意する。</div>
+  <div class="pitfall"><span class="label">注意</span>"buys computer"データを使ったエントロピー計算（全体のエントロピー、income=medium/low/highそれぞれのエントロピー、income調査後の期待値、age・student・credit_ratingについての同様の計算、最終的にどの属性を選ぶべきかの結論）は、原資料のスライド上でいずれも空欄（数値・結論の記載なし）となっている。ここで勝手に数値を計算・記入して覚えないよう注意する。</div>
+</section>
+<section class="chapter" id="ch9">
+  <h2>第6回 データモデル（情報の表現とモデル化）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>情報の表現（伝達）の形にはいろいろあり、記号を使った表現やパターンを使った表現などがある。</li>
+    <li>表現形式には「手続き的表現」（「AをすればBになる」「CするにはDする」という形式）と「宣言的表現」（「AはBである」という形式）がある。</li>
+    <li>モデルとは、事象・概念などを単純化・抽象化したもの（＝ある枠組みに当てはめて考えること）であり、事象→抽象化→モデル→知見という流れで理解できる。数理経済学・物理学は数理モデル、法学は社会モデルを用いる。</li>
+    <li>情報を表現するにあたっては、表現の対象（what：必要・不要なものを明確にする）、表現の目的（why：何のために表現するか）、表現の方法（how：目的やコストとの兼ね合いによる形式の選択）を考慮すべきである。</li>
+    <li>表現の方法には、文字や記号、表、図（主に2次元図形）、グラフなどがある。</li>
+    <li>グラフは頂点と枝からなる構造であり、無向グラフは頂点間のつながりのみを、有向グラフはつながりの順序関係を表現する。</li>
+    <li>木構造はグラフ構造の一種で、データ間の親子関係を表現する。枝分かれ先が必ず2つになるようにした木構造を特に二分木という。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>手続き的表現</dt><dd>「AをすればBになる」，「CするにはDする」という形式の表現。</dd>
+    <dt>宣言的表現</dt><dd>「AはBである」という形式の表現。</dd>
+    <dt>モデル</dt><dd>事象・概念などを単純化・抽象化したもの（＝ある枠組みに当てはめて考える）。</dd>
+    <dt>抽象化</dt><dd>事象からモデルを導く過程。事象→（抽象化）→モデル→知見、という流れで理解する。</dd>
+    <dt>無向グラフ</dt><dd>頂点間のつながりのみを表現するグラフ。</dd>
+    <dt>有向グラフ</dt><dd>つながりの順序関係を表現するグラフ。</dd>
+    <dt>木構造</dt><dd>グラフ構造の一種で、データ間の親子関係を表現するもの。</dd>
+    <dt>根</dt><dd>木構造の最上位（頂点側）の要素。</dd>
+    <dt>葉</dt><dd>木構造の末端の要素。</dd>
+    <dt>二分木</dt><dd>枝分かれ先が必ず2つになるようにした木構造。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">元資料 p.3, p.4 の図（経済学部の事務室への行き方を、言葉・地図・写真や映像で表す「情報の表現」の例）を参照</p>
+  <p class="ref-note">元資料 p.6 の図（「事象」から抽象化を経て「モデル」・「知見」に至る図。数理経済学・物理学・法学の例が付記）を参照</p>
+  <p class="ref-note">元資料 p.8 の図（表現の方法として、文字や記号、表、ベン図の図、頂点と枝からなるグラフ・木構造の図を並べた例）を参照</p>
+  <p class="ref-note">元資料 p.9 の図（同じ形の2つのグラフのうち、左は無向グラフ、右は有向グラフとして描かれた例）を参照</p>
+  <p class="ref-note">元資料 p.10 の図（根から枝分かれして葉に至る木構造の図と、それに並べて示された二分木の図）を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>モデル化の例（元資料 p.5）：「1周3,000メートルの池の周りを太郎さんと次郎さんがそれぞれ同時に同じ場所から反対方向に歩き始めました．太郎さんが時速4km，次郎さんが時速6kmで歩くとすると二人が出会うのは何分後ですか？」という問題文が挙げられており、「太郎」「次郎」「池」といった具体的な名称は問題を理解するには必要ない、とされている。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>手続き的表現と宣言的表現は混同しやすい。手続き的表現は「AをすればBになる」「CするにはDする」という手順を示す形式（例：「階段を上り，廊下を進んで，右の部屋に行くと事務室に着く」）であるのに対し、宣言的表現は「AはBである」という対象間の関係を静的に述べる形式（例：「事務室はホールの隣である」）である点を区別する。</div>
+  <div class="pitfall"><span class="label">注意</span>無向グラフと有向グラフの違い（つながりのみを表現するか、つながりの順序関係まで表現するか）、および木構造と二分木の関係（二分木は木構造の一種で、枝分かれ先が必ず2つになるようにしたもの）を混同しないよう注意する。</div>
+</section>
+
+<section class="chapter" id="ch10">
+  <h2>第6回 データモデル（データモデルの種類と性質）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>何らかの形でコンピュータに格納する（まとまった量の）情報を「データ」とする（典型的にはディジタル化された情報）。数字や文字の羅列・集合である「データ」に対し、そこから見出した有用なものを「情報」とする定義もある点に注意。</li>
+    <li>データモデルは、データを体系的に扱うためのモデルであり、体系化のため表現に規則や制約がともなう。モデルによって表せることが異なる。</li>
+    <li>データモデルには3つのレベルがある：概念モデル（人間が対象を認識するレベル）、論理モデル（対象が記号で表現され、記号間の関係や操作が決まっているレベル）、物理モデル（コンピュータ内部での物理的な表現のレベル）。</li>
+    <li>代表的なデータモデルとして、集合モデル、ネットワークモデル、階層モデル、関係モデルの4つがある。</li>
+    <li>集合モデルは対象を集合で表し、共通部分（積集合）A∩B、和集合A∪B、差集合A－Bという演算を使う。ベン図がよく用いられる。</li>
+    <li>ネットワークモデルは対象のつながりを表すモデルで、Web・路線図・人間関係（ソーシャルグラフ）などがグラフでよく表現され、最短経路探索・最小全域木・巡回セールスマン問題・ネットワーク分析（中心性、コミュニティなど）に応用される。</li>
+    <li>階層モデルは階層に（木構造を用いて）分類するモデルで、ファイルシステム、住所（都道府県・市町村・町名・番地）、図書の分類（十進分類法）などが例。</li>
+    <li>関係モデルは「関係」（データの「組」の集合＝表）で表現されたモデルであり、「組」は「属性」の値の集まりである。関係データベースは複数の表を関連づけてデータ集合を表現し、必要なデータの部分集合は表の演算（関係代数、関係論理）によって出力する。</li>
+    <li>データモデルの性質として、完全性、一意性、忠実性、整合性、無冗長性、拡張性の6つがある。データモデルの形式により表現力の強弱や向き・不向きがあり、データや目的からより適切なデータモデルを選ぶことが重要。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>データ</dt><dd>何らかの形でコンピュータに格納する（まとまった量の）情報のこと。典型的にはディジタル化された情報。</dd>
+    <dt>データモデル</dt><dd>データを体系的に扱うためのモデル。体系化のため、表現に規則や制約がともなう。</dd>
+    <dt>概念モデル</dt><dd>人間が対象を認識するレベルのモデル（例：「京都の鉄道網」のイメージ）。</dd>
+    <dt>論理モデル</dt><dd>対象が記号で表現されたレベルのモデル。記号と記号の間の関係や操作が決まっている。</dd>
+    <dt>物理モデル</dt><dd>コンピュータ内部での物理的な表現のレベルのモデル。論理モデルに対する、実際のデータ構造や処理方法。</dd>
+    <dt>集合モデル</dt><dd>対象を集合で表すデータモデル。</dd>
+    <dt>共通部分（積集合）A∩B</dt><dd>集合Aと集合Bに共通する要素。</dd>
+    <dt>和集合 A∪B</dt><dd>集合Aもしくは集合Bに属する要素。</dd>
+    <dt>差集合 A－B</dt><dd>集合Aから集合Bの要素を除いた集合。</dd>
+    <dt>ネットワークモデル</dt><dd>対象のつながりを表すモデル。</dd>
+    <dt>階層モデル</dt><dd>階層に（木構造を用いて）分類するモデル。</dd>
+    <dt>関係モデル</dt><dd>「関係」で表現されたモデル。</dd>
+    <dt>関係</dt><dd>データの「組」の集合（＝表）。</dd>
+    <dt>組</dt><dd>「属性」の値の集まり。</dd>
+    <dt>属性</dt><dd>関係（表）における列の見出しにあたる項目。</dd>
+    <dt>関係データベース</dt><dd>複数の表を関連づけてデータ集合を表現するもの。必要なデータの部分集合は、表の演算を行って出力する（関係代数、関係論理）。</dd>
+    <dt>完全性</dt><dd>対象のすべての要素に対して、それに対応するモデル内の要素があること。</dd>
+    <dt>一意性</dt><dd>モデルの1つの要素が対象の1つの要素にしか対応しないこと。モデルの1つの要素が対象の複数の要素と対応するのは「あいまい」または「多義性がある」という。</dd>
+    <dt>忠実性</dt><dd>対象の1つの要素がモデルの1つの要素にしか対応しないこと。モデルが忠実だと、モデル内で同一のものはもとの対象でも同一であると判定できる。</dd>
+    <dt>整合性</dt><dd>対象で成り立つべき規則が、モデルでも成り立つこと。</dd>
+    <dt>無冗長性</dt><dd>同じ情報が表現の複数個所に現れないこと。誤りを検出するために、あえて冗長性を持たせる場合もある。</dd>
+    <dt>拡張性</dt><dd>データモデルを拡張したときに、既存のデータの表現を変えずに新しいデータを表現できること。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p>関係モデルにおける表の構造（元資料 p.17「学生」の例）：関係（表全体）は「組」の集合であり、列見出しが「属性」にあたる。</p>
+  <table>
+    <tr><th>学生番号（属性）</th><th>氏名（属性）</th><th>生年月日（属性）</th></tr>
+    <tr><td>0001</td><td>京大太郎</td><td>'85/3/2</td></tr>
+    <tr><td>0002</td><td>経済花子</td><td>'84/9/8</td></tr>
+    <tr><td>0003</td><td>山田二郎</td><td>'84/1/9</td></tr>
+  </table>
+  <p class="ref-note">元資料 p.12 の図（「京都の鉄道網」を例に、駅名と路線を線で結んだ概念モデルの図と、JRの駅＝{京都，東福寺，…}のような集合の記号で表した論理モデルの図）を参照</p>
+  <p class="ref-note">元資料 p.14 の図（駅名のグループを表す3つの楕円が重なり合うベン図で、共通部分・和集合・差集合を示す例）を参照</p>
+  <p class="ref-note">元資料 p.15 の図（京都の鉄道路線図を例に、駅（丸）同士を線でつないだネットワークモデルの図）を参照</p>
+  <p class="ref-note">元資料 p.16 の図（「C:」の下にProgram Files・Users・Windowsが枝分かれし、さらにUsersの下が枝分かれしていくファイルシステムの階層モデルの図）を参照</p>
+  <p class="ref-note">元資料 p.18 の図（「学生」「所属」「学部」の3つの表が学籍番号・学部番号を介して関連づけられる関係データベースの図）を参照</p>
+  <p class="ref-note">元資料 p.19〜p.23 の図（「実際のデータ」から「データモデル内での表現」への対応関係を矢印で表し、完全性・一意性・忠実性・整合性それぞれについて成り立つ場合と成り立たない場合（×印）を示した概念図）を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>関係データベースの例（元資料 p.18）：「学生」表（学生番号・氏名・生年月日）、「所属」表（学部番号・学籍番号）、「学部」表（学部番号・学部名）の3つの表が、学籍番号・学部番号を介して関連づけられる。</div>
+  <div class="example"><span class="label">例</span>集合モデルの記号例（元資料 p.12）：JRの駅＝{京都，東福寺，…}、京阪の駅＝{七条，東福寺，…}、接続駅＝JRの駅 ∩ 京阪の駅。</div>
+  <div class="example"><span class="label">例</span>完全性の例（元資料 p.20）：コンピュータ上での数値の表現。現実世界の数値は無限個だが、コンピュータ上では有効桁数に制限があるため有限個しか表現できない（例：\(1.2345678 \times 10^{4}\)）。人名用の漢字集合も、現実世界の漢字は数万字以上あるのに対しコンピュータ上ではすべてを網羅していないため、常用漢字・人名用漢字として限定して完全性を保っている。</div>
+  <div class="example"><span class="label">例</span>一意性の例（元資料 p.21）：学生番号0001「京大太郎」と学生番号0010「京大太郎」のように、学生番号は異なるが同姓同名になる例。また、西暦を下2桁だけで表現していたため1900年と2000年を区別できなかった「2000年問題」も一意性が成り立たない例である。</div>
+  <div class="example"><span class="label">例</span>忠実性の例（元資料 p.22）：「京大太郎」と「キョウダイタロウ」のように、同一人物が別名（複数の名前）でも登録できてしまう名簿の例。</div>
+  <div class="example"><span class="label">例</span>整合性の例（元資料 p.23）：aをbで割ってからbを乗じたら、つまり\((a \div b) \times b\)はaに戻ってほしいが、数値の桁数の制限のためにコンピュータや電卓ではそうはならないことがある。\(10 \div 3 = 3.33333333\cdots \rightarrow 3.33333333\)、\(3.33333333 \times 3 = 9.99999999\)。</div>
+  <div class="example"><span class="label">例</span>無冗長性・拡張性の例（元資料 p.24）：無冗長性の例外として、誤りを検出するためにあえて冗長性を持たせる場合（例：入試の答案用紙に氏名と受験番号を記入）。拡張性の例として郵便番号（以前は3桁または5桁→末尾に番号を加えて7桁化）。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>「データ」と「情報」は混同しやすい。ここでは、コンピュータに格納する数字や文字の羅列・集合を「データ」とし、そこから見出した有用なものを「情報」とする定義もある点に注意する。</div>
+  <div class="pitfall"><span class="label">注意</span>一意性と忠実性は定義が対称的で混同しやすい。一意性は「モデルの1つの要素が対象の1つの要素にしか対応しない」こと（対応しないと「あいまい」「多義性がある」という）、忠実性は「対象の1つの要素がモデルの1つの要素にしか対応しない」ことであり、対応の向きが逆である点に注意する。</div>
+</section>
+<section class="chapter" id="ch11">
+  <h2>第7回 データ構造とアルゴリズム</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>アルゴリズム＝問題を解くための手順、データ構造＝データを体系的に格納する方法（データモデルにおける物理モデル）。</li>
+    <li>アルゴリズムとデータ構造を組み合わせ、プログラミング言語で書いたものが「プログラム」である。</li>
+    <li>アルゴリズムとデータ構造により性能が異なり、時間的コスト（計算量）と空間的コスト（メモリ使用量）で評価する。</li>
+    <li>時間的・空間的コストの表現方法がオーダー記法（O記法）であり、問題（データ）の規模 $N$ によってコストを表し、影響の小さい定数や変数（低次の項・定数倍の係数）を省略する。</li>
+    <li>計算量には最大計算量（最悪計算量：もっとも計算・処理を必要とする場合）と平均計算量（すべての場合に対する平均値）があり、本講義で説明しているのは原則として平均計算量である。</li>
+    <li>コンピュータの記憶装置は1次元の連続した長大なデータの入れ物（バイト単位、番地付き）であり、概念モデル・論理モデルをこの中で表現する仕組みが物理モデル（データ構造）である。</li>
+    <li>代表的なデータ構造は配列・リスト（一方向・双方向・循環）・木構造である。</li>
+    <li>探索アルゴリズムには順探索（$O(N)$）、ハッシュ法（うまくいけば $O(1)$）、二分探索（$O(\log N)$、要整列）があり、二分探索木を使うと根から辿ることで二分探索ができる。</li>
+    <li>整列アルゴリズムにはバブルソート（$O(N^2)$）とクイックソート（平均 $O(N \log N)$）がある。</li>
+    <li>グラフ構造を用いた問題として巡回セールスマン問題（最適解を求めるのが非常に難しい）と最短路問題（ダイクストラ法という現実的な計算時間で最適解を得るアルゴリズムが存在する）がある。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>アルゴリズム</dt><dd>問題を解くための手順。</dd>
+    <dt>データ構造</dt><dd>データを体系的に格納する方法（データモデルにおける物理モデル）。</dd>
+    <dt>プログラミング言語</dt><dd>アルゴリズムとデータ構造をコンピュータに与えるための言語。</dd>
+    <dt>プログラム</dt><dd>プログラミング言語で書かれたアルゴリズム＋データ構造。</dd>
+    <dt>時間的コスト</dt><dd>計算量（処理時間）のこと。</dd>
+    <dt>空間的コスト</dt><dd>メモリ使用量のこと。</dd>
+    <dt>オーダー記法（O記法）</dt><dd>問題（データ）の規模 $N$ によってコストを表す方法。影響の小さい定数や変数を省略する。例：計算回数 $10N^2 + 100N + 50$ は影響の小さい定数項や $N$ の項、$N^2$ の定数倍の係数（10）を省略して $O(N^2)$ と書く。計算回数 $\log_2(5N)$ は $\log_2(5N) = \log_2 5 + \log N/\log 2$ なので定数項 $\log_2 5$ や $\log N$ の定数倍の係数 $1/\log 2$ を省略して $O(\log N)$ と書く。計算回数が5回のように $N$ に依存しない場合は $O(1)$ と書く。</dd>
+    <dt>最大計算量（最悪計算量）</dt><dd>もっとも計算・処理を必要とする場合の計算量。</dd>
+    <dt>平均計算量</dt><dd>すべての場合に対する平均値。この講義で説明しているのは原則として平均計算量。</dd>
+    <dt>配列</dt><dd>要素番号から要素の位置を簡単に求められるデータ構造。ランダムアクセスが容易（時間的コストが小さい）だが、あらかじめ決められた要素数を超えるデータは記憶できず（配列を伸ばす操作が必要になる）、要素の追加・削除の時間的コストは大きい。2次元（以上）の配列も可能。</dd>
+    <dt>一方向リスト</dt><dd>先頭から順に辿る必要がある（時間的コストが大きい）。リンクの領域も必要（空間的コストが大きい）。データの追加と削除は容易（時間的コストが小さい）。</dd>
+    <dt>双方向リスト</dt><dd>一方向リストに対し前後双方向にリンクを持つリスト（図のみ提示）。</dd>
+    <dt>循環リスト</dt><dd>末尾のリンクが先頭に戻る形でつながったリスト（図のみ提示）。</dd>
+    <dt>木構造</dt><dd>グラフ構造の一種。データ間の親子関係を表現する。最上位のノードを「根」、末端のノードを「葉」と呼ぶ。</dd>
+    <dt>探索（検索）</dt><dd>ある特定のデータを見つけ出すこと。</dd>
+    <dt>順探索</dt><dd>先頭から順に探していく探索方法。時間的コスト $O(N)$（最良の場合で1、最悪の場合 $N$）。</dd>
+    <dt>ハッシュ法</dt><dd>あらかじめ各データからハッシュ値を計算しておき、ハッシュテーブルを構築して探索する方法。時間的コストはうまくいけば $O(1)$ だが、空間的コストがかかる。</dd>
+    <dt>ハッシュ値</dt><dd>データから一意に計算される値。</dd>
+    <dt>二分探索</dt><dd>データがあらかじめ整列されていることが前提の探索方法。中央値との比較を繰り返し探索範囲を半分ずつに絞り込む。時間的コスト $O(\log N)$。</dd>
+    <dt>二分探索木</dt><dd>ノードに保存した値が左の子ノードに保存した値より大きく、右の子ノードに保存した値より小さくなるように配置した木構造。根ノードから順にたどっていくことで二分探索ができる。</dd>
+    <dt>バブルソート</dt><dd>隣り合う要素を比較し、大小が逆であれば入れ替えることを繰り返してデータを昇順に並べ替えるアルゴリズム。時間的コストは $O(N^2)$。</dd>
+    <dt>クイックソート</dt><dd>適当な数（ピボット）を一つ選び、ピボットより小さい数字を配列の前半に、大きい数字を後半に移動させて2つの部分配列を作成し、それぞれに対して同じ手順を部分配列の長さが1になるまで再帰的に適用して整列するアルゴリズム。時間的コストは $O(N \log N)$。</dd>
+    <dt>ピボット</dt><dd>クイックソートにおいて基準として選ぶ適当な数。</dd>
+    <dt>グラフ</dt><dd>頂点と枝からなる構造。</dd>
+    <dt>無向グラフ</dt><dd>頂点間のつながりのみを表現するグラフ。</dd>
+    <dt>有向グラフ</dt><dd>つながりの順序関係を表現するグラフ。</dd>
+    <dt>巡回セールスマン問題</dt><dd>例「京都府の全ての市役所・区役所・町役場・村役場を車で訪問したい．もっとも移動距離が短くなる訪問順を求めよ」。役所を頂点、役所間を結ぶ道路を枝で表現する。最適解を求めるのが非常に難しい問題のひとつ。</dd>
+    <dt>最短路問題</dt><dd>例「京都大学から大阪城までの最短ルートを調べる」。現実的な計算時間で最適解を得るアルゴリズム（ダイクストラ法）がすでに存在している。</dd>
+    <dt>ダイクストラ法</dt><dd>最短路問題について現実的な計算時間で最適解を得るアルゴリズム（名称のみ提示）。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">元資料 p.3 の図（10,000ページの英和辞書のページが a, bat, …, no, out, …, yes, zzz の順に並び、「out」を先頭から順に探す様子）を参照</p>
+  <p class="ref-note">元資料 p.4〜p.5 の図（バラバラになった紙の並びと、隣り合う紙のページ番号を見比べる操作、およびバブルソートの手順とデータ構造の対応）を参照</p>
+  <p class="ref-note">元資料 p.8〜p.9 の図（平方根計算アルゴリズムその1・その2における数直線上の探索の様子）を参照</p>
+  <p class="ref-note">元資料 p.14 の図（0000から0009までの番地が振られた連続するマス目、コンピュータの記憶装置のイメージ）を参照</p>
+  <p>配列の構造（元資料 p.15）：A[0]からA[6]までの7つのマスが横一列に並ぶ。</p>
+  <svg viewBox="0 0 350 60" xmlns="http://www.w3.org/2000/svg" style="max-width:420px;width:100%;height:auto;">
+    <g font-family="sans-serif" font-size="13">
+      <rect x="0" y="10" width="50" height="40" fill="none" stroke="currentColor"/>
+      <rect x="50" y="10" width="50" height="40" fill="none" stroke="currentColor"/>
+      <rect x="100" y="10" width="50" height="40" fill="none" stroke="currentColor"/>
+      <rect x="150" y="10" width="50" height="40" fill="none" stroke="currentColor"/>
+      <rect x="200" y="10" width="50" height="40" fill="none" stroke="currentColor"/>
+      <rect x="250" y="10" width="50" height="40" fill="none" stroke="currentColor"/>
+      <rect x="300" y="10" width="50" height="40" fill="none" stroke="currentColor"/>
+      <text x="25" y="35" text-anchor="middle">A[0]</text>
+      <text x="75" y="35" text-anchor="middle">A[1]</text>
+      <text x="125" y="35" text-anchor="middle">A[2]</text>
+      <text x="175" y="35" text-anchor="middle">A[3]</text>
+      <text x="225" y="35" text-anchor="middle">A[4]</text>
+      <text x="275" y="35" text-anchor="middle">A[5]</text>
+      <text x="325" y="35" text-anchor="middle">A[6]</text>
+    </g>
+  </svg>
+  <p class="ref-note">元資料 p.16 の図（一方向リストA→B→C→D→E、双方向リスト、循環リストの3種のリンク構造）を参照</p>
+  <p class="ref-note">元資料 p.17 の図（根A、Aの子B・E、Bの子C・D、Eの子Fからなる木構造。C・D・Fが「葉」）を参照</p>
+  <p class="ref-note">元資料 p.18 の図（ハッシュ法：配列A[0]〜A[130]〜…において、A[130]に「kyoto」が格納される様子。kyotoのハッシュ値＝130）を参照</p>
+  <p>二分探索の絞り込み（元資料 p.19）：配列「1 3 4 6 8 9 10 11 15 17 20 22 23 25 28」から「23」を探す4段階（中央値11→22→25→23）の絞り込みが色分けで示される。</p>
+  <p class="ref-note">元資料 p.20 の図（二分探索木：根11、左の子8（さらに左の子4、右の子10）、右の子25（左の子23））を参照</p>
+  <p class="ref-note">元資料 p.21 の図（バブルソートの初期配列 a[0]〜a[14] = 1, 28, 15, 6, 23, 9, 11, 10, 3, 28, 8, 22, 20, 25, 4）を参照</p>
+  <p class="ref-note">元資料 p.23 の図（クイックソートのトレース：初期配列からピボット10で分割し、再帰的に分割処理を繰り返して最終的に整列済み配列に至る過程を色分けで表示）を参照</p>
+  <p class="ref-note">元資料 p.24 の図（無向グラフと有向グラフを並べた例）を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>準備運動(1)：10,000ページの英和辞書（小口に見出しなし）から単語を先頭から順に探索する場合、単語を見つけるまでに何回ページを開き直せばよいかを問う例。</div>
+  <div class="example"><span class="label">例</span>準備運動(2)：糊付けがはがれて10,000ページ（=5,000枚）の紙がバラバラになった場合、「2枚の紙のページ番号を見比べる」操作を何回繰り返せば元の順番に戻せるかを問う例。データ例：234, 4680, 10, 555, 78, …</div>
+  <div class="example"><span class="label">例</span>平方根計算 例題のアルゴリズム（その1）：$y$ を0からスタートし $(y+\delta)^2 < x$ の間 $\delta$ ずつ $y$ を増やす手順。$\sqrt{x}/\delta$ 程度の計算量。$x=2, \delta=0.0001$ のとき、14,142回。</div>
+  <div class="example"><span class="label">例</span>平方根計算 例題のアルゴリズム（その2）：$y=0, z=x$ から始め、$z-y>\delta$ の間、$c=(y+z)/2$ を計算し $c \times c < x$ なら $y=c$、そうでなければ $z=c$ とする二分探索的な手順。$\log_2(x/\delta)$ 程度の計算量。$x=2, \delta=0.0001$ のとき、15回。</div>
+  <div class="example"><span class="label">例</span>オーダー記法の例1：計算回数が $10N^2 + 100N + 50$ の場合 → $O(N^2)$。</div>
+  <div class="example"><span class="label">例</span>オーダー記法の例2：計算回数が $\log_2(5N)$ の場合 → $O(\log N)$。</div>
+  <div class="example"><span class="label">例</span>オーダー記法の例3：計算回数が5回（$N$に依存しない）の場合 → $O(1)$。</div>
+  <div class="example"><span class="label">例</span>ハッシュ法の例：文字列「kyoto」のハッシュ値＝130として、配列の A[130] に kyoto を格納する。</div>
+  <div class="example"><span class="label">例</span>二分探索の例：配列「1 3 4 6 8 9 10 11 15 17 20 22 23 25 28」から「23」を探す場合。
+    <pre>初期範囲: 1 3 4 6 8 9 10 [11] 15 17 20 22 23 25 28
+中央値11を抽出 → 23 > 11 なので右半分に限定
+
+右半分:  15 17 20 [22] 23 25 28
+中央値22を抽出 → 23 > 22 なので残り右半分に限定
+
+残り右半分: 23 [25] 28
+中央値25を抽出 → 23 < 25 なので残り左半分に限定
+
+残り左半分: [23]
+23を抽出 → 発見（3ステップで発見）</pre>
+  </div>
+  <div class="example"><span class="label">例</span>二分探索木の例：根11、左の子8（さらに左の子4、右の子10）、右の子25（左の子23）というデータ配置。</div>
+  <div class="example"><span class="label">例</span>バブルソートの例：初期配列 a[0]〜a[14] = 1, 28, 15, 6, 23, 9, 11, 10, 3, 28, 8, 22, 20, 25, 4。</div>
+  <div class="example"><span class="label">例</span>クイックソートの例：初期配列「1 28 15 6 23 9 11 10 3 28 8 22 20 25 4」に対し、ピボット＝10を抽出。10より小さいものを左側、大きいものを右側へ移動し「1 4 8 6 3 9 10 11 23 28 15 22 20 25 28」とする。10の左側・右側それぞれに対し同様の処理を再帰的に繰り返し、以下のように順次整列が進む（平均的には $N \log N$ に比例した計算量ですむ）。
+    <pre>初期配列: 1 28 15 6 23 9 11 10 3 28 8 22 20 25 4
+
+ピボット10で分割:
+→ 1 4 8 6 3 9 10 11 23 28 15 22 20 25 28
+
+左右の部分配列を再帰的に分割:
+→ 1 4 3 6 8 9 10 11 15 20 28 22 23 25 28
+
+→ 1 3 4 6 8 9 10 11 15 20 22 23 28 25 28
+
+→ 1 3 4 6 8 9 10 11 15 20 22 23 25 28 28  （最終的な整列結果）</pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>順探索・ハッシュ法・二分探索は前提条件と計算量が異なる点に注意する。順探索は前提条件なしで $O(N)$。ハッシュ法はあらかじめハッシュ値を計算しハッシュテーブルを構築する必要があるが、うまくいけば $O(1)$（ただし空間的コストがかかる）。二分探索はデータがあらかじめ整列されていることが前提で $O(\log N)$ である。整列されていないデータにいきなり二分探索を適用できると誤解しないこと。</div>
+  <div class="pitfall"><span class="label">注意</span>バブルソート（$O(N^2)$、隣接要素の比較・交換を繰り返す）とクイックソート（平均 $O(N \log N)$、ピボットで分割し再帰的に処理する）を混同しないよう注意する。またO記法では、影響の小さい定数項や低次の項・係数（例：$10N^2+100N+50 \to O(N^2)$）を省略することを忘れないこと。</div>
+</section>
+<section class="chapter" id="ch12">
+  <h2>第8回 データと分析（1）データ科学とデータ・統計</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>データ科学は、数理的基盤（統計学・数学・情報科学など、情報の気づきとモデル化を担う）、技術的基盤（プログラミング・ソフトウェアによる方法の実現・実践とデータの処理）、専門的基盤（経済学・経営学・コンサルティングなど具体的な専門領域における問題意識・データの収集・知見結果の応用）の3つから構成される。この授業では主に数理的基盤について紹介する。</li>
+    <li>データには質的データ（名義尺度・順序尺度）と量的データ（間隔尺度・比例尺度）の2種類があり、数値の意味を考えて統計量を求める必要がある。</li>
+    <li>代表値には算術平均、幾何平均、調整平均、中央値（メジアン）、最頻値（モード）がある。</li>
+    <li>データの分布を表す指標として分散・標準偏差、四分位数がある。</li>
+    <li>データがある確率分布に従っている（と仮定する）ことがあり、正規分布がよく用いられる。特に平均0・分散1の正規分布を標準正規分布という。</li>
+    <li>標準化はデータの値を平均0・分散1になるよう調整する処理で、範囲の異なるデータ間の比較を可能にする。</li>
+    <li>2つのデータの関係は共分散・相関係数（複数の場合は相関行列）で表され、散布図・散布図行列で可視化できる。</li>
+    <li>統計には記述統計（対象の全てを用いて求める）と推測統計（対象の一部＝標本から全体＝母集団を推測する）の2種類があり、推測統計には点推定と区間推定がある。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>データ科学</dt><dd>数理的基盤（統計学・数学・情報科学など、情報の気づき・モデル化）、技術的基盤（プログラミング・ソフトウェア、方法の実現・実践・データの処理）、専門的基盤（具体的な専門領域、たとえば経済学・経営学・コンサルティングなど、問題意識・データの収集・知見結果の応用）から構成される。</dd>
+    <dt>名義尺度</dt><dd>質的データのうち、計算できず、順序にも意味がない尺度。</dd>
+    <dt>順序尺度</dt><dd>質的データのうち、順序に意味がある尺度。</dd>
+    <dt>間隔尺度</dt><dd>量的データのうち、差分（間隔）や平均が計算できる尺度。</dd>
+    <dt>比例尺度</dt><dd>量的データのうち、さらに比率も計算できる尺度。</dd>
+    <dt>算術平均</dt><dd>$\bar{x} = \frac{1}{N}\sum_i x_i$（$i = 1, \dots, N$）。</dd>
+    <dt>幾何平均</dt><dd>$\sqrt[N]{\prod_i x_i}$。</dd>
+    <dt>調整平均</dt><dd>大きい・小さい値を除外した（算術）平均。</dd>
+    <dt>中央値（メジアン）</dt><dd>値の大きさ順に整列した際に中央に位置する値。</dd>
+    <dt>最頻値（モード）</dt><dd>最も頻度の大きな値。</dd>
+    <dt>（標本）分散</dt><dd>$V_x = \frac{1}{N}\sum_i (x_i - \bar{x})^2$。</dd>
+    <dt>標準偏差</dt><dd>$S_x = \sqrt{V_x}$。</dd>
+    <dt>四分位数</dt><dd>データを値の大きさの順に整列して4つに等分し、25%, 50%, 75%の位置の値をそれぞれ第1、第2（中央値）、第3四分位数という。</dd>
+    <dt>正規分布</dt><dd>平均$\mu$、分散$\sigma^2$の正規分布は$N(\mu, \sigma^2)$と書き、$f(x) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}$。特に$N(0, 1)$の場合を標準正規分布という。</dd>
+    <dt>標準化</dt><dd>データの値を、平均0・分散1になるよう調整すること。データ$\{x_i\}$の平均$\bar{x}$、標準偏差$S_x$に対して$x'_i = \frac{x_i - \bar{x}}{S_x}$。</dd>
+    <dt>共分散</dt><dd>対応する2つのデータ$\{x_i\}$と$\{y_i\}$について$V_{xy} = \frac{1}{N}\sum_i (x_i - \bar{x})(y_i - \bar{y})$。</dd>
+    <dt>相関係数</dt><dd>$R_{xy} = \frac{1}{N}\sum_i \frac{x_i - \bar{x}}{S_x}\frac{y_i - \bar{y}}{S_y}$（複数変数の場合は相関行列としてまとめられる）。</dd>
+    <dt>記述統計</dt><dd>対象の全てを用いて求める統計。</dd>
+    <dt>推測統計</dt><dd>対象の一部から全体を推測する統計。母集団から標本を抽出し、標本統計量（平均・分散・相関など）を計算して母数の推定量とする。</dd>
+    <dt>点推定</dt><dd>推定されたある1つの値で母数を表すこと。</dd>
+    <dt>区間推定</dt><dd>母数が（ある確率で）含まれる範囲を推定すること。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="正規分布の確率密度関数のグラフ">
+    <line x1="20" y1="140" x2="300" y2="140" stroke="#4a6fa5" stroke-width="2"/>
+    <path d="M20,140 C60,140 70,20 160,20 C250,20 260,140 300,140" fill="none" stroke="#4a6fa5" stroke-width="2.5"/>
+    <line x1="160" y1="140" x2="160" y2="20" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="160" y="155" text-anchor="middle" font-size="13" fill="#1f2d3d">μ</text>
+    <text x="160" y="14" text-anchor="middle" font-size="12" fill="#1f2d3d">N(μ, σ²)</text>
+  </svg>
+  <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="正の相関と負の相関の散布図">
+    <rect x="10" y="10" width="250" height="180" fill="none" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="20" y1="180" x2="20" y2="20" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="20" y1="180" x2="250" y2="180" stroke="#4a6fa5" stroke-width="1"/>
+    <circle cx="40" cy="160" r="3" fill="#c0392b"/>
+    <circle cx="60" cy="150" r="3" fill="#c0392b"/>
+    <circle cx="80" cy="140" r="3" fill="#c0392b"/>
+    <circle cx="100" cy="125" r="3" fill="#c0392b"/>
+    <circle cx="120" cy="115" r="3" fill="#c0392b"/>
+    <circle cx="140" cy="100" r="3" fill="#c0392b"/>
+    <circle cx="160" cy="90" r="3" fill="#c0392b"/>
+    <circle cx="180" cy="75" r="3" fill="#c0392b"/>
+    <circle cx="200" cy="60" r="3" fill="#c0392b"/>
+    <circle cx="220" cy="45" r="3" fill="#c0392b"/>
+    <text x="135" y="203" text-anchor="middle" font-size="12" fill="#1f2d3d">正の相関（例: Petal.Length と Petal.Width, r=0.962757）</text>
+    <rect x="300" y="10" width="250" height="180" fill="none" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="310" y1="180" x2="310" y2="20" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="310" y1="180" x2="540" y2="180" stroke="#4a6fa5" stroke-width="1"/>
+    <circle cx="330" cy="40" r="3" fill="#2e7d32"/>
+    <circle cx="350" cy="55" r="3" fill="#2e7d32"/>
+    <circle cx="370" cy="65" r="3" fill="#2e7d32"/>
+    <circle cx="390" cy="90" r="3" fill="#2e7d32"/>
+    <circle cx="410" cy="100" r="3" fill="#2e7d32"/>
+    <circle cx="430" cy="115" r="3" fill="#2e7d32"/>
+    <circle cx="450" cy="130" r="3" fill="#2e7d32"/>
+    <circle cx="470" cy="145" r="3" fill="#2e7d32"/>
+    <circle cx="490" cy="160" r="3" fill="#2e7d32"/>
+    <circle cx="510" cy="170" r="3" fill="#2e7d32"/>
+    <text x="425" y="203" text-anchor="middle" font-size="12" fill="#1f2d3d">負の相関（例: Sepal.Width と Petal.Length, r=-0.420516）</text>
+  </svg>
+  <p class="ref-note">ヒストグラム（度数分布、元資料 p.11）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">箱ひげ図（最小値・第1四分位数・中央値・第3四分位数・最大値を箱とひげで表す図、元資料 p.11, p.13）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">散布図行列（対散布図、3つ以上のデータの散布図を並べた図、元資料 p.15, p.17）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">推測統計の概念図（母集団から標本を抽出し標本統計量を計算して母数の推定量とする流れ、元資料 p.18）は元資料 p.○ の図を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>データ例（1）スポーツの成績（元資料 p.5）: 読売ジャイアンツの年度別成績（年・順位・試合・勝利・敗戦・引分・勝率・本塁打・打率・防御率・監督）。例: 1991年 順位4 試合130 勝利66 敗戦64 引分0 勝率0.508 本塁打128 打率0.253 防御率3.72 監督藤田元司。2012年 順位1 試合144 勝利86 敗戦43 引分15 勝率0.667 本塁打94 打率0.256 防御率2.16 監督原辰徳。出典: ja.wikipedia.org「読売ジャイアンツの年度別成績一覧」。</div>
+  <div class="example"><span class="label">例</span>データ例（2）ホテルのアンケート（元資料 p.6）: 番号・部屋(A-D)・スタッフ(A-D)・食事(A-D)・アクセス(0/1)・総合評価(1-5)・自由記述の列を持つデータ（質的データと量的データが混在する例）。例: 番号1 部屋A スタッフA 食事A アクセス0 総合評価5 自由記述「快適でした」。</div>
+  <div class="example"><span class="label">例</span>データ例（3）試験の点数（5科目）（元資料 p.8）: English, Math, Science, History, Computerの100件のデータとその統計量（count, mean, std, min, 25%, 50%, 75%, max）。例: Englishのcount=100.000000, mean=76.070000, std=14.829846, min=51.000000, 25%=62.750000, 50%=76.500000, 75%=89.000000, max=99.000000。</div>
+  <div class="example"><span class="label">例</span>相関行列の例（元資料 p.14）: 試験の点数5科目の相関行列。例: English-Computer間の相関係数=0.233950、English-Science間=-0.119651、Science-History間=0.121821。</div>
+  <div class="example"><span class="label">例</span>データ例（4）Iris：花の寸法と品種（元資料 p.16）: Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, Speciesの列。例: 5.1, 3.5, 1.4, 0.2, setosa／4.9, 3.0, 1.4, 0.2, setosa。出典: Anderson, Edgar (1935). The irises of the Gaspe Peninsula, Bulletin of the American Iris Society, 59, 2–5.（Rより取得）</div>
+  <div class="example"><span class="label">例</span>Irisの相関行列（元資料 p.17）: SL, SW, PL, PWの4変数、計150件。例: PL-PW間の相関係数=0.962757（強い正の相関）、SW-PL間の相関係数=-0.420516（負の相関）。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>共分散と相関係数を混同しないこと。共分散$V_{xy} = \frac{1}{N}\sum_i (x_i - \bar{x})(y_i - \bar{y})$はデータの単位に依存する値であり、そのままでは異なる組み合わせのデータ間で相関の強さを比較できない。一方、相関係数$R_{xy} = \frac{1}{N}\sum_i \frac{x_i - \bar{x}}{S_x}\frac{y_i - \bar{y}}{S_y}$は標準化された値を用いるため単位に依存せず、-1から1の範囲で相関の強さ・向きを比較できる。</div>
+  <div class="pitfall"><span class="label">注意</span>記述統計と推測統計、および点推定と区間推定を混同しないこと。記述統計は対象の全てを用いて求める統計であるのに対し、推測統計は対象の一部（標本）から全体（母集団）を推測する統計である。推測統計のうち、母数をある1つの値で表すのが点推定、母数がある確率で含まれる範囲を推定するのが区間推定である。</div>
+</section>
+
+<section class="chapter" id="ch13">
+  <h2>第8回 データと分析（2）分析手法の例（回帰・機械学習・クラスタリング）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>回帰は（量的な）データの間の関係を推定する手法で、既存データからの分析（モデル化）と未知データの予測に用いられる。線形（$y = ax + b$）／非線形、単回帰（使用データが1つ）／重回帰（データが複数）に分類される。</li>
+    <li>線形単回帰では、予測値$\hat{y}_i$と観測値$y_i$の残差の二乗和$S$を最小にする傾き$a$と切片$b$を求める（最小二乗法）。残差は互いに独立で正規分布に従うとする。</li>
+    <li>機械学習は、多数のデータとそれぞれに対する「答え」（クラス）の組み合わせをもとに、未知データの答えを判定する処理を、何らかの枠組みとアルゴリズムによりデータから学習して実現すること。</li>
+    <li>教師あり学習（正解ラベルとデータのペアが事前に与えられる、決定木など）と教師なし学習（データのみが与えられる、クラスタリングなど）の2種類がある。</li>
+    <li>決定木は観測データに基づいて設問を設定し結果を予測する機械学習モデルで、結果が離散値の分類木と結果が連続値の回帰木がある。</li>
+    <li>決定木の構築は「オッカムの剃刀」（必要以上の仮説をおくべきではない）の考えに基づき、できるだけ設問数を少なくしたい。その方法の一つとして、分類後の結果の不確かさ（エントロピー）の重み付き平均が最も小さくなる属性を設問として選ぶ。</li>
+    <li>クラスタリング（クラスター分析）は、データのまとまり具合からデータをいくつかのクラスターに分類する教師なし学習の一つ。</li>
+    <li>クラスタリングの代表的手法にk平均法（クラスタ数kを事前に決め、重心からの距離による分類と重心の再計算を収束するまで繰り返す）と階層的クラスタリング（各データを独立クラスタとし、最も近い組を逐次併合してクラスタ数1になるまで繰り返す）がある。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>回帰</dt><dd>（量的な）データの間の関係を推定すること。既存のデータからの分析（モデル化）と未知のデータの予測に用いる。</dd>
+    <dt>単回帰</dt><dd>使用データが1つの回帰。</dd>
+    <dt>重回帰</dt><dd>使用データが複数の回帰。</dd>
+    <dt>最小二乗法</dt><dd>予測値$\hat{y}_i = ax_i + b$と観測値$y_i$の二乗残差の合計$S = \sum_i (\hat{y}_i - y_i)^2$を最小にする傾き$a$と切片$b$を求める方法。$a = \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{\sum_i (x_i - \bar{x})^2}$、$b = \bar{y} - a\bar{x}$。</dd>
+    <dt>機械学習</dt><dd>多数のデータとそれぞれに対する「答え」（クラス）の組み合わせをもとに、未知のデータの「答え」を判定する処理を、何らかの枠組みとアルゴリズムによりデータから学習して実現すること。</dd>
+    <dt>教師あり学習</dt><dd>正解ラベル（クラス）とデータのペアが事前に与えられている学習。決定木など。</dd>
+    <dt>教師なし学習</dt><dd>データのみしか与えられていない学習。クラスタリングなど。</dd>
+    <dt>決定木</dt><dd>観測されたデータに基づいて設問を設定し、それにより結果を予測する機械学習モデル。</dd>
+    <dt>分類木</dt><dd>決定木のうち、結果が離散値であるもの（例: 融資をする or しない）。</dd>
+    <dt>回帰木</dt><dd>決定木のうち、結果が連続値であるもの（例: 融資枠は1000万円）。</dd>
+    <dt>オッカムの剃刀</dt><dd>ある事柄を説明するときに必要以上の仮説をおくべきではないという考え方。決定木の構築でできるだけ設問数を少なくする根拠として用いられる。</dd>
+    <dt>エントロピー</dt><dd>結果の不確かさを表す指標。決定木の構築では、分類後のエントロピー（の重み付き平均）を減少させる設問を設定する（第5回 情報理論を参照）。</dd>
+    <dt>クラスタリング（クラスター分析）</dt><dd>データのまとまり具合から、そのデータをいくつかのかたまり（クラスター）に分類すること。教師なし学習の一つ。</dd>
+    <dt>k平均法</dt><dd>(0) クラスタ数(k)を事前に決めておく、(1) データの中からk個のデータを適当に決めこれを各クラスタの重心とする、(2) 残りのデータを重心からの距離が一番近いクラスタに分類する、(3) 分類したデータを用いて各クラスタの重心を再計算する、(4) 手順2・3を収束するまで繰り返す、というアルゴリズム。</dd>
+    <dt>階層的クラスタリング</dt><dd>(1) 各データをそれぞれ独立のクラスタとする（N個のデータがあればN個のクラスタが生成される）、(2) 全クラスタの任意の2つのクラスタの組について「近さ」を計算し、最も近い組を探す、(3) 最も近い組を併合してひとつのクラスタとする、(4) 手順2・3を最終的にクラスタ数が1個となるまで繰り返す、というアルゴリズム。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="線形単回帰の散布図と回帰直線">
+    <line x1="20" y1="180" x2="20" y2="20" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="20" y1="180" x2="300" y2="180" stroke="#4a6fa5" stroke-width="1"/>
+    <circle cx="45" cy="150" r="3" fill="#c0392b"/>
+    <circle cx="70" cy="165" r="3" fill="#c0392b"/>
+    <circle cx="95" cy="130" r="3" fill="#c0392b"/>
+    <circle cx="120" cy="110" r="3" fill="#c0392b"/>
+    <circle cx="145" cy="120" r="3" fill="#c0392b"/>
+    <circle cx="170" cy="90" r="3" fill="#c0392b"/>
+    <circle cx="195" cy="80" r="3" fill="#c0392b"/>
+    <circle cx="220" cy="60" r="3" fill="#c0392b"/>
+    <circle cx="245" cy="50" r="3" fill="#c0392b"/>
+    <circle cx="270" cy="35" r="3" fill="#c0392b"/>
+    <line x1="30" y1="160" x2="290" y2="40" stroke="#2e7d32" stroke-width="2.5"/>
+    <text x="160" y="196" text-anchor="middle" font-size="12" fill="#1f2d3d">回帰直線 $y = ax + b$（残差の二乗和を最小化）</text>
+  </svg>
+  <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="決定木の構造例（優良顧客の判定）">
+    <rect x="280" y="10" width="80" height="36" rx="4" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="320" y="33" text-anchor="middle" font-size="13" fill="#1f2d3d">Age?</text>
+    <line x1="300" y1="46" x2="110" y2="110" stroke="#4a6fa5" stroke-width="1.5"/>
+    <text x="180" y="75" text-anchor="middle" font-size="11" fill="#1f2d3d">youth</text>
+    <line x1="320" y1="46" x2="320" y2="110" stroke="#4a6fa5" stroke-width="1.5"/>
+    <text x="335" y="80" text-anchor="middle" font-size="11" fill="#1f2d3d">middle_aged</text>
+    <line x1="340" y1="46" x2="540" y2="110" stroke="#4a6fa5" stroke-width="1.5"/>
+    <text x="470" y="75" text-anchor="middle" font-size="11" fill="#1f2d3d">senior</text>
+    <rect x="70" y="110" width="80" height="36" rx="4" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="110" y="133" text-anchor="middle" font-size="12" fill="#1f2d3d">Student?</text>
+    <rect x="280" y="110" width="80" height="36" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="320" y="133" text-anchor="middle" font-size="12" fill="#1f2d3d">買う</text>
+    <rect x="500" y="110" width="90" height="36" rx="4" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="545" y="133" text-anchor="middle" font-size="11" fill="#1f2d3d">Credit_rating?</text>
+    <line x1="90" y1="146" x2="40" y2="200" stroke="#4a6fa5" stroke-width="1.5"/>
+    <text x="55" y="175" text-anchor="middle" font-size="11" fill="#1f2d3d">yes</text>
+    <line x1="130" y1="146" x2="190" y2="200" stroke="#4a6fa5" stroke-width="1.5"/>
+    <text x="175" y="175" text-anchor="middle" font-size="11" fill="#1f2d3d">no</text>
+    <rect x="10" y="200" width="80" height="36" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="50" y="223" text-anchor="middle" font-size="12" fill="#1f2d3d">買う</text>
+    <rect x="150" y="200" width="90" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+    <text x="195" y="223" text-anchor="middle" font-size="12" fill="#1f2d3d">買わない</text>
+    <line x1="520" y1="146" x2="460" y2="200" stroke="#4a6fa5" stroke-width="1.5"/>
+    <text x="470" y="175" text-anchor="middle" font-size="11" fill="#1f2d3d">fair</text>
+    <line x1="570" y1="146" x2="610" y2="200" stroke="#4a6fa5" stroke-width="1.5"/>
+    <text x="605" y="175" text-anchor="middle" font-size="11" fill="#1f2d3d">excellent</text>
+    <rect x="420" y="200" width="80" height="36" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="460" y="223" text-anchor="middle" font-size="12" fill="#1f2d3d">買う</text>
+    <rect x="560" y="200" width="90" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+    <text x="600" y="223" text-anchor="middle" font-size="12" fill="#1f2d3d">買わない</text>
+  </svg>
+  <p class="ref-note">機械学習の全体フロー図（学習データ＋クラスを前処理・特徴抽出を経て学習しモデルを得る流れ、元資料 p.23）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">決定木の構築過程の詳細な図（「Age?」→（youthの場合）「Student?」／（seniorの場合）「Credit_rating?」という分岐が段階的に構築される様子、元資料 p.25, p.30, p.32）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">k平均法のイメージ図（k=3の場合の初期分け→重心への再割り当て→重心再計算後の最終分割という3段階、元資料 p.38 上段）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">階層的クラスタリングのイメージ図（個別クラスタ→近い点同士の併合→さらなる併合という3段階、元資料 p.38 下段）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">クラスタリング適用例の散布図（Irisデータのpetal length・petal widthによる散布図に3つのクラスターが楕円で示された図、元資料 p.35）は元資料 p.○ の図を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>優良顧客の判定データ（元資料 p.26）: age（youth/middle_aged/senior）, income（high/medium/low）, student（yes/no）, credit_rating（fair/excellent）とクラス（buys_computer: yes/no）からなる14件のデータ（RID 1〜14）。出典: "Data Mining", Ian H. Witten & Eibe Frank, ELSEVIER, 2005, ISBN978-0-12-088407-0。</div>
+  <div class="example"><span class="label">例</span>決定木構築のエントロピー計算・第1階層（元資料 p.28）: 全データ14人（Yes 9/14、No 5/14）のエントロピー$-\frac{9}{14}\log\frac{9}{14} - \frac{5}{14}\log\frac{5}{14} = 0.94$。Age=youth（5人）: Yes 2/5, No 3/5, エントロピー0.97。Age=middle_aged（4人）: Yes 4/4, No 0/4, エントロピー0。Age=senior（5人）: Yes 3/5, No 2/5, エントロピー0.97。Income=high（4人）: エントロピー1。Income=medium（6人）: エントロピー0.92。Income=low（4人）: エントロピー0.81。Ageで分類後のエントロピーの重み付き平均: $\frac{5}{14}\times 0.97 + \frac{4}{14}\times 0 + \frac{5}{14}\times 0.97 = 0.69$。Incomeで分類後のエントロピーの重み付き平均: $\frac{4}{14}\times 1 + \frac{6}{14}\times 0.92 + \frac{4}{14}\times 0.81 = 0.91$。</div>
+  <div class="example"><span class="label">例</span>続き（元資料 p.29）: Student=Yes（7人）: エントロピー0.59。Student=No（7人）: エントロピー0.99。Credit_rating=excellent（6人）: エントロピー1。Credit_rating=fair（8人）: エントロピー0.81。Studentで分類後の重み付き平均: $\frac{7}{14}\times 0.59 + \frac{7}{14}\times 0.99 = 0.79$。Credit_ratingで分類後の重み付き平均: $\frac{6}{14}\times 1 + \frac{8}{14}\times 0.81 = 0.89$。結論: Ageで分類したときのエントロピー（0.69）が一番小さいため、最初の設問はAgeとなる。</div>
+  <div class="example"><span class="label">例</span>Age=youth（5人）のサブグループでのエントロピー計算（元資料 p.31）: Income=high（2人）: エントロピー0。Income=medium（2人）: エントロピー1。Income=low（1人）: エントロピー0。Student=Yes（2人）: エントロピー0。Student=No（3人）: エントロピー0。Credit_rating=excellent（2人）: エントロピー1。Credit_rating=fair（3人）: エントロピー0.92。結論: Studentで分類したときのエントロピーが最小。</div>
+  <div class="example"><span class="label">例</span>Age=senior（5人）のサブグループでのエントロピー計算（元資料 p.33）: Income=high（0人、該当なし）。Income=medium（3人）: エントロピー0.92。Income=low（2人）: エントロピー1。Student=Yes（3人）: エントロピー0.92。Student=No（2人）: エントロピー1。Credit_rating=excellent（2人）: エントロピー0。Credit_rating=fair（3人）: エントロピー0。結論: Credit_ratingで分類したときのエントロピーが最小。</div>
+  <div class="example"><span class="label">例</span>得られた決定木（元資料 p.34）: Age=youthの場合はStudent?で分岐（yes→買う、no→買わない）。Age=middle_agedの場合は無条件で「買う」。Age=seniorの場合はCredit_rating?で分岐（fair→買う、excellent→買わない）。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>k平均法と階層的クラスタリングを混同しないこと。k平均法はクラスタ数kを事前に決めておき、重心からの距離による分類と重心の再計算を収束するまで繰り返す手法である。一方、階層的クラスタリングはクラスタ数を事前に決めず、各データを独立クラスタとしたうえで最も近い組を逐次併合し、クラスタ数が1になるまで繰り返す手法である。</div>
+  <div class="pitfall"><span class="label">注意</span>分類木と回帰木を混同しないこと。どちらも決定木の一種だが、分類木は結果が離散値であるもの（例: 融資をする or しない）、回帰木は結果が連続値であるもの（例: 融資枠は1000万円）を指す。</div>
+</section>
+<section class="chapter" id="ch14">
+  <h2>第9回 人工知能（前編）―AIとは／AIの動作原理</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>「人工知能」という用語はダートマス会議（1956年）に由来し、論理的推論・言語理解・機械学習を含む。人間の知能には記憶・推論・計算・言語理解・認知・学習が含まれ、うち記憶・計算はコンピュータで容易だった。</li>
+    <li>AI(人工知能)の位置づけは2つ：人間の知能のコンピュータによる実現（例：物体認識、言語能力）と、知的な仕事のコンピュータによる実現（例：医療診断、自動翻訳）。</li>
+    <li>（現在の）AIができることは大きく4分類：認識（画像認識・音声認識・文章理解）、生成（文章・コード・画像・音声/音楽/動画の生成）、解析・予測（データ分析・予測、推論・提案、専門領域）、制御（自動運転・スマートホーム・産業ロボット等）。</li>
+    <li>AIが得意なこと：学習・記憶（特に大量データ）、パターン認識（画像・音声認識、言語処理）、言語能力（生成・翻訳・要約）、論理的思考（特定範囲内での数学的問題解決・データに基づく予測分析）。</li>
+    <li>AIが部分的にできること（創造性・問題解決・言語の文脈理解）と、AIが苦手・できないこと（真の感情体験と共感、倫理的・価値判断、微妙なニュアンス理解、深い常識的理解、長期的な自律的目標設定、身体的経験を通じた学習、自己意識や主観的体験）を区別する。</li>
+    <li>人工知能研究には3つのブームがある：第一次（1960年頃、ダートマス会議1956年、ヒューリスティックなアプローチ）、第二次（1980年代、エキスパートシステム、コネクショニズム）、第三次（2010年〜、深層学習→音声・画像認識、大規模言語モデル→生成AI）。</li>
+    <li>機械学習の本質は、明確なルールで推論できない関係を大量のデータから経験的に学習すること。昔のAIは人手で記述したルール・知識に基づく論理的推論（主に演繹）だったが、現代のAIは大規模データによる機械学習と推論(inference)を用いる。</li>
+    <li>統計モデルに基づく機械学習はデータの尤度が高くなるように全体の傾向（山）を捉えるが、出力が正しくなるように学習されておらず、構造や関係を把握できない限界がある。</li>
+    <li>ニューラルネットワークの深層学習は、入力と出力の写像を多次元・多段の関数でモデル化し、出力が正しくなるように学習する。学習アルゴリズムの進展とデータ・計算資源の大規模化により2010年頃からAIの主流になった。</li>
+    <li>大規模言語モデル(LLM)は非常に大規模なテキストで学習し、プロンプト（指示）に基づいて文章・画像等を生成する。指示に例を含めることで新たなタスクを学習する「コンテクスト内学習」や、RAG・thinkingとの組み合わせが可能。</li>
+    <li>モデルの学習には「学習データ量＞パラメータ数の2倍」が必要とされ、データが少ないと丸暗記（過学習・オーバーフィット）になる。GPT-3ではパラメータ数の対数スケールで性能が向上した。</li>
+    <li>ハルシネーションとは、AIが事実や入力に基づかずにありえない文章や画像を生成すること（幻覚症状）。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>ダートマス会議</dt><dd>1956年に開催され、「人工知能」という用語が生まれた会議。論理的推論・言語理解に加えて機械学習が議論された。</dd>
+    <dt>第一次人工知能ブーム</dt><dd>1960年頃。ダートマス会議（1956年）によるAIの問題設定と、ヒューリスティックなアプローチが中心。</dd>
+    <dt>第二次人工知能ブーム</dt><dd>1980年代。エキスパートシステムとコネクショニズムが中心。</dd>
+    <dt>第三次人工知能ブーム</dt><dd>2010年〜。深層学習による音声認識・画像認識、大規模言語モデルによる生成AIが中心。</dd>
+    <dt>認識タスク</dt><dd>数値ベクトルで表現された入力からカテゴリ・テキストを出力するタスク（例：文字認識、音声認識、画像認識、感情認識、等価・含意関係認識）。</dd>
+    <dt>生成タスク</dt><dd>カテゴリ・テキストの入力から数値ベクトルで表現される出力（音声・画像・音楽・動画）を生成するタスク。</dd>
+    <dt>大規模言語モデル(LLM)</dt><dd>非常に大規模なテキストで機械学習し、言語テキストを生成するAI。様々な言語処理タスク（要約・翻訳等）を実現する。</dd>
+    <dt>コンテクスト内学習</dt><dd>指示（プロンプト）に例を含めておくことで、モデルがその場で新たなタスクを学習すること。</dd>
+    <dt>ハルシネーション</dt><dd>AIが事実や入力に基づかないで、ありえない文章や画像を生成すること（幻覚症状）。別の情報源をつないで文章を生成したり、指が6本の人間の画像を生成したりする例がある。</dd>
+    <dt>過学習（オーバーフィット）</dt><dd>学習データが少ないと、データ（問題と解答）を丸暗記してしまい、一般性のある学習ができなくなる現象。</dd>
+    <dt>Retrieval-Augmented Generation (RAG)</dt><dd>関連文書を検索してプロンプトに追加することで、外部知識を利用する手法。</dd>
+    <dt>ニューラルネットワークの深層学習</dt><dd>入力と出力の写像を多次元・多段の関数でモデル化する手法。出力が正しくなるように学習し、深層にすることで構造や関係の把握も可能になる。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">認識タスク・生成タスク・解析予測タスク・制御タスクの一覧表（それぞれ「入力」列と「出力」列からなる対応表、元資料 p.9〜p.12）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">統計モデルの「山」の図（3次元の確率密度分布が複数の山を持つ図と、マルコフ連鎖的な図、元資料 p.25）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">ニューラルネットワークの層構造図（入力層から出力層にかけてノードが5層前後並び全結合された模式図、元資料 p.26）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">GPT-3の性能グラフ（横軸パラメータ数（対数スケール、0.1B〜175B）、縦軸Accuracy、Few Shot・One Shot・Zero Shotの3系列、出典："Language Models are Few-Shot Learners"、元資料 p.29）は元資料 p.○ の図を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>ダートマス会議：1956年。第一次AIブーム：1960年頃／第二次AIブーム：1980年代／第三次AIブーム：2010年〜。</div>
+  <div class="example"><span class="label">例</span>統計モデルの計算例：$p(大学|京都) = \dfrac{Count(京都+大学)}{Count(京都)}$、$p(京都+大学) = p(京都) \times p(大学|京都)$。</div>
+  <div class="example"><span class="label">例</span>言語モデルによる応答生成の例（元資料 p.14）：「たこ焼きの作り方：1. ボウルに小麦粉、卵、だし醤油を入れ、よく混ぜます。次に、…」という文書から、質問「たこ焼きの作り方を教えて下さい。」に対して同様の応答を生成する例。</div>
+  <div class="example"><span class="label">例</span>パラメータ数とデータ量の経験則：学習データ量＞パラメータ数の2倍が必要とされる。学習データが10倍になるとパラメータ数も10倍にできるが、10倍の計算能力（時間）が必要。</div>
+  <div class="example"><span class="label">例</span>学習データ量と性能のまとめ（元資料 p.30）：データ量 ∝ exp(時代)、計算能力 ∝ exp(時代)、パラメータ数 ∝ データ量、性能 ∝ log(パラメータ数)。これらから、性能 ∝ 時代、という大まかな関係が導かれる。GPT-3のパラメータ数の範囲：0.1B〜175B（billions）。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>演繹(deduction)と推論(inference)／機械学習を混同しないこと。演繹は人手で記述されたルールや知識を基に行う論理的推論で、昔のAIの手法であり例外や尤もらしさを考慮できない。一方、推論(inference)／機械学習は大規模なデータから明確なルールで推論できない関係を経験的に学習し推論を行う、現代のAIの手法である。</div>
+  <div class="pitfall"><span class="label">注意</span>統計モデルに基づく機械学習とニューラルネットワークの深層学習を混同しないこと。統計モデルはデータの尤度が高くなるように全体の傾向（山）を捉えるが出力が正しくなるように学習されておらず構造や関係を把握できない限界がある。深層学習は入力と出力の写像を多次元・多段の関数でモデル化し、出力が正しくなるように学習する点が異なる。</div>
+</section>
+
+<section class="chapter" id="ch15">
+  <h2>第10回 人工知能（後編）―AI利用の留意点</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>現時点で困難・できないこととして、人間のような音声対話（感情や空気を読む能力）、長い映像の理解・生成（長い文脈）、同時通訳（完全リアルタイムは人間でも困難）が挙げられる。</li>
+    <li>AIで代替される仕事は3分類（出典：内閣府「世界経済の潮流2024年」、Cazzaniga et al. [2024] IMF）：代替性が高い職業（事務的タスク中心、例：受付・事務員・プログラマー・編集者・税理士）、補完性が高い職業（事務的タスクが多いが意思決定の重要性が高い、例：医師・裁判官・教員）、AIの影響の小さい職業（物理的タスク中心、例：警察官・消防士・料理人・大工・配管工）。</li>
+    <li>一般ユーザ向けAIは、ナイーブなAIの出力を人間が評価し（Human Feedback）、適切さを判定する報酬モデルを学習した上で、そのスコアを加味してモデルを再学習する（強化学習）。「適切さ」の基準はHelpful（有用）・Honest（事実を歪曲・捏造しない）・Harmless（有害でない）の3つ。</li>
+    <li>LLMには3つの問題点がある：問題点1＝事実確認せず生成するため誤りやハルシネーションが生じ、確信度もわからない。問題点2＝主にネット上のデータで事前学習しているため新しい情報が反映されず、バイアスもあり、新たなアイデアが出にくい（無難な回答が多い）。問題点3＝入力情報が次のモデルの学習に使用される可能性があり、機密情報・個人情報の漏洩リスクがある。</li>
+    <li>倫理的・法的・社会的課題（ELSI）は、Ethical（倫理的、人間の尊厳や価値観への影響）、Legal（法的、法律・規制の違反やその不備）、Social（社会的、社会全体への影響や分断）の3領域が相互に関係し複数にまたがることが多い課題群（Issues）である。</li>
+    <li>AIの普遍的な倫理原則として、人間の尊重、公平性（⇔バイアス）、多様性・包摂性、プライバシーの尊重、透明性・説明可能性（アカウンタビリティ）、人間の関与・制御可能性、安全性・セキュリティが挙げられ、法規制にもつながる。</li>
+    <li>AIの倫理的問題として、誤情報・偽情報・捏造（Misinformation, Disinformation, Deepfakes）、バイアス（Bias、学習データの偏りの反映）、その他不適切な出力（性的コンテンツ、ヘイトスピーチ、NGワード）が挙げられる。</li>
+    <li>著作権等の法的課題：学習データの無断利用（日本の著作権法では広範に認められている）、生成されたテキストや画像の著作権・商標・肖像権の侵害リスク、AI生成コンテンツ自体の著作権（単純なプロンプトによるものは認められないが、創造性があれば認められる可能性）。</li>
+    <li>AIの社会的課題として、大規模な情報操作、仕事（雇用）の喪失、生成AIへの過度な依存（自発的思考・創造性の減退）、環境への負荷（大量の電力消費）、経済的格差・デジタルデバイドの増幅、文化的均質化（英語・西洋文化への偏重）が挙げられる。責任の所在の問題（自動運転車・医療事故・金融損失・犯罪利用等）は多くが係争中の論点である。</li>
+    <li>文部科学省「大学における生成AI利用の基本方針」(2023年)：学生の主体的な学びの補助・支援としての利活用（ブレインストーミング・論点洗い出し・情報収集・文章校正・翻訳・プログラミング補助等）を想定。出力をそのまま用いることは一般に不適切、利活用した種類・箇所等を明記、技術的限界や機密情報・個人情報の流出リスク、著作権への留意が必要。</li>
+    <li>語学やプログラミングの基礎能力を養う場面でAIに全面依存すると能力が修得できない（算数の宿題で最初から電卓を使うのと同じ）。プライバシーに関しては入力情報が学習に使われる可能性があるため契約条件を確認し個人情報・機密情報を入力しない。AIを使わない選択肢はほぼないが、AIを見極めて使いこなすことが重要である。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>Helpful／Honest／Harmless</dt><dd>人間のフィードバックによる強化学習における「適切さ」の3基準。Helpfulはタスクを解くのに有用であること、Honest(truthful)は事実を歪曲・捏造しないこと、Harmless(non-toxic)はユーザや社会に有害でないことを指す。</dd>
+    <dt>人間のフィードバックによる強化学習</dt><dd>ナイーブなAIが出力する応答を人間が評価し(Human Feedback)、応答が適切か否かを判定する報酬モデルを学習した上で、その評価スコアも加味してモデルを再学習する手法。</dd>
+    <dt>ELSI</dt><dd>Ethical（倫理的）・Legal（法的）・Social（社会的）・Issues（課題）の頭文字を取った、AIがもたらす複合的な課題の枠組み。</dd>
+    <dt>Misinformation（誤情報）／Disinformation（偽情報）</dt><dd>Misinformationは事実でない情報や存在しない内容（ハルシネーションを含む）、Disinformationは意図的に生成された誤報・虚報を指す（例：災害時や選挙におけるデマ）。</dd>
+    <dt>ディープフェイク(Deepfakes)</dt><dd>画像や音声の偽造・捏造を容易に行う技術。著名人のなりすまし、性的画像の生成、俳優・声優・キャラクタの権利侵害などに悪用されるリスクがある。技術的対応（自動検出、電子透かし＝Watermarking）にはいずれも限界がある。</dd>
+    <dt>バイアス(Bias)</dt><dd>学習データにおける性別や人種などの偏りをAIが反映してしまう現象。保護属性（人物評価に使用すべきでない属性、例：性別・人種など）の扱いが課題となり、学習データやアルゴリズムを検討しても本質的な限界がある。</dd>
+    <dt>オリジネータープロファイル</dt><dd>第三者機関が発信者の信頼性を保証する、誤情報・偽情報対策としての技術的・社会的な仕組み。</dd>
+    <dt>保護属性</dt><dd>人物評価に使用すべきでない属性（例：性別、人種など）。</dd>
+    <dt>バイブコーディング</dt><dd>AIに指示を出すことによりプログラム作成を効率化する手法。ただし、プログラムの元となるアルゴリズムや手順の設計、生成されたプログラムが正しいかの検証は人間の仕事として残る。</dd>
+    <dt>ファインチューニング</dt><dd>文章生成、質問応答、ブレインストーミング、雑談、リライト、要約、翻訳などの使用事例を収集し、それに基づいてモデルを調整すること。</dd>
+    <dt>プライバシー</dt><dd>「私生活をみだりに公開されない権利」から「自己の情報をコントロールする権利」へと概念が拡張されてきている。</dd>
+    <dt>Tay事件</dt><dd>マイクロソフトのチャットボットTay（2016年）が、ユーザのヘイトスピーチ入力に影響（追加学習）され差別的発言を繰り返したため、サービスを即日停止した事件。バイアス・不適切出力のリスクを示す例。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">ELSIの循環図（Ethics・Legal・Socialの3領域が円環状に重なり合い、中央にAIを配置した概念図、元資料 p.41）は元資料 p.○ の図を参照</p>
+  <p class="ref-note">有名人のジェミノイドの写真（元資料 p.50）は元資料 p.○ の図を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>Tay事件：マイクロソフトのチャットボットTay（2016年）。ユーザのヘイトスピーチ入力に影響（追加学習）され、差別的発言を繰り返したため、サービスを即日停止した。</div>
+  <div class="example"><span class="label">例</span>COMPASS：黒人は犯罪のリスクが高いと判定するバイアスが指摘された、米国の再犯予測システムの例。</div>
+  <div class="example"><span class="label">例</span>ジェンダーバイアスの例：医師は男性(he)、看護師は女性(she)という学習データの偏りの反映例。</div>
+  <div class="example"><span class="label">例</span>AI美空ひばり：歌声を学習・再現した事例。「故人の冒とく」という批判がある一方、「本人も望んでいたら？」という論点も提示されている。</div>
+  <div class="example"><span class="label">例</span>プライバシーに関する留意点の例（元資料 p.64）：「Your 京都大学 chats aren't used to improve our models.」という京都大学向けAIサービスの契約条件表示。</div>
+  <div class="example"><span class="label">例</span>文部科学省の基本方針が示す利活用場面の例：ブレインストーミング、論点の洗い出し、情報収集、文章校正、翻訳やプログラミングの補助。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>Misinformation（誤情報）とDisinformation（偽情報）を混同しないこと。Misinformationは事実でない情報や存在しない内容（ハルシネーションを含む、意図の有無を問わない）を指すのに対し、Disinformationは意図的に生成された誤報・虚報（例：災害時や選挙におけるデマ）を指す。</div>
+  <div class="pitfall"><span class="label">注意</span>LLMの問題点1〜3を混同しないこと。問題点1は事実確認せず生成することによる誤り・ハルシネーション、問題点2は事前学習データの偏りにより新しい情報が反映されずバイアスがあり無難な回答になりがちなこと、問題点3は入力情報が次のモデルの学習に使われる可能性による機密情報・個人情報の漏洩リスクであり、それぞれ異なる原因・リスクを指す。</div>
+</section>
+<section class="chapter" id="ch16">
+  <h2>第11回・第12回 文書作成（Word）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>オフィスアプリは少なくとも文書作成・表計算・プレゼンテーションの3つが一般的である。有料はMicrosoft Office（Word・Excel・PowerPoint）、無料はLibreOfficeなど、オンラインサービスとしてMicrosoft 365やGoogle Workspaceがある。</li>
+    <li>編集の基本ショートカット（Windows）：Ctrl+C（コピー）、Ctrl+X（切り取り）、Ctrl+V（ペースト）、Ctrl+Z（アンドゥ）、Ctrl+Y（リドゥ、アンドゥの取り消し）。Macの場合はCtrlの代わりにCommandキーを用いる。</li>
+    <li>文書の構造化とは、文章を章・節などの階層的な単位にまとめ、内容に基づく見出しや通し番号を付けることであり、「表示」→「アウトライン」で編集できる。</li>
+    <li>スタイル機能で表題・副題などの字体や大きさをまとめて設定できる（「ホーム」タブの「スタイル」）。</li>
+    <li>表紙は「挿入」→「表紙」、または表題・副題の下で「挿入」→「ページ区切り」を実行して自分で調整する方法がある。</li>
+    <li>ページ番号は「挿入」→「ページ番号」、目次は「参考資料」→「目次」→「自動作成の目次」で作成し、文書編集後は「目次の更新」を行う。</li>
+    <li>図表番号は図・表を選択して「参考資料」→「図表番号の挿入」で付け、参照は「参考資料」→「相互参照」で行う。参照番号は右クリック→「フィールド更新」をしないと更新されない。</li>
+    <li>引用文献は「参考資料」→「引用文献の挿入」→「新しい文献資料の追加」で登録し、「姓」と「名」の間に半角カンマを入れる。文献一覧は「参考資料」→「文献目録」→「文献目録の挿入」で作成する。</li>
+    <li>PDFはAdobe社が開発した、印刷イメージで（印刷に必要な文書以外のデータも全て含めて）文書を保存できる形式で、Wordなどから変換して作成する。PDFにしてからの編集は想定されておらず、編集はもとのアプリで行う。</li>
+    <li>WordはWYSIWYG（What You See Is What You Get）型の文書作成ソフトで、画面上の表示と印刷結果が同じになる。WYSIWYGでない文書作成としてLaTeXがあり、文章の装飾を「命令」で行い、論文・書籍のための機能（図表・数式・参考文献など）が充実している。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>WYSIWYG</dt><dd>What You See Is What You Getの略。画面上に表示されるものと印刷結果が同じであるような文書作成の方式。Wordはこの型にあたる。</dd>
+    <dt>LaTeX</dt><dd>WYSIWYGでない文書作成ソフト。文章の装飾などを「命令」を書いて行う。論文や書籍のための機能（図表や数式、参考文献など）が充実している。</dd>
+    <dt>PDF（Portable Document Format）</dt><dd>Adobe社が開発した、印刷イメージで文書を保存できる形式。たいていのPCやスマートフォンで読めるため、文書の提出・公開に一般的に用いられる。</dd>
+    <dt>アウトライン</dt><dd>文章をまとまりごとに分ける「構造化」を行うための表示・編集モード。見出しのレベルを設定して章・節の階層を作る。</dd>
+    <dt>スタイル</dt><dd>字体や大きさなどをまとめて設定する機能。表題・副題などに適用する。</dd>
+    <dt>図表番号</dt><dd>図または表を選択し「参考資料」→「図表番号の挿入」で挿入するキャプション用の番号。</dd>
+    <dt>相互参照</dt><dd>「参考資料」→「相互参照」で図・表・数式・章などの番号を文中で参照する機能。参照後は右クリック→「フィールド更新」で最新化する必要がある。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">Wordの画面操作（余白設定、ページ設定、アウトライン画面、スタイル選択、図表番号設定など）は実際のソフトウェアのスクリーンショットのため、元資料 p.6, p.7, p.9-14, p.16-20 の図を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>数式番号の付け方：数式を入力後、末尾に「#」を入力し、その後ろにカーソルがある状態で「参考資料」→「図表番号の挿入」を実行する。設定画面で「ラベル」を「数式」に設定し、「ラベルを図表番号から除外する」をチェックする。番号が入った後、括弧などを追加してEnterを押すと「#」がスペースに置き換えられて完成する。</div>
+  <div class="example"><span class="label">例</span>引用文献登録時、「姓」と「名」の間に半角カンマ「,」を入れること。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>WYSIWYG（Word）とLaTeXを混同しないこと。WYSIWYGは画面上の表示と印刷結果が同じになる方式であるのに対し、LaTeXはWYSIWYGでない方式で、文章の装飾を「命令」によって指定し、論文・書籍向けの機能（図表・数式・参考文献の管理など）が充実している点が異なる。</div>
+  <div class="pitfall"><span class="label">注意</span>相互参照は、参照元の番号を「参考資料」→「相互参照」で挿入しただけでは自動的に最新化されない。図表番号などを後から追加・変更した場合は、右クリック→「フィールド更新」を行わないと文中の参照番号が古いままになる点に注意する。</div>
+</section>
+
+<section class="chapter" id="ch17">
+  <h2>第11回・第12回 表計算（Excel）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>表計算ソフトはもともと事務計算のために開発された。歴史：1979年 VisiCalc、1983年 Lotus 1-2-3、1985年 Excel。</li>
+    <li>主な機能は、集計・計算、グラフ作成、（簡単な）データベース機能である。</li>
+    <li>セル（例：A1）は列番号（A, B, …Z, AA, AB, …）と行番号（1, 2, …）を用いて場所を指定する。1つのファイルに複数の表（シート）を持つことができる。</li>
+    <li>数式は「=」で始め、列番号と行番号でセルを指定する。</li>
+    <li>関数の例：SUM(範囲)＝範囲内の数値の合計を計算、AVERAGE(範囲)＝平均を計算、COUNT(範囲)＝データの個数を計算、STDEVP(範囲)＝標準偏差（平均との差の二乗和／データ個数）、STDEV(範囲)＝標準偏差（平均との差の二乗和／(データ個数-1)）。</li>
+    <li>数式をコピーすると、参照しているセルは自動的にずれて変更される（相対参照）。セル番地の行または列の前に「$」を付ける（例：E$8）と、コピーしてもその部分は自動的に変更されない（絶対参照）。</li>
+    <li>COUNTIF関数：指定した条件を満たすデータの個数を数える。条件の記入例：<code>&gt;=15</code>（15以上）、<code>&lt;20</code>（20未満）、<code>&lt;&gt;20</code>（20ではない）、<code>20</code>（20と等しい）。</li>
+    <li>グラフ作成：データ範囲をドラッグして選択し、グラフ作成ボタンをクリックする。グラフツールで軸ラベル等を設定する。</li>
+    <li>統計関数：AVERAGE(範囲)＝範囲内の値の平均を計算、MEDIAN(範囲)＝範囲内の値の中央値を計算。</li>
+    <li>CORREL(範囲1,範囲2)＝範囲1と範囲2の値の相関を計算する関数。相関は-1～1の値をとり、正の値は正の相関（片方の値が大きいともう片方の値も大きくなる傾向）、負の値は負の相関（片方の値が大きいともう片方の値が小さくなる傾向）。範囲1と範囲2で指定する値の数が異なるとエラーになる。</li>
+    <li>回帰直線（y = a + bx。xは説明変数、yは従属変数）に関する関数：SLOPE(yのデータ範囲,xのデータ範囲)＝傾き、INTERCEPT(yのデータ範囲,xのデータ範囲)＝y切片、STEYX(yのデータ範囲,xのデータ範囲)＝標準誤差。</li>
+    <li>散布図に回帰直線（近似曲線）を追加するには、グラフツールの「デザイン」→「グラフ要素を追加」→「近似曲線」→「線形」を選択する。追加した直線を右クリック→「近似曲線の書式設定」から回帰の数式やR²値を追加できる。</li>
+    <li>AVERAGEIF関数：条件範囲内で指定値と同じ値を探し、対応する範囲内の同じ行のものの平均を計算する。同様の関数にSUMIFがある。</li>
+    <li>検定：帰無仮説（平均に有意な差はない＝標本平均に差が生じたのはたまたま）と対立仮説（平均に有意な差がある）を立てて判断する。</li>
+    <li>TTEST(範囲1,範囲2,モード,種類)＝範囲1の平均値と範囲2の平均値に有意な差がない確率を計算する関数。モードは1（片側検定：平均値が大きい/小さいかを調べたい場合）または2（両側検定：大小を問わず差があるかを調べる場合）。種類は1（対をなすデータ）、2（2つのデータの分散が同じ）、3（2つのデータの分散が異なる）から選択する。</li>
+    <li>TTESTの値が有意水準（1%、5%あたりがよく用いられる）より小さければ、帰無仮説が棄却される。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>セル</dt><dd>列番号（A, B, …Z, AA, AB, …）と行番号（1, 2, …）を用いて場所を指定する、表計算の入力単位。</dd>
+    <dt>シート</dt><dd>1つのファイルに複数持つことができる個々の表。</dd>
+    <dt>相対参照</dt><dd>数式をコピーすると自動的にずれて変更されるセル参照の方式（デフォルトの参照方式）。</dd>
+    <dt>絶対参照</dt><dd>セル番地の行または列の番号の前に「$」を付ける（例：E$8）ことで、数式をコピーしてもその部分が自動的に変更されないようにする参照方式。</dd>
+    <dt>SUM(範囲)</dt><dd>「範囲」内の数値の合計を計算する関数。</dd>
+    <dt>AVERAGE(範囲)</dt><dd>範囲内の値の平均を計算する関数。</dd>
+    <dt>COUNT(範囲)</dt><dd>データの個数を計算する関数。</dd>
+    <dt>STDEVP(範囲)</dt><dd>標準偏差を計算する関数（平均との差の二乗和／データ個数）。</dd>
+    <dt>STDEV(範囲)</dt><dd>標準偏差を計算する関数（平均との差の二乗和／(データ個数-1)）。</dd>
+    <dt>COUNTIF</dt><dd>指定した条件を満たすデータの個数を数える関数。</dd>
+    <dt>MEDIAN(範囲)</dt><dd>範囲内の値の中央値を計算する関数。</dd>
+    <dt>CORREL(範囲1,範囲2)</dt><dd>範囲1と範囲2の値の相関を計算する関数。-1～1の値をとり、正の値は正の相関、負の値は負の相関を示す。範囲1と範囲2で指定する値の数が異なるとエラーが発生する。</dd>
+    <dt>回帰直線</dt><dd>説明変数xと従属変数yとの関係を y = a + bx の形で表現したもの。</dd>
+    <dt>SLOPE(yのデータ範囲,xのデータ範囲)</dt><dd>回帰直線の傾きを計算する関数。</dd>
+    <dt>INTERCEPT(yのデータ範囲,xのデータ範囲)</dt><dd>回帰直線のy切片の値を計算する関数。</dd>
+    <dt>STEYX(yのデータ範囲,xのデータ範囲)</dt><dd>回帰直線の標準誤差を計算する関数。</dd>
+    <dt>AVERAGEIF関数</dt><dd>条件範囲内で条件と同じ値のものを探し、対応する範囲内の同じ行のものの平均を計算する関数。</dd>
+    <dt>帰無仮説</dt><dd>標本平均に差が生じたのはたまたまであるとする仮説（例：平均に有意な差はない）。</dd>
+    <dt>対立仮説</dt><dd>平均に有意な差があるとする仮説。</dd>
+    <dt>TTEST(範囲1,範囲2,モード,種類)</dt><dd>範囲1の平均値と範囲2の平均値に有意な差がない確率を計算する関数。モードは1（片側検定）または2（両側検定）、種類は1（対をなすデータ）、2（分散が同じ）、3（分散が異なる）のいずれかを選択する。</dd>
+    <dt>有意水準</dt><dd>帰無仮説を棄却するかどうかの基準となる確率。1%、5%あたりがよく用いられる。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <svg viewBox="0 0 420 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="セルの位置指定（列番号と行番号の交点でセルを指定する様子）">
+    <text x="20" y="18" font-size="12" fill="#1f2d3d">列番号 →</text>
+    <text x="20" y="185" font-size="12" fill="#1f2d3d">行番号 ↓</text>
+    <g font-size="12" fill="#1f2d3d" text-anchor="middle">
+      <text x="90" y="35">A</text>
+      <text x="150" y="35">B</text>
+      <text x="210" y="35">C</text>
+      <text x="270" y="35">D</text>
+    </g>
+    <g font-size="12" fill="#1f2d3d" text-anchor="middle">
+      <text x="55" y="60">1</text>
+      <text x="55" y="90">2</text>
+      <text x="55" y="120">3</text>
+      <text x="55" y="150">4</text>
+    </g>
+    <rect x="70" y="45" width="240" height="120" fill="none" stroke="#4a6fa5" stroke-width="1.5"/>
+    <line x1="130" y1="45" x2="130" y2="165" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="190" y1="45" x2="190" y2="165" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="250" y1="45" x2="250" y2="165" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="70" y1="75" x2="310" y2="75" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="70" y1="105" x2="310" y2="105" stroke="#4a6fa5" stroke-width="1"/>
+    <line x1="70" y1="135" x2="310" y2="135" stroke="#4a6fa5" stroke-width="1"/>
+    <rect x="70" y="45" width="60" height="30" fill="#eef3fb" stroke="#c0392b" stroke-width="2"/>
+    <text x="100" y="65" font-size="12" fill="#c0392b" text-anchor="middle">A1</text>
+    <g font-size="11" fill="#1f2d3d">
+      <rect x="70" y="180" width="60" height="22" fill="#eef3fb" stroke="#4a6fa5"/>
+      <text x="100" y="195" text-anchor="middle">Sheet1</text>
+      <rect x="132" y="180" width="60" height="22" fill="#fff" stroke="#4a6fa5"/>
+      <text x="162" y="195" text-anchor="middle">Sheet2</text>
+      <rect x="194" y="180" width="60" height="22" fill="#fff" stroke="#4a6fa5"/>
+      <text x="224" y="195" text-anchor="middle">Sheet3</text>
+    </g>
+  </svg>
+  <p class="ref-note">セルの位置指定（列番号A, B, …と行番号1, 2, …の交点でセルを指定し、1つのファイルに複数のシートを持つ様子）は元資料 p.26 の図を参照</p>
+  <p class="ref-note">数式コピーによる相対参照・絶対参照の図（E2セルの数式「=B2+C2+D2」を右下の■をドラッグしてE6までコピーすると参照セルが自動的にずれる例、F2セルの絶対参照$の例）は元資料 p.33-35 の図を参照</p>
+  <p class="ref-note">散布図と回帰直線（近似曲線）の追加は元資料 p.45-46 の図を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>数式コピーの例：E2セルに<code>=B2+C2+D2</code>と書かれていた数式を、セル右下の■をドラッグしてE6まで移動すると、自動的に参照しているセルが変更される（相対参照）。</div>
+  <div class="example"><span class="label">例</span>絶対参照の例：「E8」の部分を<code>E$8</code>と書くと、数式をコピーしてもE$8の部分は自動的に変更されない。</div>
+  <div class="example"><span class="label">例</span>COUNTIF関数の条件記入例：<code>&gt;=15</code>（15以上）、<code>&lt;20</code>（20未満）、<code>&lt;&gt;20</code>（20ではない）、<code>20</code>（20と等しい）。</div>
+  <div class="example"><span class="label">例</span>CORREL関数の使用例：英語の点数と数学の点数との相関が<code>=CORREL(英語の範囲,数学の範囲)</code>で0.92（強い正の相関）。英語の点数と身長との相関が-0.05（ほとんど相関がない）。</div>
+  <div class="example"><span class="label">例</span>SLOPE・INTERCEPTを用いた回帰の使用例：$英語 = 0.88 \times 数学 + 13.69$ という回帰式が得られた。この式で英語の点数が正確に求まるとは限らず、STEYXで求まる標準誤差は平均で7.95点である。</div>
+  <div class="example"><span class="label">例</span>TTEST関数の使用例：<code>=TTEST(範囲1,範囲2,2,3)</code>のように指定すると、両側検定（モード2）かつ2つのデータの分散が異なる場合（種類3）として、範囲1と範囲2の平均値に有意な差がない確率を計算できる。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>相対参照と絶対参照を混同しないこと。数式をコピーすると通常セル参照は自動的にずれる（相対参照）が、行や列の番号の前に「$」を付けると（例：E$8）、コピーしてもその部分は固定され変更されない（絶対参照）。</div>
+  <div class="pitfall"><span class="label">注意</span>STDEVとSTDEVPを混同しないこと。STDEVP(範囲)は平均との差の二乗和をデータ個数で割って標準偏差を求めるのに対し、STDEV(範囲)は平均との差の二乗和を(データ個数-1)で割って求める点が異なる。</div>
+</section>
+
+<section class="chapter" id="ch18">
+  <h2>第11回・第12回 プレゼンテーション（PowerPoint）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>スライドのサイズは「デザイン」→「スライドのサイズ」で目的に応じて16:9や4:3、A4などに設定する。スライド作成後にサイズを変えると図形などのサイズ調整が必要になる。</li>
+    <li>テーマは「デザイン」→「テーマ」で選択し、配色・フォント・効果をまとめて設定する。</li>
+    <li>フッター（スライド下部の固定された文字列）は「挿入」→「ヘッダーとフッター」→「スライド」で「スライド番号」や「フッター」を設定する。</li>
+    <li>画面配置の目安として、「表示」→「表示」からルーラー（上に定規を表示）、グリッド線（格子模様を表示）、ガイド（配置用の補助線を表示）を出せる。白黒（グレースケール）表示（「表示」→「カラー/グレースケール」）は白黒印刷時の参考になる。</li>
+    <li>白紙のスライドの挿入は「ホーム」→「新しいスライド」。挿入後「レイアウト」から種類を変更できる。</li>
+    <li>箇条書きのレベル操作：行頭でTabキー（レベルを1つ深くする）、Shift+Tabキー（レベルを1つ浅くする）、Backspaceキー（箇条書き記号を消す）。</li>
+    <li>「表示」メニューの「アウトライン表示」で、スライドのタイトルと箇条書きをまとめて確認・編集できる（Tab・Shift+Tabでレベルの上げ下げも可能で、行頭でなくてもよい）。</li>
+    <li>箇条書きの記号や番号（段落番号）は「ホーム」から変更できる。それ以外の文字にする場合は「箇条書きと段落番号」から設定する。</li>
+    <li>図形は「ホーム」→「図形描画」から挿入する。図形には前後の順があり、位置が重なると前のものが表示される（「ホーム」→「配置」で順序変更）。「ホーム」→「配置」→「配置」で複数の図形を縦・横に一列に整列できる。</li>
+    <li>図の挿入は「挿入」→「画像」（Wordと同様）。オンライン画像として、Officeが用意する「ストック画像」と、インターネット上の「Web検索」の画像を挿入できるが、画像ごとに権利・利用条件が異なるので注意する。</li>
+    <li>SmartArtは、いろいろな説明をグラフィカルに表現できる図で、「挿入」→「SmartArt」から選択して挿入し、レイアウト・スタイル・色を変更できる。</li>
+    <li>表の挿入は「挿入」→「表」で行・列数を指定する。Excelのシートとして挿入することもでき、Excelで範囲をコピーしてPowerPointに「埋め込み」で貼り付けると、その部分だけExcelとして扱える（ダブルクリックで起動）。</li>
+    <li>グラフの挿入は「挿入」→「図」→「グラフ」でグラフの種類を選択すると、Excelが起動してデータを入力する形になる。別のExcelファイルのグラフをコピーして貼り付けることもできる。</li>
+    <li>数式の挿入は「挿入」→「数式」で、やり方はWordと同じ。映像は白紙のスライドのアイコンまたは「挿入」→「ビデオ」、音声は「挿入」→「オーディオ」から挿入できるが、ファイルサイズが大きくなるので注意する。</li>
+    <li>アニメーションは「アニメーション」→「アニメーション」から開始・強調・終了の効果を設定できる。タイミングはクリック時・直前の動作と同時・直前の動作の後から選べ、複数のアニメーションを同時に実行することもできる。「やりすぎないように」との注意がある。</li>
+    <li>ノートはスライド下の欄に、スライドのメモや発表時の台詞などを書いておくもの（「表示」→「ノート」で確認、印刷も可能）。配付資料はスライドを印刷して配布するためのレイアウトで、用紙1枚あたり1～9枚のスライドが縮小して入る。</li>
+    <li>スライドショーの開始は、最初から（F5キー）、現在のスライドから（Shift+F5キー）。発表者ツール（複数モニターが必要）は手元の画面に前後のスライドや時間、ノートを表示できる。リハーサル機能は時間を計測してくれる。</li>
+    <li>作成時の一般的な注意事項：文字を小さくしすぎない（20ポイントが目安）、スライド1枚に詰め込みすぎない、色やフォントを使いすぎない、配色に注意する（色の再現性の低い機器では見にくくなる場合がある、赤と緑など人により区別しにくい色がある）、TPOに応じたデザインにする。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>テーマ</dt><dd>「デザイン」→「テーマ」で選択する、配色・フォント・効果をまとめて設定する仕組み。</dd>
+    <dt>フッター</dt><dd>スライド下部に表示される固定された文字列。「挿入」→「ヘッダーとフッター」→「スライド」でスライド番号やフッターの文字を設定する。</dd>
+    <dt>SmartArt</dt><dd>いろいろな説明をグラフィカルに表現できる図。「挿入」→「SmartArt」から選択して挿入し、レイアウト・スタイル・色を変更できる。</dd>
+    <dt>発表者ツール</dt><dd>複数のモニターが必要な機能で、手元の画面に前後のスライドや時間、ノートを表示できる。</dd>
+    <dt>配付資料</dt><dd>スライドを印刷して配布するためのレイアウト。用紙1枚あたり1～9枚のスライドが縮小して入る。</dd>
+    <dt>ノート</dt><dd>スライド下の欄に、スライドのメモや発表時の台詞などを書いておくもの。「表示」→「ノート」で確認でき、印刷も可能。</dd>
+    <dt>リハーサル機能</dt><dd>スライドショーの時間を計測してくれる機能。</dd>
+    <dt>ルーラー・グリッド線・ガイド</dt><dd>「表示」→「表示」から表示できる画面配置の目安。ルーラーは上に定規を表示、グリッド線は格子模様を表示、ガイドは配置用の補助線を表示する。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">スライドサイズ設定、テーマ設定、アウトライン表示、図形の配置、SmartArt、表・グラフの挿入画面などは実際のソフトウェアのスクリーンショットのため、元資料 p.53-62, p.64-67 の図を参照</p>
+  <p class="ref-note">グラフ挿入の例として、系列1・系列2・系列3を分類1～分類4について表す棒グラフが示されている（元資料 p.63）</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>スライドショー開始のショートカット：F5キー（最初から）、Shift+F5キー（現在のスライドから）。</div>
+  <div class="example"><span class="label">例</span>数式挿入の例（「挿入」→「数式」、Wordと同じやり方で入力）：指数関数のべき級数展開 $e^x = 1 + x + \dfrac{x^2}{2!} + \dfrac{x^3}{3!} + \cdots,\ -\infty &lt; x &lt; \infty$ が例示されている。</div>
+  <div class="example"><span class="label">例</span>文字サイズの目安：20ポイント。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>スライドショー開始のF5キー（最初から開始）とShift+F5キー（現在のスライドから開始）を混同しないこと。</div>
+  <div class="pitfall"><span class="label">注意</span>表の挿入方法を混同しないこと。「挿入」→「表」で行・列数を指定する通常の表と異なり、Excelで範囲をコピーして「埋め込み」で貼り付けた表は、その部分だけExcelとして扱われ、ダブルクリックするとExcelが起動して編集できる。</div>
+</section>
+<section class="chapter" id="ch19">
+  <h2>第13回 ネットワークと暗号・情報セキュリティ（1）インターネットの通信のしくみ</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>インターネットは小規模なネットワーク（LAN）を相互接続した集合体であり、ルータ（ゲートウェイ）に「道案内」されたデータ（パケット）がネットワーク間を行き来して通信を行う。</li>
+    <li>通信の相手とデータをやりとりするための手順の取り決めを「プロトコル」といい、IP・TCP・UDP・HTTP・IMAPなど通信のレベルや種類ごとに様々あり、階層的に積み重なって使われる。</li>
+    <li>IPアドレスは32ビット（0/1が32桁）の数値で、8ビットずつ4つに区切って10進数（0～255）で表す習慣となっている（例：130.54.78.101）。上位のビットがネットワークを、残りのビットがネットワーク内の機器を表す。</li>
+    <li>IPアドレスには2つのバージョン（v4・v6）があり、まだIPv4が主流でv6も普及しつつある。</li>
+    <li>コンピュータは同時に複数の通信を行うため、通信先はIPアドレスとポート番号の組み合わせで決まる。主要なプロトコルはポート番号が世界標準としてあらかじめ決められている。</li>
+    <li>IPアドレスは覚えにくいためホスト名（コンピュータの名前）・ドメイン名（ネットワークの名前）が付けられ、名前は右側から階層的に構成される（トップレベルドメイン→セカンドレベルドメイン…）。</li>
+    <li>DNS（Domain Name System）は名前をIPアドレスに変換する仕組みで、DNSサーバが受け持ち範囲（ドメイン）について名前とIPアドレスの対応表を持ち問い合わせに答える（逆にIPアドレスから名前を調べることもできる）。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>プロトコル</dt><dd>通信の相手を定めてデータをやりとりするために、その手順をお互いに取り決めたもの。</dd>
+    <dt>IPアドレス</dt><dd>コンピュータや機器にそれぞれ付けられる固有の番号。インターネット（Internet Protocol）上の相手を同定して通信を行うために使う。32ビットで表される。</dd>
+    <dt>ポート番号</dt><dd>コンピュータが同時に行う複数の通信のうち、どの通信のデータかを識別するための番号。通信先はIPアドレスとポート番号で決まる。</dd>
+    <dt>ホスト名</dt><dd>コンピュータの名前。</dd>
+    <dt>ドメイン名</dt><dd>ネットワークの名前。</dd>
+    <dt>トップレベルドメイン（TLD）</dt><dd>ドメイン名の最上位部分。ccTLD（国や地域：.jp, .uk, .fr など）とgTLD（全世界向け：.com, .org, .net など）がある。</dd>
+    <dt>DNS（Domain Name System）</dt><dd>名前からIPアドレスを調べる（あるいはその逆を行う）仕組み。</dd>
+    <dt>ルータ（ゲートウェイ）</dt><dd>パケットを宛先のIPアドレスに基づいて相手のネットワークへ道案内する機器。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">インターネット概念図（複数のLANがルータで相互接続され、パケットがルータ間を行き来する様子）、ネットワークの例（130.54.78.0/24と10.0.0.0/8がルータで相互接続される図）、プロトコルの階層図（最下段IP、その上にTCP/UDP、さらにその上にHTTP/IMAP）、IPアドレスの2進数・10進数対応表、DNSの問い合わせの流れの図は元資料 p.4, p.5, p.6, p.8, p.11 の図を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>IPアドレス例：130.54.78.101 → 2進数表記：10000010 00110110 01001110 01100101。ネットワーク表記例：130.54.78.0/24（上位24ビットがネットワーク部を表す）。</div>
+  <div class="example"><span class="label">例</span>ポート番号の例：HTTP＝TCPの80番、HTTPS＝TCPの443番、IMAP＝TCPの143番、IMAPS＝TCPの993番。</div>
+  <div class="example"><span class="label">例</span>ホスト名・ドメイン名の例：www.econ.kyoto-u.ac.jp（ホスト名全体。うちkyoto-u.ac.jpがドメイン名）。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>IPアドレスとポート番号の役割を混同しないこと。IPアドレスはネットワーク上のコンピュータを同定するための番号であるのに対し、ポート番号は同一コンピュータ内で行われる複数の通信を識別するための番号であり、通信先はこの2つの組み合わせで決まる。</div>
+  <div class="pitfall"><span class="label">注意</span>ホスト名とドメイン名を混同しないこと。ホスト名はコンピュータの名前、ドメイン名はネットワークの名前であり、例えばwww.econ.kyoto-u.ac.jpというホスト名全体のうち、kyoto-u.ac.jpの部分がドメイン名にあたる。</div>
+</section>
+
+<section class="chapter" id="ch20">
+  <h2>第13回 ネットワークと暗号・情報セキュリティ（2）通信の暗号化</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>暗号化とは、他人に知られたくないデータを平文から暗号文に変換する処理。暗号化（平文→暗号文）・復号（暗号文→平文）のどちらの操作にも「鍵」が必要で、鍵が合わないと解読できない。</li>
+    <li>機械式暗号装置エニグマ（1925年、ドイツ）は換字式暗号で、1文字入力するたびに換字ルールが変更されるため頻度分析では解読困難だったが、第2次世界大戦中に連合軍に解読された。</li>
+    <li>AES（2001年、アメリカ合衆国の暗号規格）は1977年に規格化されたDESの発展形で、データの換字・移動・鍵を用いた変換を何度も繰り返して暗号化し、総当たりで全ての鍵を試す以外の有効な解読方法が見つかっていない。</li>
+    <li>共通鍵暗号方式（AESなど）は暗号化と復号が同じ鍵（共通鍵）の方式だが、遠くの相手と鍵をどう安全に共有するか、相手が多いほど管理する鍵の数も増えるという問題がある。</li>
+    <li>公開鍵暗号方式は暗号化・復号に使う鍵が異なる方式で、「公開鍵」で暗号化し対応する「秘密鍵」でしか復号できない。公開鍵は全世界に公開してよく、秘密鍵は他人に絶対に教えない。</li>
+    <li>SSL（Secure Sockets Layer）・TLS（Transport Layer Security）はWebサービス等の通信を暗号化する仕組みで、公開鍵暗号方式＋共通鍵暗号方式を組み合わせる。クライアントがサーバから公開鍵（証明書）を取得し、共通鍵を生成して公開鍵で安全に共有し暗号化を行う（URLはhttpsで指定）。</li>
+    <li>VPN（Virtual Private Network）はPCなどとVPNサーバとの間を暗号化して接続する仕組み。公衆無線LANなどでも盗聴されず安心して通信でき、VPNサーバのあるLAN内限定の機器にもアクセスできる。</li>
+    <li>ディジタル署名は改ざんの検出手段。送信者は文書のハッシュ値を秘密鍵で変換してディジタル署名を作り文書とともに送る。受信者は届いた文書から計算したハッシュ値と、ディジタル署名を送信者の公開鍵で復元した値とを照合し、一致していなければ改ざんと判断する。</li>
+    <li>認証局（Certificate Authority, CA）は公開鍵が真に相手のものかを証明する信頼された第三者。「公開鍵＋鍵の持ち主情報」に認証局の秘密鍵を用いたディジタル署名をつけたものが（公開鍵）証明書であり、これによってなりすましを排除できる。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>平文</dt><dd>普通に読める形式のデータ。</dd>
+    <dt>暗号文</dt><dd>他人が読んでもわからない形式に変換されたデータ。</dd>
+    <dt>鍵</dt><dd>暗号化・復号を制御するパラメータ。鍵が合わないと解読できない。</dd>
+    <dt>共通鍵暗号方式</dt><dd>暗号化と復号が同じ鍵（共通鍵）の方式。AESなどが該当する。</dd>
+    <dt>公開鍵暗号方式</dt><dd>暗号化に使う「公開鍵」と復号に使う「秘密鍵」が異なる方式。公開鍵で暗号化したものは対応する秘密鍵でしか復号できない。</dd>
+    <dt>SSL（Secure Sockets Layer）・TLS（Transport Layer Security）</dt><dd>Webサービスなどで通信を暗号化するしくみ。公開鍵暗号方式＋共通鍵暗号方式を用いる。</dd>
+    <dt>VPN（Virtual Private Network）</dt><dd>PCなどとVPNサーバとの間を暗号化して接続する仕組み。</dd>
+    <dt>ハッシュ値</dt><dd>文書データから一意に作成される、データの内容により異なるただの数値。</dd>
+    <dt>ディジタル署名</dt><dd>文書のハッシュ値を送信者の秘密鍵を使って変換した値。元の文書データとともに送信し、改ざんの検出に用いる。</dd>
+    <dt>認証局（Certificate Authority, CA）</dt><dd>公開鍵が真に相手のものであることを証明する、信頼された第三者。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="公開鍵暗号方式による送信の流れ">
+    <g font-size="12" fill="#1f2d3d" text-anchor="middle">
+      <rect x="10" y="55" width="120" height="50" fill="#eef3fb" stroke="#4a6fa5" stroke-width="1.5"/>
+      <text x="70" y="75">平文</text>
+      <text x="70" y="92">Password=qwerty</text>
+
+      <line x1="130" y1="80" x2="200" y2="80" stroke="#4a6fa5" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="165" y="65">Bの公開鍵で暗号化</text>
+
+      <rect x="200" y="55" width="120" height="50" fill="#eef3fb" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="260" y="75">暗号文</text>
+      <text x="260" y="92">Ka$s9lj#8df%l7sj</text>
+
+      <line x1="320" y1="80" x2="390" y2="80" stroke="#4a6fa5" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="355" y="65">通信で送信</text>
+
+      <rect x="390" y="55" width="120" height="50" fill="#eef3fb" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="450" y="75">暗号文</text>
+      <text x="450" y="92">Ka$s9lj#8df%l7sj</text>
+
+      <line x1="510" y1="80" x2="580" y2="80" stroke="#4a6fa5" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="545" y="65">Bの秘密鍵で復号</text>
+
+      <text x="610" y="75" text-anchor="start">平文</text>
+      <text x="600" y="92" text-anchor="start">Password</text>
+      <text x="600" y="105" text-anchor="start">=qwerty</text>
+    </g>
+    <defs>
+      <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 z" fill="#4a6fa5"/>
+      </marker>
+    </defs>
+  </svg>
+  <p class="ref-note">公開鍵暗号方式による送信の流れ（公開鍵で暗号化した暗号文は、対応する秘密鍵でしか元に戻せないことを示す図）は元資料 p.18 の図を参照</p>
+  <p class="ref-note">SSL/TLSの通信図（クライアントとWebサーバがHTTPSで通信を暗号化する図）、VPNの構成図（PC→インターネット→VPNサーバ→LAN内機器の経路、VPNサーバを経由しない直接アクセスは遮断される図）、ディジタル署名の作成・検証フロー（正常な場合／改ざんされた場合の比較）、認証局による証明書発行の図は元資料 p.20, p.21, p.22-23, p.24 の図を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>AESの制定年：2001年、DESの制定年：1977年。エニグマの発明年：1925年（ドイツ）。</div>
+  <div class="example"><span class="label">例</span>公開鍵暗号の暗号化例：平文「Password=qwerty」→Bの公開鍵で暗号化→暗号文「Ka$s9lj#8df%l7sj」→Bの秘密鍵で復号→平文「Password=qwerty」に復元。</div>
+  <div class="example"><span class="label">例</span>ディジタル署名の数値例：ハッシュ値11922960、ディジタル署名「f7q-883v Fr*qde2K」、改ざん後のハッシュ値74712348（照合不一致で改ざんを検出）。</div>
+  <div class="example"><span class="label">例</span>共通鍵管理の問題の具体例：1万人の会員を有するオンラインショップの場合、1万個の共通鍵を管理しないといけない。HTTPSのURL例：https://www.example.com/。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>共通鍵暗号方式と公開鍵暗号方式を混同しないこと。共通鍵暗号方式は暗号化・復号に同じ鍵を使うため鍵の安全な共有と管理数の増加が課題になるのに対し、公開鍵暗号方式は暗号化用の公開鍵と復号用の秘密鍵が異なり、公開鍵は世界に公開してよい点が異なる。SSL/TLSはこの両方を組み合わせ、公開鍵で共通鍵を安全に共有したうえで、実際のデータ通信には共通鍵暗号方式を用いる。</div>
+  <div class="pitfall"><span class="label">注意</span>ディジタル署名は「秘密鍵で作成し公開鍵で検証する」点で、公開鍵暗号方式による通常の暗号化（公開鍵で暗号化し秘密鍵で復号する）と鍵の使い方が逆になることに注意する。</div>
+</section>
+
+<section class="chapter" id="ch21">
+  <h2>第13回 ネットワークと暗号・情報セキュリティ（3）情報セキュリティ</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>インターネットはオープンに相互接続されたものであるため悪意ある有害な行為が少なくなく、古くからのプロトコルにはセキュリティが十分ではないところがあるため、脅威や情報セキュリティへの注意が必要である。</li>
+    <li>情報セキュリティの三要素は、機密性（漏洩を防ぐ、対策：アクセスの制限（認証）・暗号化）、完全性（改ざんを防ぐ、対策：ディジタル署名）、可用性（システムダウンを防ぐ、対策：設備の二重化・冗長化）。</li>
+    <li>フィッシング（Phishing）は銀行・カード会社・オンラインサービス等になりすまして偽のメールやSMSを送りつけ、本物と酷似した悪意あるページに誘導して口座番号・カード番号・ID・パスワードを入手する手口。少しでも怪しいメールやSMSには反応しないことが重要。</li>
+    <li>ビジネスメール詐欺（Business Email Compromise）は企業内や取引先の立場のある人になりすまして偽の入金指示のメールを送る詐欺で、業務・連絡体制の不備や担当者の不注意につけこんでおり、支払い業務の確認体制の整備が必要。</li>
+    <li>ランサムウェア（Ransomware）はファイルを盗んだり暗号化してアクセスできなくしたりし身代金を要求する攻撃。被害者は鍵がないため元に戻せず、攻撃者に支払っても対応してくれるとは限らない。重要データへのアクセス制限とバックアップが重要な対策。</li>
+    <li>標的型攻撃（Targeted threat）は不特定多数を狙うフィッシングと異なり、特定の企業・組織を明確な目的（情報の窃取、機能の停止など）を持って狙う攻撃。</li>
+    <li>システムの脆弱性（Vulnerability）はOSやソフトウェアの設計上の誤りや不具合で、侵入・遠隔操作や管理権限の奪取につながる。対策はセキュリティアップデートの迅速な適用、サポート切れのものの不使用、不要な機能の無効化・アンインストール。</li>
+    <li>マルウェア（Malware）は悪意のあるプログラムの総称。ウイルスは自己伝染機能・潜伏機能・発病機能のうち1つ以上を有する。トロイの木馬にはバックドアやキーロガーがあり、スパイウェアは訪問履歴などの個人情報を収集する。</li>
+    <li>パスワード解読には辞書攻撃、総当たり攻撃、リスト攻撃、ソーシャルエンジニアリングがある。単純なパスワードを避け、長くし数字や記号を混ぜ、使い回さず定期的に変更することが対策となる。</li>
+    <li>盗聴（パケット盗聴）は特に無線LAN（WiFi）で危険性が高い。対策は無線LANのWPA2/3暗号化設定、HTTPS等の暗号化プロトコルの利用、VPNの利用。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>機密性</dt><dd>情報の秘密を保つこと（漏洩を防ぐ）。対策：アクセスの制限（認証）・暗号化。</dd>
+    <dt>完全性</dt><dd>データに欠落や改ざんがないこと（改ざんを防ぐ）。対策：ディジタル署名。</dd>
+    <dt>可用性</dt><dd>システムが利用できること（システムダウンを防ぐ）。対策：設備の二重化・冗長化。</dd>
+    <dt>フィッシング（Phishing）</dt><dd>銀行・カード会社・オンラインサービスなどになりすまして偽のメールやSMS等を送りつけ、本物のWebサイトと酷似した悪意あるページに誘導し、口座番号やカード番号、ID・パスワードを入手することを目的とする手口。</dd>
+    <dt>ビジネスメール詐欺（Business Email Compromise）</dt><dd>企業内や取引先の立場のある人になりすまして偽の入金指示のメールを送る詐欺。</dd>
+    <dt>ランサムウェア（Ransomware）</dt><dd>ウイルスなどの実行、また不正侵入・操作によりコンピュータ内のファイルを盗んだり暗号化してアクセスできなくしたりし、身代金を要求する攻撃。</dd>
+    <dt>標的型攻撃（Targeted threat）</dt><dd>特定の企業や組織を、情報の窃取や機能の停止などの明確な目的を持って狙う攻撃。</dd>
+    <dt>脆弱性（Vulnerability）</dt><dd>オペレーティングシステムやソフトウェアにおける設計上の誤りや不具合。侵入・遠隔操作や管理権限の奪取につながる。</dd>
+    <dt>マルウェア（Malware）</dt><dd>悪意のあるプログラムの総称（Mal＝悪い）。</dd>
+    <dt>ソーシャルエンジニアリング</dt><dd>組織の関係者になりすまして機密情報を聞き出したり、廃棄物をあさって機密情報を入手する（スキャベンジング）手法。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">本セクションに再現すべき図表は特になし（元資料は概念説明・箇条書き中心のスライド構成）</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>パスワード桁数と組み合わせ数：数字6桁の場合10^6通り（試すのは簡単）。英字（大文字・小文字）・数字で8桁の場合、$(26 \times 2 + 10)^8 \approx 2 \times 10^{14}$通り（試せるようになってきた）。</div>
+  <div class="example"><span class="label">例</span>京都大学のパスワード規定：12文字以上、大文字・小文字と数字の使用が必須。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>フィッシングとビジネスメール詐欺を混同しないこと。フィッシングは不特定多数に偽メール・SMSをばらまき偽サイトへ誘導する手口であるのに対し、ビジネスメール詐欺は企業内・取引先の特定の立場のある人になりすまして偽の入金指示を送る詐欺であり、狙う対象と手口が異なる。</div>
+  <div class="pitfall"><span class="label">注意</span>ウイルス・トロイの木馬・スパイウェアはいずれもマルウェアの一種だが機能が異なる。ウイルスは自己伝染機能・潜伏機能・発病機能のいずれかを持ち、トロイの木馬はバックドアやキーロガーの機能を持ち、スパイウェアは訪問履歴などの個人情報収集を行う点で区別される。また辞書攻撃（よく使われる語句を試す）・総当たり攻撃（全ての組み合わせを試す）・リスト攻撃（他で漏洩したID・パスワードを試す）というパスワード解読手法の違いにも注意する。</div>
+</section>
+<section class="chapter" id="ch22">
+  <h2>第14回 ハードウェアとソフトウェア（ハードウェア）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>コンピュータはハードウェア（電気・電子的な部品・機器）とソフトウェア（OS・アプリケーションソフトウェア）から構成される。情報家電なども実際はコンピュータの一種である。</li>
+    <li>ハードウェアの主要構成要素は、中央処理装置（CPU）、主記憶装置（メモリ）、補助記憶装置（ハードディスク・光学ディスク等）、入力装置（キーボード・マウス等）、出力装置（モニタ・プリンタ等）であり、ほかに通信装置・画像処理装置（GPU）もある。</li>
+    <li>内部構造では、CPU・主記憶装置・GPUなどが内部バスで結ばれ、それぞれコントローラを介して補助記憶装置・入力装置・通信装置と接続される。</li>
+    <li>CPUは半導体の大規模集積回路（LSI）で、記憶回路・計算回路・制御回路などをもち、数値計算や各種制御を指令する中心的な回路である。x86(_64)系（PC・サーバ）、ARM系（小型端末）などがある。</li>
+    <li>CPUは長年にわたり性能が向上してきた。トランジスタ数の増加（ムーアの法則：18～24ヶ月で倍）、製造技術の向上による省電力化、1つのCPUに複数の計算ユニット（コア）を搭載することによる。</li>
+    <li>主記憶装置（メモリ）はCPUが処理の際に用いる記憶装置（メインメモリ）で、半導体（LSI）で構成される。RAM（DRAM）は読み書き両用の通常の主記憶、ROMは原則読み出し専用である。</li>
+    <li>補助記憶装置はCPUが処理に（直接には）使用しない記憶装置で、プログラム・データの保存に用いる。代表例はHDD、SSD、光学ディスク（CD・DVD・BD等）である。</li>
+    <li>プログラム内蔵方式とは、プログラムをいったん主記憶装置に読み込んでから実行する方式である。</li>
+    <li>記憶装置には揮発性（電源を断つと内容が失われる：主記憶装置）と不揮発性（電源を断っても内容が保持される：補助記憶装置）がある。フラッシュメモリも電気で記録するが長期間維持できる。</li>
+    <li>記憶装置は階層構造をなし、CPUに近いほど小容量・高価・高速（キャッシュメモリ）、遠いほど大容量・安価・低速（ハードディスクなど）となっており、速度差を緩和する役割をもつ。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>ハードウェア</dt><dd>電気・電子的な部品・機器。</dd>
+    <dt>ソフトウェア</dt><dd>OSやアプリケーションソフトウェア。</dd>
+    <dt>CPU（中央処理装置）</dt><dd>数値計算や各種制御を指令する中心的な回路。半導体の大規模集積回路（LSI）で、記憶回路・計算回路・制御回路などをもつ。画像処理（GPU）を備えているものもある。x86(_64)系（PC・サーバ）、ARM系（小型端末）などがある。</dd>
+    <dt>LSI（大規模集積回路）</dt><dd>半導体の集積回路。CPUなどを構成する。</dd>
+    <dt>ムーアの法則</dt><dd>トランジスタ数が18～24ヶ月で倍になるという、長年にわたる性能向上に関する経験則。</dd>
+    <dt>コア</dt><dd>1つのCPUに搭載される複数の計算ユニット。</dd>
+    <dt>主記憶装置（メモリ）</dt><dd>CPUが処理の際に用いる記憶装置。メインメモリともいう。半導体（LSI）で構成される。</dd>
+    <dt>RAM（DRAM）</dt><dd>読み書き両用の、通常の主記憶。</dd>
+    <dt>ROM</dt><dd>原則として読み出し専用の記憶装置。</dd>
+    <dt>補助記憶装置</dt><dd>CPUが処理に（直接には）使用しない記憶装置。プログラム・データの保存に使用する。</dd>
+    <dt>HDD（ハードディスクドライブ）</dt><dd>磁性体を塗布した固い円盤に磁気で記録する補助記憶装置。大容量で比較的安価、衝撃に弱い。</dd>
+    <dt>SSD（ソリッドステートドライブ）</dt><dd>フラッシュメモリ（半導体）に電気で記録する補助記憶装置。高速・軽量・低電力、容量がHDDより小さく高価。</dd>
+    <dt>光学ディスク</dt><dd>CD・DVD・BDなど、レーザー光で読み取る記憶媒体。取り外せる（リムーバブル）、安価、低速。</dd>
+    <dt>GPU（画像処理装置）</dt><dd>画像処理を行う装置。</dd>
+    <dt>プログラム内蔵方式</dt><dd>プログラムをいったん主記憶装置に読み込んでから実行する方式。</dd>
+    <dt>揮発性</dt><dd>電源を断つと内容が失われる性質（主記憶装置が該当）。</dd>
+    <dt>不揮発性</dt><dd>電源を断っても内容が保持される性質（補助記憶装置が該当）。</dd>
+    <dt>キャッシュメモリ</dt><dd>CPUと主記憶装置の速度差を緩和するための、小容量・高価・高速な記憶装置。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="記憶装置の階層構造の模式図">
+    <rect x="10" y="70" width="110" height="60" rx="6" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="65" y="105" text-anchor="middle" font-size="15" fill="#1f2d3d">CPU</text>
+    <rect x="180" y="70" width="130" height="60" rx="6" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="245" y="98" text-anchor="middle" font-size="13" fill="#1f2d3d">キャッシュ</text>
+    <text x="245" y="116" text-anchor="middle" font-size="13" fill="#1f2d3d">メモリ</text>
+    <rect x="370" y="70" width="130" height="60" rx="6" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="435" y="98" text-anchor="middle" font-size="13" fill="#1f2d3d">メモリ</text>
+    <text x="435" y="116" text-anchor="middle" font-size="13" fill="#1f2d3d">（DRAM）</text>
+    <rect x="560" y="70" width="110" height="60" rx="6" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="615" y="98" text-anchor="middle" font-size="13" fill="#1f2d3d">ハード</text>
+    <text x="615" y="116" text-anchor="middle" font-size="13" fill="#1f2d3d">ディスク等</text>
+    <line x1="120" y1="100" x2="178" y2="100" stroke="#4a6fa5" stroke-width="2" marker-end="url(#arrowh)"/>
+    <line x1="310" y1="100" x2="368" y2="100" stroke="#4a6fa5" stroke-width="2" marker-end="url(#arrowh)"/>
+    <line x1="500" y1="100" x2="558" y2="100" stroke="#4a6fa5" stroke-width="2" marker-end="url(#arrowh)"/>
+    <defs>
+      <marker id="arrowh" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,3 L0,6 Z" fill="#4a6fa5"/>
+      </marker>
+    </defs>
+    <text x="65" y="160" text-anchor="middle" font-size="12" fill="#4a6fa5">CPUに近い</text>
+    <text x="65" y="178" text-anchor="middle" font-size="12" fill="#4a6fa5">小容量・高価・高速</text>
+    <text x="615" y="160" text-anchor="middle" font-size="12" fill="#4a6fa5">CPUから遠い</text>
+    <text x="615" y="178" text-anchor="middle" font-size="12" fill="#4a6fa5">大容量・安価・低速</text>
+    <text x="340" y="40" text-anchor="middle" font-size="13" fill="#1f2d3d">CPUに近いほど小容量・高価・高速、遠いほど大容量・安価・低速（速度差を緩和する階層構造）</text>
+  </svg>
+  <p class="ref-note">ハードウェアの構成図（p.4）、内部構造図（p.5）、プログラム内蔵方式の図（p.9）、記憶装置の揮発性・不揮発性の図（p.10）は元資料を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>ムーアの法則：トランジスタ数が18～24ヶ月で倍になる。</div>
+  <div class="example"><span class="label">例</span>HDD・SSD・光学ディスクの特性比較：HDD＝大容量・比較的安価・衝撃に弱い、SSD＝高速・軽量・低電力だがHDDより容量が小さく高価、光学ディスク（CD・DVD・BD）＝取り外せる・安価・低速。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>揮発性と不揮発性を混同しないこと。主記憶装置（メモリ）は揮発性であり、電源を断つと内容が失われる。補助記憶装置（ハードディスク・フラッシュメモリ・光学ディスク等）は不揮発性であり、電源を断っても内容が保持される。フラッシュメモリは電気で記録する点はRAMと似ているが、長期間にわたって内容を維持できる不揮発性の記憶装置である点に注意する。</div>
+  <div class="pitfall"><span class="label">注意</span>HDDとSSDの違いを整理しておく。HDDは磁性体を塗布した円盤に磁気で記録し、大容量・比較的安価だが衝撃に弱い。SSDはフラッシュメモリに電気で記録し、高速・軽量・低電力だが、HDDより容量が小さく高価である。「記録方式（磁気か電気か）」の違いが、速度・重量・容量・価格の違いの原因になっている点をおさえる。</div>
+</section>
+
+<section class="chapter" id="ch23">
+  <h2>第14回 ハードウェアとソフトウェア（ソフトウェア）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>ソフトウェア（≒プログラム）は、コンピュータの行う処理の手順を表現したものであり、システムソフトウェア（OS、デバイスドライバ、ファームウェア）とアプリケーションソフトウェア（文書作成、映像・音声・画像処理、ネットワーク、専門業務、ゲーム等）に大別される。</li>
+    <li>OS（オペレーティングシステム）はハードウェアとアプリケーションソフトウェアを仲介し、複数の利用者、複数のソフトウェアでハードウェアを効率的に利用できるようにする。</li>
+    <li>OSの役割は主に5つ：(1)プロセス管理、(2)メモリ管理、(3)入出力管理、(4)ファイル管理、(5)ユーザ管理である。</li>
+    <li>プロセス管理：実行中の各プログラムをプロセス（タスク）といい、複数のプロセスを並列に実行することをマルチプロセス（マルチタスク）という。OSは非常に短い間隔でプロセスの動作・休止を切り替え、優先度に応じたスケジューリングを行う。</li>
+    <li>メモリ管理：OSが実際のメモリの割り当てを行い、他のプロセスから干渉されないよう保護する。仮想記憶では、メモリが不足した際に補助記憶装置をメモリの一時的な代わりとして使用し、あまり使われていない部分を補助記憶装置に書き出す（スワップ）ことで空きメモリを確保するが、補助記憶装置はメモリよりはるかに遅いためスワップが発生すると実行速度が著しく低下する。</li>
+    <li>入出力管理・ファイル管理：OSがプロセスと入出力装置のやりとりを調整・仲介し、補助記憶装置のファイル・フォルダの管理（ファイルシステム）を行う。ユーザ管理：複数のユーザ（マルチユーザ）がそれぞれ独立に資源を使用でき、管理者（スーパーユーザ・アドミニストレータ・root）は全ての権限をもつ。</li>
+    <li>アプリケーションソフトウェアは具体的な処理を実際に行うためのプログラム（アルゴリズム＋データ構造）であり、高水準言語でプログラミングされ、コンパイラやインタプリタを用いて機械語（バイナリプログラム）に変換あるいは実行される。</li>
+    <li>ユーザインターフェースはコンピュータとユーザの接面であり、装置（入力・出力）と方式（CUI：文字ユーザインターフェース、GUI：グラフィカルユーザインターフェース）からなる。GUIは直感的な操作ができ、現在の主流である。</li>
+    <li>GUIはデスクトップ・ウィンドウ・メニュー・アイコン等の要素をポインティングデバイスで操作する。GUI設計の重要な概念にデスクトップ・メタファとアフォーダンスがある。</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>ソフトウェア</dt><dd>プログラムのことで、コンピュータの行う処理の手順を表現したもの。</dd>
+    <dt>システムソフトウェア</dt><dd>OS、デバイスドライバ、ファームウェアなど。</dd>
+    <dt>アプリケーションソフトウェア</dt><dd>具体的な処理を実際に行うためのプログラム。文書作成、映像・音声・画像処理、ネットワーク、専門業務、ゲーム等がある。</dd>
+    <dt>OS（オペレーティングシステム）</dt><dd>ハードウェアとアプリケーションソフトウェアを仲介し、複数の利用者・複数のソフトウェアでハードウェアを効率的に利用させるソフトウェア。</dd>
+    <dt>プロセス（タスク）</dt><dd>実行中のプログラムのこと。</dd>
+    <dt>マルチプロセス（マルチタスク）</dt><dd>複数のプロセスを並列に実行すること。</dd>
+    <dt>スケジューリング</dt><dd>OSが優先度に応じてプロセスの動作・休止を切り替えること。</dd>
+    <dt>仮想記憶</dt><dd>プロセスが多いとメモリが足りなくなることがあるため、補助記憶装置をメモリの一時的な代わりとして使用する仕組み。</dd>
+    <dt>スワップ（ページファイル・スワップファイル）</dt><dd>使用中のメモリの、あまり使われていない部分を補助記憶装置に書き出すこと。空いたメモリを別のプロセスに使用することができる。</dd>
+    <dt>ファイルシステム</dt><dd>補助記憶装置のファイルを管理する方式。</dd>
+    <dt>管理者（スーパーユーザ・アドミニストレータ・root）</dt><dd>コンピュータ（OS）に関して全ての権限をもつ特別なユーザ。</dd>
+    <dt>プログラミング言語</dt><dd>プログラムを作成する言語。人間が理解しやすい高水準言語（例：C/C++, C#, Java, Perl, Ruby, Python等）で作成する。</dd>
+    <dt>コンパイラ／インタプリタ</dt><dd>高水準言語で書かれたプログラムを、コンピュータが理解する言語（機械語）に変換あるいは実行するもの。</dd>
+    <dt>バイナリプログラム</dt><dd>機械語に変換したプログラムのこと。</dd>
+    <dt>ユーザインターフェース</dt><dd>コンピュータ（人工物）とユーザ（人間）の接面。</dd>
+    <dt>CUI（文字ユーザインターフェース）</dt><dd>文字で入出力する方式。</dd>
+    <dt>GUI（グラフィカルユーザインターフェース）</dt><dd>グラフィカルな要素で直感的な操作ができる、現在の主流の方式。</dd>
+    <dt>デスクトップ・メタファ</dt><dd>現実世界を模したデスクトップにより、現実世界からの類推で操作がわかるという、GUI設計における重要な概念（例：ゴミ箱は捨てる場所であり、そこにファイルを入れることでファイルを削除できるとわかる）。</dd>
+    <dt>アフォーダンス（デザインにおける）</dt><dd>人間が物を見て、その物を「どう取り扱えるか」がわかること（例：取っ手のあるドアは「引くことができる」とわかる）。</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="コンピュータの構成図（ハードウェア・OS・アプリの階層）">
+    <rect x="30" y="20" width="90" height="45" rx="5" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="75" y="47" text-anchor="middle" font-size="13" fill="#1f2d3d">アプリ</text>
+    <rect x="135" y="20" width="90" height="45" rx="5" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="180" y="47" text-anchor="middle" font-size="13" fill="#1f2d3d">アプリ</text>
+    <rect x="240" y="20" width="90" height="45" rx="5" fill="#eef3fb" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="285" y="47" text-anchor="middle" font-size="13" fill="#1f2d3d">アプリ</text>
+    <rect x="30" y="90" width="300" height="50" rx="5" fill="#dce7f5" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="180" y="120" text-anchor="middle" font-size="15" fill="#1f2d3d">オペレーティングシステム（OS）</text>
+    <rect x="30" y="165" width="300" height="55" rx="5" fill="#c6d8ee" stroke="#4a6fa5" stroke-width="2"/>
+    <text x="180" y="198" text-anchor="middle" font-size="15" fill="#1f2d3d">ハードウェア</text>
+    <text x="180" y="240" text-anchor="middle" font-size="12" fill="#4a6fa5">アプリ（複数）はOSの上で動作し、OSはハードウェアの上で動作する階層構造</text>
+  </svg>
+  <p class="ref-note">ソフトウェアの分類図（p.12）は元資料を参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例</span>パソコン上で動作する主なOSの例：Microsoft Windows 11・Windows Server、macOS、ChromeOS、UNIX・Linux・FreeBSD。パソコン以外のOSの例：iOS（iPhone）・iPadOS、Android OS。</div>
+  <div class="example"><span class="label">例</span>ファイルシステムの例：Windows＝NTFS・FAT32・exFAT、macOS＝APFS、UNIX・Linux＝XFS・ext3/4、光ディスク＝ISO9660・UDF。</div>
+  <div class="example"><span class="label">例</span>高水準プログラミング言語の例：C/C++, C#, Java, Perl, Ruby, Python, etc.</div>
+  <div class="example"><span class="label">例</span>GUIのデスクトップ・メタファの例：ゴミ箱（捨てる場所→そこにファイルを入れることで削除できるとわかる）。アフォーダンスの例：取っ手のあるドアは「引くことができる」とわかる。</div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>仮想記憶とスワップを同一視しないこと。仮想記憶とは、メモリが不足した際に補助記憶装置をメモリの一時的な代わりとして使用する仕組み全体を指し、スワップはその仕組みの中で、使用中メモリのあまり使われていない部分を補助記憶装置に書き出す具体的な動作を指す。補助記憶装置はメモリよりはるかに遅いため、スワップが発生するとプロセスの実行速度が著しく低下する点も覚えておく。</div>
+  <div class="pitfall"><span class="label">注意</span>デスクトップ・メタファとアフォーダンスを混同しないこと。デスクトップ・メタファは、現実世界を模したデスクトップにより現実世界からの類推で操作がわかること（例：ゴミ箱＝捨てる場所）を指す。アフォーダンスは、人間が物を見ただけでその物の取り扱い方がわかること（例：取っ手のあるドアは引けるとわかる）を指す、より一般的なデザイン概念である。</div>
+</section>
+</main>
+
+<footer class="page">test-prep システムで生成 ｜ 元資料とあわせて使ってください</footer>
+
+</div>
+</body>
+</html>
