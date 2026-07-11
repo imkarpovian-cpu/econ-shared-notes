@@ -172,7 +172,7 @@ body {
 </nav>
 
 <div class="hero">
-  <canvas id="network"></canvas>
+  <canvas id="econ"></canvas>
   <div class="hero-content">
     <div class="kicker">経済学部</div>
     <h1>共有ノート</h1>
@@ -243,65 +243,131 @@ body {
 </footer>
 
 <script>
-// Network animation (hero background)
+// Econ animation (hero background): supply-demand curves + bar chart
 (function() {
-  const c = document.getElementById('network');
+  const c = document.getElementById('econ');
   const ctx = c.getContext('2d');
-  let w, h, pts = [];
+  const dpr = devicePixelRatio || 1;
+  let rw, rh, t = 0;
+
   function resize() {
     const r = c.parentElement.getBoundingClientRect();
-    w = c.width = r.width * devicePixelRatio;
-    h = c.height = r.height * devicePixelRatio;
-    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    rw = r.width; rh = r.height;
+    c.width = rw * dpr; c.height = rh * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
-  function init() {
-    resize();
-    const rw = c.parentElement.getBoundingClientRect().width;
-    const rh = c.parentElement.getBoundingClientRect().height;
-    pts = [];
-    for (let i = 0; i < 30; i++) {
-      pts.push({
-        x: Math.random() * rw,
-        y: Math.random() * rh,
-        vx: (Math.random() - .5) * .4,
-        vy: (Math.random() - .5) * .4,
-        r: Math.random() * 2 + 1.5,
-        color: Math.random() > .8 ? '#eab308' : '#94a3b8'
-      });
-    }
-  }
+
   function draw() {
-    const rw = c.parentElement.getBoundingClientRect().width;
-    const rh = c.parentElement.getBoundingClientRect().height;
+    t += 0.004;
     ctx.clearRect(0, 0, rw, rh);
-    for (let i = 0; i < pts.length; i++) {
-      const a = pts[i];
-      a.x += a.vx; a.y += a.vy;
-      if (a.x < 0 || a.x > rw) a.vx *= -1;
-      if (a.y < 0 || a.y > rh) a.vy *= -1;
-      for (let j = i + 1; j < pts.length; j++) {
-        const b = pts[j];
-        const dx = a.x - b.x, dy = a.y - b.y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < 180) {
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = 'rgba(148,163,184,' + (.35 * (1 - d / 180)) + ')';
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-      }
-      ctx.beginPath();
-      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-      ctx.fillStyle = a.color;
-      ctx.fill();
+
+    const ox = rw * 0.56, oy = rh * 0.88;
+    const axW = rw * 0.40, axH = rh * 0.72;
+    const shift = Math.sin(t) * 16;
+
+    // grid
+    ctx.strokeStyle = 'rgba(148,163,184,.08)';
+    ctx.lineWidth = 1;
+    for (let g = 1; g <= 5; g++) {
+      const gx = ox + (axW / 5) * g;
+      const gy = oy - (axH / 5) * g;
+      ctx.beginPath(); ctx.moveTo(gx, oy); ctx.lineTo(gx, oy - axH); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ox, gy); ctx.lineTo(ox + axW, gy); ctx.stroke();
     }
+
+    // axes
+    ctx.strokeStyle = 'rgba(148,163,184,.35)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(ox, oy - axH - 6); ctx.lineTo(ox, oy); ctx.lineTo(ox + axW + 6, oy);
+    ctx.stroke();
+
+    // axis labels
+    ctx.fillStyle = 'rgba(148,163,184,.5)';
+    ctx.font = '12px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Q', ox + axW + 16, oy + 4);
+    ctx.fillText('P', ox - 4, oy - axH - 12);
+
+    // demand curve (down-sloping, shifts with t)
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(96,165,250,.85)';
+    ctx.lineWidth = 2.5;
+    for (let i = 0; i <= 50; i++) {
+      const tt = i / 50;
+      const dx = ox + tt * axW + shift;
+      const dy = oy - (1 - tt * 0.82) * axH * 0.95;
+      if (i === 0) ctx.moveTo(dx, dy); else ctx.lineTo(dx, dy);
+    }
+    ctx.stroke();
+
+    // supply curve (up-sloping, shifts opposite)
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(251,191,36,.85)';
+    ctx.lineWidth = 2.5;
+    for (let i = 0; i <= 50; i++) {
+      const tt = i / 50;
+      const sx = ox + tt * axW - shift;
+      const sy = oy - (0.08 + tt * 0.78) * axH * 0.95;
+      if (i === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+    }
+    ctx.stroke();
+
+    // equilibrium point (intersection approx.)
+    const eqX = ox + axW * 0.47;
+    const eqY = oy - axH * 0.55;
+    const pulse = 4 + Math.sin(t * 3) * 1.5;
+    ctx.beginPath();
+    ctx.arc(eqX, eqY, pulse, 0, Math.PI * 2);
+    ctx.fillStyle = '#eab308';
+    ctx.fill();
+
+    // dashed guides from equilibrium
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(234,179,8,.35)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(eqX, eqY); ctx.lineTo(eqX, oy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(eqX, eqY); ctx.lineTo(ox, eqY); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // curve labels
+    ctx.font = 'bold 13px sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(96,165,250,.8)';
+    ctx.fillText('D', ox + axW * 0.9 + shift, oy - axH * 0.12);
+    ctx.fillStyle = 'rgba(251,191,36,.8)';
+    ctx.fillText('S', ox + axW * 0.9 - shift, oy - axH * 0.82);
+
+    // bar chart silhouette (left side, gentle growth pulse)
+    const nBars = 7;
+    const barW = rw * 0.028;
+    const gap = barW * 0.5;
+    const barBase = rh * 0.88;
+    const bx0 = rw * 0.06;
+    const hts = [0.22, 0.30, 0.27, 0.38, 0.46, 0.42, 0.55];
+    for (let i = 0; i < nBars; i++) {
+      const bh = hts[i] * rh * (0.92 + 0.08 * Math.sin(t * 2 + i * 0.7));
+      ctx.fillStyle = 'rgba(148,163,184,' + (0.10 + i * 0.015) + ')';
+      ctx.fillRect(bx0 + i * (barW + gap), barBase - bh, barW, bh);
+    }
+    // trend line over bars
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(52,211,153,.4)';
+    ctx.lineWidth = 2;
+    for (let i = 0; i < nBars; i++) {
+      const bh = hts[i] * rh * (0.92 + 0.08 * Math.sin(t * 2 + i * 0.7));
+      const px = bx0 + i * (barW + gap) + barW / 2;
+      const py = barBase - bh - 8;
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
     requestAnimationFrame(draw);
   }
-  init();
+
+  resize();
   draw();
-  window.addEventListener('resize', init);
+  window.addEventListener('resize', resize);
 })();
 </script>
 </body>
