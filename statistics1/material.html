@@ -69,6 +69,7 @@ pre.code .general{color:#fbbf24;font-weight:bold}
 </style>
 </head>
 <body>
+<script src="../auth.js"></script>
 <nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
   <a href="../index.html" style="color:#2563eb;text-decoration:none;font-weight:700">&#9664; 共有ノート</a>
   <span style="color:#6b7280">／</span>
@@ -78,7 +79,7 @@ pre.code .general{color:#fbbf24;font-weight:bold}
 
 <header class="page">
   <h1>統計学1 期末 Rコード一般形まとめ</h1>
-  <p class="meta">第1章〜第3章のRコードの一般形（テンプレート）を網羅的に整理</p>
+  <p class="meta">第1章〜第4章のRコードの一般形（テンプレート）を網羅的に整理</p>
 </header>
 
 <nav class="toc">
@@ -91,6 +92,10 @@ pre.code .general{color:#fbbf24;font-weight:bold}
     <li><a href="#ch5">データ集計（group_by・summarize・table）</a></li>
     <li><a href="#ch6">ggplotによるグラフ作成</a></li>
     <li><a href="#ch7">統計分析（相関・k平均法・Q-Qプロット）</a></li>
+    <li><a href="#ch8">ループと条件文（for・if・else）</a></li>
+    <li><a href="#ch9">予測と予測誤差（選挙予測・バイアス・RMSE）</a></li>
+    <li><a href="#ch10">線形回帰（feols・係数・予測値・残差・決定係数）</a></li>
+    <li><a href="#ch11">回帰分析と因果推論（実験・重回帰・交互作用）</a></li>
 <!--TOC-END-->
   </ol>
 </nav>
@@ -817,6 +822,383 @@ table(
   </div>
   <div class="pitfall"><span class="label">注意</span>
     Q-Qプロットで点が45度線上にあれば2つの分布は同じ。線より上＝y側の方が大きい、線より下＝x側の方が大きい。
+  </div>
+</section>
+
+<!-- ==================== 第8章 ==================== -->
+<section class="chapter" id="ch8">
+  <h2>第8章 ループと条件文（for・if・else）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li><code>for (i in ベクトル) {}</code> で同じ処理を繰り返す。<code>i</code> にベクトルの値が1つずつ順番に入る</li>
+    <li>繰り返しの結果を保存するには、先に <code>rep(NA, length(x))</code> で入れ物を作る</li>
+    <li><code>if (条件) {} else {}</code> で条件によって処理を分岐する</li>
+    <li>条件が3つ以上あるときは <code>else if</code> を使う。上から順に調べられ、最初に当てはまった処理だけ実行</li>
+    <li><code>%%</code> は割り算の余りを返す演算子（<code>x %% 2 == 0</code> なら偶数）</li>
+    <li>forとifは組み合わせて使える</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>for構文（繰り返し）</dt>
+    <dd>
+      <pre class="code"><span class="keyword">for</span> (<span class="general">i</span> <span class="keyword">in</span> <span class="general">ベクトル</span>) {
+  <span class="general">繰り返したい処理</span>
+}</pre>
+    </dd>
+
+    <dt>結果を保存する繰り返し（入れ物パターン）</dt>
+    <dd>
+      <pre class="code"><span class="general">results</span> <span class="keyword">&lt;-</span> <span class="keyword">rep</span>(<span class="keyword">NA</span>, <span class="keyword">length</span>(<span class="general">values</span>))   <span class="comment"># 先に入れ物を作る</span>
+
+<span class="keyword">for</span> (<span class="general">i</span> <span class="keyword">in</span> 1:<span class="keyword">length</span>(<span class="general">values</span>)) {
+  <span class="general">results</span>[<span class="general">i</span>] <span class="keyword">&lt;-</span> <span class="general">計算式</span>              <span class="comment"># 各回の結果を保存</span>
+}</pre>
+    </dd>
+
+    <dt>if / else（条件分岐）</dt>
+    <dd>
+      <pre class="code"><span class="keyword">if</span> (<span class="general">条件</span>) {
+  <span class="general">条件がTRUEのときの処理</span>
+} <span class="keyword">else</span> {
+  <span class="general">条件がFALSEのときの処理</span>
+}</pre>
+    </dd>
+
+    <dt>else if（3つ以上の条件）</dt>
+    <dd>
+      <pre class="code"><span class="keyword">if</span> (<span class="general">条件1</span>) {
+  <span class="general">処理1</span>
+} <span class="keyword">else if</span> (<span class="general">条件2</span>) {
+  <span class="general">処理2</span>
+} <span class="keyword">else</span> {
+  <span class="general">処理3</span>
+}</pre>
+    </dd>
+
+    <dt>剰余演算子</dt>
+    <dd>
+      <pre class="code"><span class="general">x</span> <span class="keyword">%%</span> <span class="general">数値</span>    <span class="comment"># 割り算の余り。x %% 2 == 0 なら偶数</span></pre>
+    </dd>
+  </dl>
+
+  <h3>🧮 具体例</h3>
+  <div class="example"><span class="label">例：各要素を2倍して保存</span>
+    <pre class="code">values &lt;- c(2, 4, 6)
+results &lt;- rep(NA, length(values))
+
+for (i in 1:length(values)) {
+  results[i] &lt;- values[i] * 2
+}
+results    <span class="comment"># → 4 8 12</span></pre>
+  </div>
+  <div class="example"><span class="label">例：forとifの組み合わせ（偶数なら2倍、奇数なら2乗）</span>
+    <pre class="code">values &lt;- 1:5
+results &lt;- rep(NA, length(values))
+
+for (i in 1:length(values)) {
+  x &lt;- values[i]
+  if (x %% 2 == 0) {
+    results[i] &lt;- x * 2
+  } else {
+    results[i] &lt;- x^2
+  }
+}
+results    <span class="comment"># → 1 4 9 8 25</span></pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>if</code> の中の条件は <b>TRUEまたはFALSEのどちらか1つ</b>になる必要がある。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>else if</code> は上から順に調べられ、<b>最初に当てはまった処理だけ</b>が実行される。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    単純な計算なら <code>values * 2</code> のようにベクトル演算で書く方が簡単なことも多い。for構文が役立つのは処理が複雑なときや各回の計算を順番に確認したいとき。
+  </div>
+</section>
+
+<!-- ==================== 第9章 ==================== -->
+<section class="chapter" id="ch9">
+  <h2>第9章 予測と予測誤差（選挙予測・バイアス・RMSE）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>予測誤差 ＝ 実際の結果 − 予測値</li>
+    <li>予測誤差の平均値を<b>バイアス</b>と呼ぶ</li>
+    <li>予測誤差を2乗して平均し平方根を取ったものが <b>RMSE</b>（2乗平均平方根誤差）。予測誤差の平均的な大きさを表す</li>
+    <li>勝敗のようにカテゴリを予測する問題は<b>分類問題</b>。誤りは偽陽性・偽陰性に分けられる</li>
+    <li><code>as.Date()</code> で文字列を日付型に変換すると、日付どうしの引き算で日数が計算できる</li>
+    <li>予測と実際の符号（勝敗）の一致は <code>sign()</code> で確認できる</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>予測誤差・バイアス・RMSE（数式）</dt>
+    <dd>
+      <p>$$\text{予測誤差} = \text{実際の結果} - \text{予測値}$$</p>
+      <p>$$\text{バイアス} = \text{予測誤差の平均値}, \qquad \text{RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n} \text{誤差}_i^2}$$</p>
+    </dd>
+
+    <dt>バイアスとRMSEの計算</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">summarise</span>(
+    <span class="general">bias</span> = <span class="keyword">mean</span>(<span class="general">誤差列</span>),         <span class="comment"># 平均予測誤差（バイアス）</span>
+    <span class="general">rmse</span> = <span class="keyword">sqrt</span>(<span class="keyword">mean</span>(<span class="general">誤差列</span>^2))   <span class="comment"># 2乗平均平方根誤差（RMSE）</span>
+  )</pre>
+    </dd>
+
+    <dt>日付の扱い</dt>
+    <dd>
+      <pre class="code"><span class="keyword">as.Date</span>(<span class="string">"YYYY-MM-DD"</span>)          <span class="comment"># 文字列を日付型に変換</span>
+<span class="keyword">as.Date</span>(<span class="string">"日付"</span>) - <span class="general">日付列</span>       <span class="comment"># 日付どうしの引き算で日数を計算</span></pre>
+    </dd>
+
+    <dt>各州の直近調査から予測を作るパターン</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">mutate</span>(<span class="general">margin</span> = <span class="general">列1</span> - <span class="general">列2</span>,
+         <span class="general">days_to_election</span> = <span class="keyword">as.Date</span>(<span class="string">"選挙日"</span>) - <span class="general">日付列</span>) <span class="keyword">|&gt;</span>
+  <span class="keyword">group_by</span>(<span class="general">グループ列</span>) <span class="keyword">|&gt;</span>
+  <span class="keyword">filter</span>(<span class="general">days_to_election</span> == <span class="keyword">min</span>(<span class="general">days_to_election</span>)) <span class="keyword">|&gt;</span>  <span class="comment"># 直近の調査だけ残す</span>
+  <span class="keyword">summarise</span>(<span class="general">pred</span> = <span class="keyword">mean</span>(<span class="general">margin</span>), <span class="keyword">.groups =</span> <span class="string">"drop"</span>)</pre>
+    </dd>
+
+    <dt>符号（勝敗）の比較</dt>
+    <dd>
+      <pre class="code"><span class="keyword">sign</span>(<span class="general">x</span>)    <span class="comment"># 正なら1、負なら-1を返す</span>
+<span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">filter</span>(<span class="keyword">sign</span>(<span class="general">予測</span>) != <span class="keyword">sign</span>(<span class="general">実際</span>))    <span class="comment"># 勝敗予測が外れた行を抽出</span></pre>
+    </dd>
+
+    <dt>条件付き合計（選挙人票の集計）</dt>
+    <dd>
+      <pre class="code"><span class="keyword">sum</span>(<span class="general">列名</span>[<span class="general">条件</span>])    <span class="comment"># 条件を満たす行だけの合計。例: sum(EV[margin &gt; 0])</span></pre>
+    </dd>
+  </dl>
+
+  <h3>🧮 具体例</h3>
+  <div class="example"><span class="label">例：2008年大統領選の予測誤差（結果）</span>
+    <pre class="code">errors_df |&gt;
+  summarise(
+    bias = mean(error),        <span class="comment"># → 1.06</span>
+    rmse = sqrt(mean(error^2)) <span class="comment"># → 5.91</span>
+  )
+<span class="comment"># バイアスはほぼ0 → 世論調査からの予測に大きな偏りはない</span></pre>
+  </div>
+  <div class="example"><span class="label">例：勝敗予測が外れた州</span>
+    <pre class="code">errors_df |&gt;
+  filter(sign(pred_margin) != sign(actual_margin))
+<span class="comment"># → IN, MO, NC の3州のみ。いずれも接戦州だった</span></pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    予測誤差は「<b>実際 − 予測</b>」の順。逆にすると符号（バイアスの向き）が反転する。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>偽陽性</b>＝実際は陰性なのに陽性と予測、<b>偽陰性</b>＝実際は陽性なのに陰性と予測。向きを混同しやすい。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    散布図で予測（横軸）と実際（縦軸）を比べるとき、45度線上なら予測と実際が一致。右上・左下の領域は勝敗予測が的中、右下・左上は外れ。
+  </div>
+</section>
+
+<!-- ==================== 第10章 ==================== -->
+<section class="chapter" id="ch10">
+  <h2>第10章 線形回帰（feols・係数・予測値・残差・決定係数）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>線形回帰モデル: $Y = \alpha + \beta X + \epsilon$（$\alpha$＝切片、$\beta$＝傾き、$\epsilon$＝誤差項）</li>
+    <li>$\beta$ は「$X$ が1単位増加したとき $Y$ が平均してどれだけ増加するか」を表す</li>
+    <li>授業では <code>lm()</code> ではなく fixestパッケージの <code>feols()</code> を使う（高速・高機能）</li>
+    <li>係数は <code>coef()</code>、予測値は <code>fitted()</code>、残差は <code>resid()</code> で取り出す</li>
+    <li>残差 ＝ 実際の値 − 予測値。残差のRMSEで予測精度を確認する</li>
+    <li>決定係数 $R^2$ はモデルが説明した変動の割合（0〜1）。<code>r2()</code> で取得できる</li>
+    <li>外れ値（例: パームビーチ郡）は回帰の当てはまりを大きく悪化させる</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>線形回帰モデル（数式）</dt>
+    <dd>
+      <p>$$Y = \alpha + \beta X + \epsilon$$</p>
+      <p>推定値が得られれば、$\hat{Y} = \hat{\alpha} + \hat{\beta}X$ として予測値を計算できる。</p>
+    </dd>
+
+    <dt>feols()による推定</dt>
+    <dd>
+      <pre class="code"><span class="keyword">library</span>(<span class="general">fixest</span>)                <span class="comment"># fixestパッケージを読み込む</span>
+
+<span class="general">fit</span> <span class="keyword">&lt;-</span> <span class="keyword">feols</span>(<span class="general">結果変数</span> <span class="keyword">~</span> <span class="general">予測変数</span>, <span class="keyword">data =</span> <span class="general">データ</span>)
+<span class="general">fit</span>    <span class="comment"># 推定結果を表示。切片は自動的にモデルに加えられる</span></pre>
+    </dd>
+
+    <dt>推定結果の取り出し</dt>
+    <dd>
+      <table class="fn-table">
+        <tr><th>一般形</th><th>説明</th></tr>
+        <tr><td><code>coef(fit)</code></td><td>切片と傾きの推定値</td></tr>
+        <tr><td><code>fitted(fit)</code></td><td>予測値（当てはめ値）</td></tr>
+        <tr><td><code>resid(fit)</code></td><td>残差（実際の値 − 予測値）</td></tr>
+        <tr><td><code>r2(fit, type = "r2")</code></td><td>決定係数（fixestのr2関数）</td></tr>
+        <tr><td><code>predict(fit, newdata = データ)</code></td><td>任意の予測変数の値に対する予測値</td></tr>
+      </table>
+    </dd>
+
+    <dt>残差のRMSE</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">mutate</span>(<span class="general">resid</span> = <span class="keyword">resid</span>(<span class="general">fit</span>)) <span class="keyword">|&gt;</span>
+  <span class="keyword">summarise</span>(<span class="general">rmse</span> = <span class="keyword">sqrt</span>(<span class="keyword">mean</span>(<span class="general">resid</span>^2)))</pre>
+    </dd>
+
+    <dt>決定係数（数式と手計算）</dt>
+    <dd>
+      <p>$$R^2 = \frac{\text{TSS} - \text{RSS}}{\text{TSS}} = 1 - \frac{\text{RSS}}{\text{TSS}}$$</p>
+      <p>TSS＝全変動平方和、RSS＝残差平方和。1に近いほどモデルが結果変数の変動をよく説明。</p>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">mutate</span>(<span class="general">resid</span> = <span class="keyword">resid</span>(<span class="general">fit</span>)) <span class="keyword">|&gt;</span>
+  <span class="keyword">summarise</span>(
+    <span class="general">TSS</span> = <span class="keyword">sum</span>((<span class="general">結果変数</span> - <span class="keyword">mean</span>(<span class="general">結果変数</span>))^2),  <span class="comment"># 全変動平方和</span>
+    <span class="general">RSS</span> = <span class="keyword">sum</span>(<span class="general">resid</span>^2),                        <span class="comment"># 残差平方和</span>
+    <span class="general">R2</span>  = (<span class="general">TSS</span> - <span class="general">RSS</span>) / <span class="general">TSS</span>                    <span class="comment"># 決定係数</span>
+  )</pre>
+    </dd>
+
+    <dt>回帰直線の描画</dt>
+    <dd>
+      <pre class="code"><span class="comment"># 方法1: geom_smooth で回帰直線を描く</span>
+<span class="keyword">geom_smooth</span>(<span class="keyword">method =</span> <span class="string">"lm"</span>, <span class="keyword">se =</span> <span class="keyword">FALSE</span>)   <span class="comment"># se = FALSE で信頼区間の帯を消す</span>
+
+<span class="comment"># 方法2: 推定済みの係数から直線を描く</span>
+<span class="keyword">geom_abline</span>(<span class="keyword">intercept =</span> <span class="keyword">coef</span>(<span class="general">fit</span>)[1], <span class="keyword">slope =</span> <span class="keyword">coef</span>(<span class="general">fit</span>)[2])</pre>
+    </dd>
+
+    <dt>残差プロット</dt>
+    <dd>
+      <pre class="code"><span class="general">データ</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">mutate</span>(<span class="general">fitted</span> = <span class="keyword">fitted</span>(<span class="general">fit</span>), <span class="general">resid</span> = <span class="keyword">resid</span>(<span class="general">fit</span>)) <span class="keyword">|&gt;</span>
+  <span class="keyword">ggplot</span>(<span class="keyword">aes</span>(<span class="keyword">x =</span> <span class="general">fitted</span>, <span class="keyword">y =</span> <span class="general">resid</span>)) <span class="keyword">+</span>
+  <span class="keyword">geom_point</span>() <span class="keyword">+</span>
+  <span class="keyword">geom_hline</span>(<span class="keyword">yintercept =</span> 0)</pre>
+    </dd>
+
+    <dt>結合時の共通列名の区別（suffix）</dt>
+    <dd>
+      <pre class="code"><span class="general">データ1</span> <span class="keyword">|&gt;</span>
+  <span class="keyword">inner_join</span>(<span class="general">データ2</span>, <span class="keyword">by =</span> <span class="string">"キー列"</span>, <span class="keyword">suffix =</span> <span class="keyword">c</span>(<span class="string">"_2008"</span>, <span class="string">"_2012"</span>))
+<span class="comment"># 両方にある列名（Obama, EVなど）に接尾辞を付けて区別する</span></pre>
+    </dd>
+  </dl>
+
+  <h3>🧮 具体例</h3>
+  <div class="example"><span class="label">例：顔の見た目と選挙結果の回帰</span>
+    <pre class="code">fit &lt;- feols(diff.share ~ d.comp, data = face)
+coef(fit)    <span class="comment"># → 切片 -0.312, 傾き 0.660</span>
+<span class="comment"># 傾き0.66 → 能力スコアが0.1増えるとマージンが約6.6%ポイント増加</span></pre>
+  </div>
+  <div class="example"><span class="label">例：外れ値の影響（フロリダ州の回帰）</span>
+    <pre class="code">fit2 &lt;- feols(Buchanan00 ~ Perot96, data = florida)
+r2(fit2, type = "r2")    <span class="comment"># → 0.513</span>
+
+florida_nopb &lt;- florida |&gt; filter(county != "PalmBeach")
+fit3 &lt;- feols(Buchanan00 ~ Perot96, data = florida_nopb)
+r2(fit3, type = "r2")    <span class="comment"># → 0.851（外れ値を除くと大きく改善）</span></pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    フォーミュラは「<b>結果変数 ~ 予測変数</b>」の順。逆にすると意味が変わる。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    相関係数（<code>cor()</code>）と回帰の傾き（$\hat\beta$）は別物。相関は関係の強さ（-1〜1）、傾きは$X$1単位あたりの$Y$の変化量。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    $R^2$ が高くても予測が正確とは限らない。見た目スコアの回帰では残差のRMSEが約0.26（26%ポイント）もあり、予測はそれほど正確ではない。
+  </div>
+</section>
+
+<!-- ==================== 第11章 ==================== -->
+<section class="chapter" id="ch11">
+  <h2>第11章 回帰分析と因果推論（実験・重回帰・交互作用）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>2値トリートメントの実験データでは、回帰の傾き係数 ＝ <b>平均トリートメント効果の推定値</b> ＝ 2グループの平均の差</li>
+    <li>この因果解釈には<b>トリートメントの割り当てがランダム</b>であるなどの仮定が重要</li>
+    <li>重回帰モデル: $Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p + \epsilon$。各係数は「他の予測変数を一定に保ったとき」の関係</li>
+    <li>因子変数（文字列の変数）は自動的にダミー変数に変換されて回帰に入る</li>
+    <li><code>X1 * X2</code> と書くと主効果と<b>交互作用項</b>がまとめてモデルに入る</li>
+    <li>交互作用項の係数は、グループによってトリートメント効果がどれだけ異なるか（不均一トリートメント効果）を表す</li>
+  </ul></div>
+
+  <h3>📖 一般形</h3>
+  <dl class="terms">
+    <dt>トリートメント効果の回帰（2値トリートメント）</dt>
+    <dd>
+      <pre class="code"><span class="keyword">feols</span>(<span class="general">結果変数</span> <span class="keyword">~</span> <span class="general">トリートメント変数</span>, <span class="keyword">data =</span> <span class="general">データ</span>)
+<span class="comment"># トリートメント変数の係数 = 平均トリートメント効果の推定値</span>
+<span class="comment"># = トリートメントグループとコントロールグループの平均の差</span></pre>
+    </dd>
+
+    <dt>重回帰モデル（数式）</dt>
+    <dd>
+      <p>$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p + \epsilon$$</p>
+      <p>各係数 $\beta_j$ は、他の予測変数を一定に保ったときに $X_j$ が1単位増加することと $Y$ の平均的な変化の関係を表す。</p>
+    </dd>
+
+    <dt>因子変数の回帰（自動ダミー変換）</dt>
+    <dd>
+      <pre class="code"><span class="keyword">feols</span>(<span class="general">結果変数</span> <span class="keyword">~</span> <span class="general">因子変数</span>, <span class="keyword">data =</span> <span class="general">データ</span>)
+<span class="comment"># 因子変数は自動的に指標変数（ダミー変数）に変換される</span>
+<span class="comment"># 基準カテゴリ以外の各カテゴリに係数が付く</span></pre>
+    </dd>
+
+    <dt>predict()による予測値の計算</dt>
+    <dd>
+      <pre class="code"><span class="general">newdata</span> <span class="keyword">&lt;-</span> <span class="general">データ</span> <span class="keyword">|&gt;</span> <span class="keyword">distinct</span>(<span class="general">列名</span>)   <span class="comment"># ユニークな値のデータフレーム</span>
+<span class="keyword">predict</span>(<span class="general">fit</span>, <span class="keyword">newdata =</span> <span class="general">newdata</span>)       <span class="comment"># 各値に対する予測値</span>
+<span class="comment"># この予測値は各グループの実際の平均と一致する</span></pre>
+    </dd>
+
+    <dt>交互作用項を含む回帰</dt>
+    <dd>
+      <pre class="code"><span class="keyword">feols</span>(<span class="general">結果変数</span> <span class="keyword">~</span> <span class="general">変数1</span> <span class="keyword">*</span> <span class="general">変数2</span>, <span class="keyword">data =</span> <span class="general">データ</span>)
+<span class="comment"># 変数1、変数2の主効果と交互作用項（変数1:変数2）がまとめて入る</span></pre>
+      <p>$$Y = \alpha + \beta_1 X_1 + \beta_2 X_2 + \beta_3 (X_1 \times X_2) + \epsilon$$</p>
+      <p>$\beta_3$（交互作用項の係数）は、$X_2$ のグループによって $X_1$ の効果がどれだけ異なるかを表す。</p>
+    </dd>
+  </dl>
+
+  <h3>🧮 具体例</h3>
+  <div class="example"><span class="label">例：インドの女性割当のランダム化実験</span>
+    <pre class="code">feols(water ~ reserved, data = women)
+<span class="comment"># reservedの係数 9.25 = 女性割当の平均因果効果（飲用水設備が増加）</span>
+feols(irrigation ~ reserved, data = women)
+<span class="comment"># 係数 -0.37 で有意でない（灌漑設備には効果なし）</span>
+<span class="comment"># → 女性政治家は女性有権者の求める政策を支持しやすいという仮説と整合的</span></pre>
+  </div>
+  <div class="example"><span class="label">例：社会的プレッシャー実験の交互作用</span>
+    <pre class="code">fit_int &lt;- feols(primary2006 ~ primary2004 * messages,
+                 data = social_neighbor)
+<span class="comment"># 交互作用項 primary2004:messagesNeighbors の係数 0.027</span>
+<span class="comment"># → 2004年に投票した人ほどNeighborsメッセージの効果が大きい</span>
+<span class="comment">#   （不均一トリートメント効果）</span></pre>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    回帰係数を因果効果と解釈できるのは、<b>トリートメントの割り当てがランダム</b>などの仮定が満たされる場合だけ。観察データの回帰は基本的に予測の道具。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    <code>X1 * X2</code>（主効果＋交互作用）と <code>X1 : X2</code>（交互作用項のみ）は別物。通常は <code>*</code> を使う。
+  </div>
+  <div class="pitfall"><span class="label">注意</span>
+    因子変数の回帰では<b>基準カテゴリ</b>が切片に吸収される。各係数は基準カテゴリとの差を表す。
   </div>
 </section>
 
