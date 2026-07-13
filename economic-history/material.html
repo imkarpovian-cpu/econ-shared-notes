@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>経済史・思想史入門 期末試験対策</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{
+  --accent:#2563eb; --accent-light:#dbeafe;
+  --ink:#1f2937; --sub:#6b7280;
+  --warn-bg:#fef9c3; --warn-edge:#eab308;
+  --ok-bg:#ecfdf5; --ok-edge:#10b981;
+  --bg:#f8fafc; --card:#ffffff; --line:#e5e7eb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
+  line-height:1.8;font-size:16px}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+header.page{background:var(--accent);color:#fff;border-radius:12px;padding:24px 28px;margin:16px 0}
+header.page h1{margin:0;font-size:1.6em}
+header.page .meta{margin:6px 0 0;opacity:.85;font-size:.9em}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 24px;margin-bottom:24px}
+nav.toc h2{margin:0 0 8px;font-size:1.05em;color:var(--accent)}
+nav.toc ol{margin:0;padding-left:1.4em}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--accent);text-decoration:underline}
+section.chapter{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:28px}
+section.chapter h2{margin:0 0 16px;padding-bottom:10px;border-bottom:3px solid var(--accent);font-size:1.35em}
+section.chapter h3{margin:24px 0 8px;font-size:1.05em;color:var(--accent);display:flex;align-items:center;gap:6px}
+.summary{background:var(--accent-light);border-radius:8px;padding:12px 16px}
+.summary ul{margin:0;padding-left:1.3em}
+.summary li{margin:4px 0}
+dl.terms{margin:0}
+dl.terms dt{font-weight:bold;color:var(--accent);margin-top:10px}
+dl.terms dt::before{content:"■ "}
+dl.terms dd{margin:2px 0 0 1.2em}
+.figure{text-align:center;margin:16px 0;padding:16px;border:1px dashed var(--line);border-radius:8px;background:#fff}
+.figure svg{max-width:100%;height:auto}
+.figure figcaption{font-size:.88em;color:var(--sub);margin-top:8px}
+.ref-note{background:#f1f5f9;border-left:4px solid var(--sub);padding:8px 14px;border-radius:0 8px 8px 0;font-size:.92em;color:var(--sub)}
+.example{background:var(--ok-bg);border-left:4px solid var(--ok-edge);padding:12px 16px;border-radius:0 8px 8px 0}
+.example .label,.pitfall .label{font-weight:bold;font-size:.9em;display:block;margin-bottom:4px}
+.example .label{color:#047857}
+.pitfall{background:var(--warn-bg);border-left:4px solid var(--warn-edge);padding:12px 16px;border-radius:0 8px 8px 0}
+.pitfall .label{color:#a16207}
+footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32px}
+@media print{
+  body{background:#fff;font-size:12px;line-height:1.6}
+  section.chapter{border:none;padding:0 0 16px;break-inside:avoid-page}
+  header.page{border-radius:0}
+  nav.toc{border:none}
+}
+</style>
+</head>
+<body>
+<script src="../auth.js"></script>
+<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
+  <a href="../index.html" style="color:#2563eb;text-decoration:none;font-weight:700">&#9664; 共有ノート</a>
+  <span style="color:#6b7280">／</span>
+  <span style="font-weight:600">経済史・思想史入門</span>
+</nav>
+<div class="wrap">
+
+<header class="page">
+  <h1>経済史・思想史入門 期末試験対策</h1>
+  <p class="meta">思想史編＋経済史編 ｜ 京都大学経済学部 R08</p>
+</header>
+
+<p style="background:#fef9c3;border-left:4px solid #eab308;padding:10px 16px;border-radius:0 8px 8px 0;font-size:.92em;color:#a16207">思想史編だけNotebookLMで作成したため書式が形式おかしくなってます。ごめんなさい</p>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+<li style="font-weight:bold;color:var(--accent);list-style:none">― 思想史編 ―</li>
+<li value="1"><a href="#ch7">第1章 時間感覚の変遷と「予測」の科学化</a></li>
+<li><a href="#ch8">第2章 近代社会の形成と空間的・政治的リスク</a></li>
+<li><a href="#ch9">第3章 社会契約説による集団的リスク管理（ホッブズ vs ロック）</a></li>
+<li><a href="#ch10">第4章 アダム・スミスと新しい経済倫理</a></li>
+<li style="margin-top:12px;font-weight:bold;color:var(--accent);list-style:none">― 経済史編 ―</li>
+<li value="1"><a href="#ch1">第8回 前近代の生産システム</a></li>
+<li><a href="#ch2">第9回 工場制と機械化</a></li>
+<li><a href="#ch3">第10回 現代企業と垂直統合</a></li>
+<li><a href="#ch4">第11回 下請制からサプライヤーシステムへ</a></li>
+<li><a href="#ch5">第12回 戦後日本経済の長期動態</a></li>
+<li><a href="#ch6">第13回 東アジア資本主義と日本</a></li>
+<!--TOC-END-->
+  </ol>
+</nav>
+
+<main>
+
+<!-- ========================================== -->
+<!-- 思想史編 -->
+<!-- ========================================== -->
+
+<h2 style="text-align:center;color:var(--accent);margin:40px 0 24px;font-size:1.5em;letter-spacing:.1em">― 思想史編 ―</h2>
+
+<!-- ====== 第1章 時間感覚の変遷と「予測」の科学化 ====== -->
+<section class="chapter" id="ch7">
+  <h2>第1章 時間感覚の変遷と「予測」の科学化</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>17〜18世紀ヨーロッパで「占い・神学」から「社会科学・経済学」へのパラダイムシフトが起きた</li>
+    <li>中世の「運命に従う」姿勢から、近代の「未来を予測し人為的に制御する」姿勢への転換が核心</li>
+    <li>中世：循環史観・農事暦的時間感覚。変化は突発事件＝神の摂理。対処法は祈り・預言者の解釈・記憶と慣習</li>
+    <li>近世（初期近代）：変化しながらも繰り返す日常。規則性を持った突発事件として捉え、政治算術・統計・確率で把握</li>
+    <li>後期近代以降：変化する日常（過去より現在・未来を重視）。科学的因果分析と個人の努力で対処</li>
+    <li><b>「運命の女神」</b>（中世）＝気まぐれな変化の象徴 → <b>「時計職人としての神」</b>（近世）＝人為的介入の余地を開く</li>
+    <li>初期近代の占い・錬金術は単なる迷信でなく、実験・記録を通じて「神の隠された秩序を再発見する」新科学的手法</li>
+    <li>世界を精巧な機械（時計）と見なすことで「仕組みを解明すれば人間が修理・管理できる」＝リスク管理の論理的基盤が確立</li>
+  </ul></div>
+
+  <h3>📝 重要用語</h3>
+  <dl class="terms">
+    <dt>運命の女神</dt>
+    <dd>中世の世界観を象徴する比喩。変化は不可測・気まぐれであり、人間は運命に服従するしかないという姿勢</dd>
+
+    <dt>時計職人としての神</dt>
+    <dd>初期近代の世界観。世界を神が作った精密な機械と見なし、法則を解明すれば人間が人為的に「介入やリスク管理」を行う余地を認めた</dd>
+
+    <dt>政治算術</dt>
+    <dd>陰謀論を排し、事実・統計・確率に基づき物事を数量的に把握する手法。占いから客観的・科学的判断への移行基盤</dd>
+
+    <dt>循環史観</dt>
+    <dd>中世の時間感覚。農事暦に基づく繰り返す日常として時間を捉え、変化を例外事項（神の摂理）と見なす</dd>
+
+    <dt>直線的時間</dt>
+    <dd>後期近代に発見された時間観。過去→現在→未来という不可逆な進行として時間を捉える</dd>
+  </dl>
+
+  <h3>📊 図表</h3>
+  <div class="figure">
+    <table style="width:100%;border-collapse:collapse;text-align:left;font-size:.9em">
+      <thead><tr style="background:var(--accent-light)">
+        <th style="padding:8px;border:1px solid var(--line)">時代区分</th>
+        <th style="padding:8px;border:1px solid var(--line)">時間感覚</th>
+        <th style="padding:8px;border:1px solid var(--line)">変化への見方</th>
+        <th style="padding:8px;border:1px solid var(--line)">対処・予測法</th>
+        <th style="padding:8px;border:1px solid var(--line)">社会イメージ</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:8px;border:1px solid var(--line)"><b>中世</b></td>
+            <td style="padding:8px;border:1px solid var(--line)">繰り返す日常（農事暦的・循環史観）</td>
+            <td style="padding:8px;border:1px solid var(--line)">突発事件＝神の摂理</td>
+            <td style="padding:8px;border:1px solid var(--line)">祈り、預言者の解釈、記憶・慣習</td>
+            <td style="padding:8px;border:1px solid var(--line)"><b>「運命の女神」</b></td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--line)"><b>近世（初期近代）</b></td>
+            <td style="padding:8px;border:1px solid var(--line)">変化しながらも繰り返す日常</td>
+            <td style="padding:8px;border:1px solid var(--line)">規則性を持った突発事件</td>
+            <td style="padding:8px;border:1px solid var(--line)">政治算術、統計・確率論的把握</td>
+            <td style="padding:8px;border:1px solid var(--line)"><b>「時計職人としての神」</b></td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--line)"><b>後期近代以降</b></td>
+            <td style="padding:8px;border:1px solid var(--line)">変化する日常（現在・未来重視）</td>
+            <td style="padding:8px;border:1px solid var(--line)">因果関係に基づく恒常的変化</td>
+            <td style="padding:8px;border:1px solid var(--line)">科学的因果分析、個人の努力</td>
+            <td style="padding:8px;border:1px solid var(--line)">人為的操作が必要な社会</td></tr>
+      </tbody>
+    </table>
+    <figcaption>時間感覚と変化への対処法の変遷</figcaption>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>初期近代の占い・錬金術を「迷信」と片付けないこと：</b>これらは実験や記録を通じて神の隠された秩序を再発見しようとする「新科学」的な営みだった。科学と魔術の境界が未分化な時代であることを理解する<br><br>
+    <b>「運命の女神」と「時計職人としての神」の対比を正確に：</b>前者は不可測な気まぐれ（人間は受動的）、後者は法則的な機械（人間が解明・介入可能）。この転換がリスク管理の論理的基盤
+  </div>
+</section>
+
+<!-- ====== 第2章 近代社会の形成と空間的・政治的リスク ====== -->
+<section class="chapter" id="ch8">
+  <h2>第2章 近代社会の形成と空間的・政治的リスク</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>近代社会は従来の自明な枠組みが動揺し、新たな「区切り」と「管理」が求められた時代</li>
+    <li>近代社会の4側面：政治（王朝国家→主権国家・国民国家）、経済（産業革命・消費社会）、宗教（カトリック/プロテスタントの分離・属地主義）、空間・時間（無限性→有限性・調和可能性）</li>
+    <li>教皇分界線（トルデシリャス条約・サラゴサ条約）＝世界を「有限な空間」として捉え直す「世界の有限化」の象徴</li>
+    <li>有限な空間の確定こそが、領域衝突のリスク管理の前提条件</li>
+    <li>イギリスが近代社会のプロトタイプとなった：1603年同君連合→1707年英蘇合邦で「グレートブリテン」体制確立</li>
+    <li>経済的転換：暴力的な「略奪行為（海賊行為）」から「互恵的（相互利益的）貿易」へ</li>
+    <li>フランシス・ベーコン『ノヴム・オルガヌム』の表紙絵（ヘラクレスの柱を抜ける船）＝既知から未知への科学的挑戦の象徴</li>
+    <li>音楽の変遷（17c単奏・不協和音→18cオーケストラ）＝「個と全体の組織的な調和」を目指した近代社会の理想のメタファー</li>
+  </ul></div>
+
+  <h3>📝 重要用語</h3>
+  <dl class="terms">
+    <dt>世界の有限化</dt>
+    <dd>教皇分界線（トルデシリャス条約1494・サラゴサ条約1529）により世界をスペイン・ポルトガルの領域として明確に区切ったこと。有限な空間の確定がリスク管理の不可欠な前提</dd>
+
+    <dt>主権国家・国民国家</dt>
+    <dd>王朝国家から移行した近代の政治形態。官僚制や資本制による内部の均質化が進む</dd>
+
+    <dt>属地主義</dt>
+    <dd>宗教改革後に成立した原則。領邦の宗教はその領主が決定する（「領主の宗教がその地の宗教」）。宗教的境界の明確化</dd>
+
+    <dt>グレートブリテン体制</dt>
+    <dd>1603年の同君連合から1707年の英蘇合邦を経て確立。イングランド中心の国家システムで、近代国家の原型</dd>
+
+    <dt>互恵的貿易</dt>
+    <dd>略奪行為（海賊行為）からの転換。相互利益に基づく経済活動で、大規模な経済変動に対応する国家枠組みを生んだ</dd>
+  </dl>
+
+  <h3>💡 具体例</h3>
+  <div class="example"><span class="label">例：近代社会を象徴する資料・図表</span>
+    <b>トルデシリャス・サラゴサ条約の地図：</b>世界を線で分割し「有限なもの」として確定。領域衝突のリスク管理の試み<br>
+    <b>ベーコン『ノヴム・オルガヌム』表紙：</b>ヘラクレスの柱を抜けて航海する船。未知のリスクを「制御可能な運命」に変える近代の姿勢<br>
+    <b>音楽の変遷：</b>17世紀の単奏・不協和音→18世紀のオーケストラ（協和音・壮麗さ）。社会の複雑化と「個と全体の組織的な調和」の理想
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>「世界の有限化」がなぜリスク管理の前提か：</b>空間が無限であればそもそも領域衝突は起きない。有限な空間として確定して初めて、衝突の可能性を予測・管理する必要が生じる<br><br>
+    <b>イギリスの2つの転換を混同しない：</b>①政治的統合（同君連合→合邦→グレートブリテン）と②経済的転換（略奪→互恵的貿易）は別の軸だが相互に関連
+  </div>
+</section>
+
+<!-- ====== 第3章 社会契約説（ホッブズ vs ロック） ====== -->
+<section class="chapter" id="ch9">
+  <h2>第3章 社会契約説による集団的リスク管理（ホッブズ vs ロック）</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>社会契約＝個人の安全確保という「リスク管理」のために結ばれる双務契約</li>
+    <li><b>ホッブズ：</b>自然状態＝悲惨な戦争状態（万人の万人に対する闘争）。不可逆的な服従契約で主権者に秩序の強制を委ねる</li>
+    <li><b>ロック：</b>自然状態＝自然法（理性）が支配するが権利享受が不安定。可逆的な信託契約で政府に権力を委任</li>
+    <li>ホッブズは革命権を否定（秩序崩壊を避けるため）、ロックは革命権を肯定（信託に反する場合の契約撤回）</li>
+    <li>ロックの核心：<b>プロパティ（生命・自由・財産）</b>の保全。人間は「神の作品（workmanship）」＝神の所有物</li>
+    <li>自己保全は「神への義務」であり、その手段が「労働」→ 労働所有権論（労働を投下した対象に正当な所有権）</li>
+    <li>政治社会の目的＝プロパティをより確実に守るため、権力を政府に<b>信託（Fiduciary Trust）</b>する</li>
+    <li>信託の受託者（政府）が所有者（国民）の利益に反する場合、信託は解除可能＝革命権の根拠</li>
+  </ul></div>
+
+  <h3>📝 重要用語</h3>
+  <dl class="terms">
+    <dt>万人の万人に対する闘争</dt>
+    <dd>ホッブズが描いた自然状態。全員が全員に対して戦争状態にあり、生活は「孤独で、貧しく、汚く、残忍で、短い」</dd>
+
+    <dt>プロパティ（ロックの定義）</dt>
+    <dd>生命、自由、資産（財産）の総称。人間は「神の作品」であり、これらを保全することは神に対する義務</dd>
+
+    <dt>信託（Fiduciary Trust）</dt>
+    <dd>所有者が利益実現のために権限を預ける契約形態。受託者（政府）が所有者（国民）の利益に反する場合、信託は解除可能（革命権の根拠）</dd>
+
+    <dt>労働所有権論</dt>
+    <dd>ロックの理論。労働を投下し価値を付加した対象は、正当な所有権の根拠となる。自己保全（神への義務）の手段が労働である</dd>
+
+    <dt>革命権</dt>
+    <dd>ロックが肯定、ホッブズが否定。政府が信託に反した場合に国民が契約を撤回する権利</dd>
+  </dl>
+
+  <h3>📊 図表</h3>
+  <div class="figure">
+    <table style="width:100%;border-collapse:collapse;text-align:left;font-size:.9em">
+      <thead><tr style="background:var(--accent-light)">
+        <th style="padding:8px;border:1px solid var(--line)">比較項目</th>
+        <th style="padding:8px;border:1px solid var(--line)">トマス・ホッブズ</th>
+        <th style="padding:8px;border:1px solid var(--line)">ジョン・ロック</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:8px;border:1px solid var(--line)"><b>自然状態</b></td>
+            <td style="padding:8px;border:1px solid var(--line)">悲惨な戦争状態（万人の万人に対する闘争）</td>
+            <td style="padding:8px;border:1px solid var(--line)">自然法（理性）が支配するが権利享受が不安定</td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--line)"><b>契約の性質</b></td>
+            <td style="padding:8px;border:1px solid var(--line)">不可逆的な服従（秩序の絶対視）</td>
+            <td style="padding:8px;border:1px solid var(--line)">可逆的な信託（信頼に基づく委任）</td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--line)"><b>主権者の役割</b></td>
+            <td style="padding:8px;border:1px solid var(--line)">秩序の強制者（争いを終結させる）</td>
+            <td style="padding:8px;border:1px solid var(--line)">公平な裁定者（権利侵害を裁く）</td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--line)"><b>革命権</b></td>
+            <td style="padding:8px;border:1px solid var(--line)">否定（秩序崩壊を避けるため）</td>
+            <td style="padding:8px;border:1px solid var(--line)">肯定（信託違反時の契約撤回）</td></tr>
+      </tbody>
+    </table>
+    <figcaption>ホッブズとロックの社会契約説比較</figcaption>
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>ロックの自然状態≠平和な楽園：</b>自然法（理性）が支配するが、権利の「享受が不安定」であることが問題。だからこそ政治社会が必要になる<br><br>
+    <b>プロパティ＝財産だけではない：</b>生命・自由・財産の三位一体。「神の作品」としての自己保全義務から導かれる包括的概念<br><br>
+    <b>信託と服従の違い：</b>ホッブズの服従は一方向で取消不可。ロックの信託は双方向で、受託者が義務を果たさなければ解除可能（＝革命権）
+  </div>
+</section>
+
+<!-- ====== 第4章 アダム・スミスと新しい経済倫理 ====== -->
+<section class="chapter" id="ch10">
+  <h2>第4章 アダム・スミスと新しい経済倫理</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>スミスは「進歩（文明化）と人間性（美徳）の衝突」という時代のジレンマに新たな人間像を提示</li>
+    <li>人間は「利己的であると同時に利他的な存在」：利己心（経済活動のエネルギー）＋同感（他者の感情を自分の心に写す能力）</li>
+    <li><b>公正な観察者（Impartial Spectator）</b>：同感の能力を通じて自分の中に形成される「第三者の目」。利己的衝動を抑制し秩序ある利益追求を可能にする</li>
+    <li>スミスを単なる「自由放任主義者」と呼ぶのは不適切</li>
+    <li>スミスの経済学は道徳哲学（『道徳感情論』）と一体。社会崩壊を防ぐ倫理的枠組みの中で経済法則を解明しようとした</li>
+    <li>個人の自律的倫理観（同感と公正な観察者）に基づく「社会の調和」を追求した社会哲学者</li>
+  </ul></div>
+
+  <h3>📝 重要用語</h3>
+  <dl class="terms">
+    <dt>同感（Sympathy）</dt>
+    <dd>スミス道徳哲学の根幹。他者の情念を鏡のように自分の中に写し出し、自らの行動が「公正な観察者」から見て妥当かどうかを判断する能力</dd>
+
+    <dt>公正な観察者（Impartial Spectator）</dt>
+    <dd>同感の能力を通じて自分の中に形成される「第三者の目」。利己的な衝動を抑制し、秩序ある利益追求を可能にする内的装置</dd>
+
+    <dt>利己心</dt>
+    <dd>経済活動を推進するエネルギー。スミスはこれを否定せず、同感・公正な観察者による自律的抑制の中で機能させる</dd>
+
+    <dt>『道徳感情論』</dt>
+    <dd>スミスの道徳哲学の主著。『国富論』と一体であり、経済活動の倫理的枠組みを論じた</dd>
+  </dl>
+
+  <h3>💡 具体例</h3>
+  <div class="example"><span class="label">例：スミスの「自由放任主義者」像の是正</span>
+    スミスは『国富論』で利己心による市場の自律的調整（「見えざる手」）を論じたことから、単なる自由放任主義者と誤解されがち。しかし彼の経済学は『道徳感情論』の道徳哲学と不可分であり、同感と公正な観察者という倫理的装置に支えられた「社会の調和」の追求が本質。経済法則は倫理的枠組みの中でのみ正当に機能する、というのがスミスの立場。
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>「同感」≠「同情」：</b>同感は他者への哀れみ（同情）だけでなく、他者の感情全般を自分の中に写し出す能力。喜びにも怒りにも「同感」しうる<br><br>
+    <b>『道徳感情論』と『国富論』の関係：</b>この2つは矛盾するのではなく補完関係にある（いわゆる「アダム・スミス問題」）。利己心は同感・公正な観察者によって社会的に適切な範囲に抑制される<br><br>
+    <b>公正な観察者は外部の人物ではない：</b>自分の内部に同感を通じて形成される「想像上の第三者」。外部からの強制ではなく自律的な倫理判断の装置
+  </div>
+</section>
+
+<h2 style="text-align:center;color:var(--accent);margin:40px 0 24px;font-size:1.5em;letter-spacing:.1em">― 経済史編 ―</h2>
+
+<!-- ====== 第8回 ====== -->
+<section class="chapter" id="ch1">
+  <h2>第8回 前近代の生産システム</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>前近代の農業生産システムを「生産要素と権限の配分・動機付け」で整理する</li>
+    <li>マルクスの発展段階論（アジア的→古典古代的→封建的→近代ブルジョア的→社会主義）の問題点：決定論・単線史観、ヨーロッパ中心主義</li>
+    <li>奴隷制：奴隷は人格をもたず生産手段を所有しない。奴隷主が経済外的強制で剰余労働を取得</li>
+    <li>小経営にもとづく奴隷制が基本形態（家父長制的奴隷制・土地占有奴隷制）</li>
+    <li>封建制＝《国王−領主》関係＋《領主−農奴》関係。農奴は小経営を営み身分的に差別された人格をもつ</li>
+    <li>地主制：契約（土地貸借）関係。分益農制→小借地農制→請負耕作制の3形態</li>
+    <li>小経営の発展が工業化・資本主義化の基礎。前近代では西欧と東アジアのみで小農社会が成立</li>
+    <li>西欧は休閑除草農法（資本集約的・労働生産性高）、東アジアは中耕除草農法（労働集約的・土地生産性高）</li>
+    <li>地主制と資本主義：近代的土地改革Ⅰ（封建制→近代的地主制）→Ⅱ（地主制→自作農）</li>
+    <li>前近代アジアは「停滞社会」ではなく、東アジアでの小農社会の成立・発達が資本主義的工業化の基礎となった</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>マルクスの発展段階論</dt>
+    <dd>生産様式の発展段階として、アジア的→古典古代的（奴隷制）→封建的（農奴制）→近代ブルジョア的（資本主義）→未来社会（社会主義・共産主義）を想定。『経済学批判』序言（1859）に基づく</dd>
+
+    <dt>奴隷制</dt>
+    <dd>奴隷は生産手段の付属物として奴隷主に所有される。人格をもたず生産手段を所有しない。奴隷主は経済外的強制で剰余労働・剰余生産物を取得</dd>
+
+    <dt>ラティフンディウム</dt>
+    <dd>古代ローマの奴隷制大経営。侵略・征服による奴隷供給、他部族支配、市場拡大が条件。奴隷供給が持続せず没落</dd>
+
+    <dt>家父長制的奴隷制</dt>
+    <dd>小経営にもとづく奴隷制の基本形態①。奴隷主＋少数の奴隷。古典古代の主要形態</dd>
+
+    <dt>土地占有奴隷制</dt>
+    <dd>小経営にもとづく奴隷制の基本形態②。奴隷自身が小経営を営む（古代スパルタのヘイロータイ等）。生産力発展で奴隷は農奴へ転化</dd>
+
+    <dt>国家的奴隷制</dt>
+    <dd>土地占有奴隷制の一形態。秦の阡陌制〜唐の均田制、日本の班田制</dd>
+
+    <dt>封建制（封建的農奴制）</dt>
+    <dd>《国王−領主》関係＋《領主−農奴》関係。典型は中世ヨーロッパのレーエン制、近世日本の幕藩体制</dd>
+
+    <dt>農奴制</dt>
+    <dd>農奴は①小経営を営み②身分的に差別された人格をもつ。領主は経済外的強制＋公的権力によって支配。領主と農奴による重層的・対抗的土地所有</dd>
+
+    <dt>国家的農奴制</dt>
+    <dd>中世アジア（宋〜清代中国）。大規模な水利・灌漑等を専制国家に依存。私的大土地所有の発達が遅れ、資本主義化を阻害（とされた）</dd>
+
+    <dt>小経営</dt>
+    <dd>少人数による経営。計画的な協業・分業なし、他者による指揮・監督なし。生産手段の占有（or所有）、生産物の私的所有。小生産者が生産性向上へのインセンティブをもつ</dd>
+
+    <dt>小農社会</dt>
+    <dd>自立的小農が多数の社会。工業化・資本主義化の基礎。前近代では西欧と東アジアのみで成立（15c英ヨーマン、明代江南、豊臣政権〜江戸初期）</dd>
+
+    <dt>地主制</dt>
+    <dd>小作農は独立した人格。契約（土地貸借）関係。農業生産性上昇＋商品経済の発達が条件。宋代の地主佃戸制など、支配的生産システムではない</dd>
+
+    <dt>分益農制（シェア小作契約）</dt>
+    <dd>地主と小作農で生産手段を折半出資し、収穫を一定比率で分配（華北・東北、朝鮮北部、中世イタリア、近世フランス）</dd>
+
+    <dt>小借地農制（定額小作契約）</dt>
+    <dd>土地以外の生産手段を小作農が負担し、定額小作料を納める（華中・華南、朝鮮南部、台湾、日本、西欧各地）</dd>
+
+    <dt>請負耕作制（賃金契約）</dt>
+    <dd>小作農が賃労働を行う（近代イギリス）。経営の安定（高い生産力）を必要とする。地主的発展コース</dd>
+
+    <dt>中耕除草農法</dt>
+    <dd>東アジアの農法。労働集約的で土地生産性が高い。労働需要の季節変動が大きい。経営発展は多角化・複合化（範囲の経済追求）</dd>
+
+    <dt>休閑除草農法</dt>
+    <dd>西ヨーロッパの農法。資本集約的で労働生産性が高い。労働需要が少ない。経営発展は専業化（規模の経済追求）</dd>
+
+    <dt>東洋的専制</dt>
+    <dd>Wittfogel（1957）の概念。大規模灌漑に依存する専制的国家体制が経済発展を停滞させるとする議論</dd>
+
+    <dt>大分岐</dt>
+    <dd>西欧と中国の経済的「分岐」の時期をめぐる議論。14世紀（Maddison）vs. 18世紀（Pomeranz）</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <figure class="figure">
+    <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg">
+      <style>text{font-family:sans-serif;font-size:13px;fill:#1f2937}</style>
+      <!-- 奴隷制の構造 -->
+      <rect x="20" y="10" width="200" height="300" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="120" y="30" text-anchor="middle" font-weight="bold" fill="#2563eb">奴隷制</text>
+      <rect x="70" y="50" width="100" height="36" rx="6" fill="#fff" stroke="#1f2937"/>
+      <text x="120" y="73" text-anchor="middle">奴隷主</text>
+      <line x1="120" y1="86" x2="120" y2="130" stroke="#1f2937" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="155" y="110" font-size="11" fill="#6b7280">経済外的強制</text>
+      <rect x="70" y="130" width="100" height="36" rx="6" fill="#fff" stroke="#1f2937"/>
+      <text x="120" y="153" text-anchor="middle">奴隷</text>
+      <text x="120" y="190" text-anchor="middle" font-size="11" fill="#6b7280">人格なし</text>
+      <text x="120" y="206" text-anchor="middle" font-size="11" fill="#6b7280">生産手段を所有しない</text>
+      <rect x="70" y="230" width="100" height="36" rx="6" fill="#fff" stroke="#1f2937"/>
+      <text x="120" y="253" text-anchor="middle">土地</text>
+
+      <!-- 農奴制の構造 -->
+      <rect x="250" y="10" width="200" height="300" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+      <text x="350" y="30" text-anchor="middle" font-weight="bold" fill="#10b981">農奴制</text>
+      <rect x="300" y="50" width="100" height="36" rx="6" fill="#fff" stroke="#1f2937"/>
+      <text x="350" y="73" text-anchor="middle">領主</text>
+      <line x1="350" y1="86" x2="350" y2="130" stroke="#1f2937" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="385" y="104" font-size="11" fill="#6b7280">身分的支配</text>
+      <text x="385" y="118" font-size="11" fill="#6b7280">貢租・強制</text>
+      <rect x="300" y="130" width="100" height="36" rx="6" fill="#fff" stroke="#1f2937"/>
+      <text x="350" y="153" text-anchor="middle">農奴</text>
+      <text x="350" y="190" text-anchor="middle" font-size="11" fill="#6b7280">小経営を営む</text>
+      <text x="350" y="206" text-anchor="middle" font-size="11" fill="#6b7280">身分的に差別された人格</text>
+      <rect x="300" y="230" width="100" height="36" rx="6" fill="#fff" stroke="#1f2937"/>
+      <text x="350" y="253" text-anchor="middle">土地（荘園）</text>
+      <text x="350" y="280" text-anchor="middle" font-size="11" fill="#6b7280">重層的・対抗的土地所有</text>
+
+      <!-- 地主制の構造 -->
+      <rect x="480" y="10" width="200" height="300" rx="8" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+      <text x="580" y="30" text-anchor="middle" font-weight="bold" fill="#a16207">地主制</text>
+      <rect x="530" y="50" width="100" height="36" rx="6" fill="#fff" stroke="#1f2937"/>
+      <text x="580" y="73" text-anchor="middle">地主</text>
+      <line x1="580" y1="86" x2="580" y2="130" stroke="#1f2937" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="615" y="104" font-size="11" fill="#6b7280">土地貸付</text>
+      <text x="615" y="118" font-size="11" fill="#6b7280">小作料</text>
+      <rect x="530" y="130" width="100" height="36" rx="6" fill="#fff" stroke="#1f2937"/>
+      <text x="580" y="153" text-anchor="middle">小作農</text>
+      <text x="580" y="190" text-anchor="middle" font-size="11" fill="#6b7280">独立した人格</text>
+      <text x="580" y="206" text-anchor="middle" font-size="11" fill="#6b7280">契約関係</text>
+      <rect x="530" y="230" width="100" height="36" rx="6" fill="#fff" stroke="#1f2937"/>
+      <text x="580" y="253" text-anchor="middle">土地（小作地）</text>
+
+      <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937"/></marker></defs>
+    </svg>
+    <figcaption>図1 奴隷制・農奴制・地主制の構造比較</figcaption>
+  </figure>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例：発展パターンの比較（中村1978）</span>
+    欧州：家父長制的奴隷制 → 封建的農奴制 → 資本主義<br>
+    中国：国家的奴隷制 → 国家的農奴制 → 半植民地<br>
+    例外（日本など）：国家的奴隷制 → 封建的農奴制 → 資本主義
+  </div>
+  <div class="example" style="margin-top:10px"><span class="label">例：日本の農奴制から近代的地主制への移行</span>
+    江戸時代：藩主（農奴主）→ 身分的支配・年貢 → 百姓（農奴）。豪農（地主）→ 小作料 → 水呑百姓（小作農）<br>
+    明治以降：明治政府 → 地租（租税）。地主 → 土地貸付・小作料 → 小作農。近代的土地改革Ⅰ（地租改正1873）、Ⅱ（農地改革1945）
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>奴隷制大経営≠基本形態：</b>ローマのラティフンディウムや米国南部プランテーションは目立つが、古代奴隷制の基本形態は小経営。大経営は特殊な条件（侵略による奴隷供給など）で成立する例外<br><br>
+    <b>「封建制」の多義性：</b>古代中国の「封建制」（封土授与による分権体制）とマルクス的な「封建制」（農奴制を含む）は異なる概念<br><br>
+    <b>農民インセンティブの順序：</b>小借地農制 > 分益農制 > 請負耕作制の順にインセンティブが強い（岡崎2016）。定額制の方が限界的な努力の成果を全て得られるため
+  </div>
+</section>
+
+<!-- ====== 第9回 ====== -->
+<section class="chapter" id="ch2">
+  <h2>第9回 工場制と機械化</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>工場制の3つの性格：①集中作業場（大経営）、②機械化・動力化による大量生産、③資本主義的生産関係</li>
+    <li>資本主義的経営（マルクス）：労働力商品の自由な売買、資本家の指揮・監督、剰余価値（利潤）追求</li>
+    <li>資本主義的経営（新制度学派）：完備・完全な契約が不可能→従業員が雇用主の指揮に一定期間従う「近代的雇用契約」</li>
+    <li>集中作業場＝集中型生産組織（岡崎・中林2005）：大人数、一元的指揮・監督、計画的な協業・分業</li>
+    <li>分業による生産性上昇：スミス『国富論』のピン製造の事例（4,800倍以上）</li>
+    <li>工場制の発展経路（従来）：小経営→問屋制→マニュファクチャー→機械制大工業</li>
+    <li>工場制の発展経路（近年）：マニュファクチャーと問屋制は並存（直線的発展ではない）</li>
+    <li>マニュファクチャーと小経営の間に生産性の大きな差はない。機械化・動力化されてはじめて圧倒的生産力を実現</li>
+    <li>19世紀の工場制の限界：機械化・自動化の普及が低く（1851英で機械化部門175万人vs非機械化550万人）、特定産業に偏り</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>工場制</dt>
+    <dd>①集中作業場（大経営）、②機械化・動力化による大量生産（多くの場合）、③資本主義的生産関係の3要素からなる生産システム</dd>
+
+    <dt>資本主義的経営（マルクス的理解）</dt>
+    <dd>労働者（労働力商品）と資本家（資本）の存在、労働市場での労働力の自由な売買、資本家の指揮・監督下で生産、剰余価値（利潤）追求が目的</dd>
+
+    <dt>近代的雇用契約（新制度学派）</dt>
+    <dd>完備・完全な契約が不可能な場合に、従業員が雇用主の指揮に一定期間従うことに合意する契約形態</dd>
+
+    <dt>集中型生産組織</dt>
+    <dd>岡崎・中林（2005）の概念。大人数による経営、一元的な指揮・監督、計画的な協業・分業を特徴とする</dd>
+
+    <dt>マニュファクチャー（工場制手工業）</dt>
+    <dd>機械化・動力化されていない集中作業場。広義の工場制に含まれる。事例：ジョン・ウィンチコム（16c英毛織物、710人以上）、鈴木バイオリン製造</dd>
+
+    <dt>機械制大工業（狭義の工場制）</dt>
+    <dd>機械化・動力化された工場制。道具から機械へ（正確な再現・人間の限界を超えた作業）、自然力から動力へ（機械の高速・自動運転）</dd>
+
+    <dt>問屋制</dt>
+    <dd>問屋（商人）が原料や半製品を小生産者に前貸しし、製品を買い取る分散型の生産組織。従来は工場制の前段階とされたが、近年はマニュファクチャーと並存するとされる</dd>
+
+    <dt>分業による生産性上昇</dt>
+    <dd>スミス『国富論』のピン製造事例：分業なしでは1人1日1本以下→18工程を10人で分業すると48,000本/日（4,800本/人・日）。4,800倍以上の効率化</dd>
+
+    <dt>テイラーシステム</dt>
+    <dd>20世紀に分業と科学的管理を徹底した労働者管理の方法</dd>
+
+    <dt>近代的労働市場の創出</dt>
+    <dd>イギリス：第二次囲い込み（1760s-1840s）で農地を追われた農民が都市流入。日本：地租改正（1877）→松方デフレ（1880s）で自作農が没落</dd>
+
+    <dt>綿工業における産業革命</dt>
+    <dd>綿花→綿糸（紡績）→綿織物（織布）の生産工程で、紡糸・織布の大量生産技術が革新。蒸気機関導入が鍵</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <figure class="figure">
+    <svg viewBox="0 0 660 280" xmlns="http://www.w3.org/2000/svg">
+      <style>text{font-family:sans-serif;font-size:12px;fill:#1f2937}.box{rx:8;fill:#fff;stroke:#2563eb;stroke-width:1.5}.arr{stroke:#1f2937;stroke-width:1.5;marker-end:url(#a2)}</style>
+      <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2937"/></marker></defs>
+      <text x="330" y="20" text-anchor="middle" font-weight="bold" font-size="14" fill="#2563eb">工場制の発展経路（近年のイメージ）</text>
+      <rect x="220" y="35" width="220" height="36" class="box"/>
+      <text x="330" y="58" text-anchor="middle">小経営の自然発生的な社会的分業</text>
+      <text x="330" y="74" text-anchor="middle" font-size="10" fill="#6b7280">（独立手工業、産地）</text>
+      <line x1="260" y1="80" x2="180" y2="120" class="arr"/>
+      <line x1="400" y1="80" x2="480" y2="120" class="arr"/>
+      <rect x="80" y="120" width="200" height="36" class="box"/>
+      <text x="180" y="143" text-anchor="middle">マニュファクチャー</text>
+      <rect x="380" y="120" width="200" height="36" class="box"/>
+      <text x="480" y="143" text-anchor="middle">問屋制</text>
+      <text x="330" y="145" text-anchor="middle" font-size="20" fill="#6b7280">⇄</text>
+      <line x1="180" y1="156" x2="280" y2="200" class="arr"/>
+      <line x1="480" y1="156" x2="380" y2="200" class="arr"/>
+      <rect x="210" y="200" width="240" height="40" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+      <text x="330" y="220" text-anchor="middle" font-weight="bold">機械制大工業（狭義の工場制）</text>
+      <text x="330" y="260" text-anchor="middle" font-size="11" fill="#6b7280">※従来の直線的発展図式（問屋制→マニュファクチャー→機械制大工業）は修正された</text>
+    </svg>
+    <figcaption>図2 工場制の発展経路（近年の理解）</figcaption>
+  </figure>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例：マコウネル&ケネディ社（1795創立、英大規模紡績工場）</span>
+    利益率が高く競争が少ない高番手生産に特化。蒸気機関を積極的に導入し大量生産。従業員300人、紡錘数2.7万(1802)→8万(1810)
+  </div>
+  <div class="example" style="margin-top:10px"><span class="label">例：鈴木バイオリン製造（20世紀〜日本）</span>
+    1900年に一貫生産工場を稼動（全120工程）。工程の一部のみ機械化（15%）。最盛期1910年代は従業員1,000人で日産500台（0.5台/人・日）。マニュファクチャーの事例
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>マニュファクチャー≠高生産性：</b>マニュファクチャーと小経営の間に生産性の大きな差はない。機械化・動力化されてはじめて圧倒的な生産力を実現する<br><br>
+    <b>発展経路は直線的ではない：</b>「問屋制→マニュファクチャー→機械制大工業」という従来の直線的図式は修正され、マニュファクチャーと問屋制は並存すると理解されている<br><br>
+    <b>19世紀の機械化は限定的：</b>1851年英国で機械化部門175万人 vs 非機械化部門550万人。綿工業のGDPシェアも10%（1841）に過ぎない
+  </div>
+</section>
+
+<!-- ====== 第10回 ====== -->
+<section class="chapter" id="ch3">
+  <h2>第10回 現代企業と垂直統合</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>19世紀の事業システム：単一機能・単一事業単位の「単純企業」。市場的調整に依存</li>
+    <li>第一幕：アメリカ鉄道業の発達→全国市場の創出、巨大な鉄鋼・燃料需要、株式会社制度・証券市場、最初の現代企業</li>
+    <li>第二幕：大量流通の組織革新（大規模卸売商・小売商）＋大量生産の技術革新（電動機、互換性生産方式、科学的管理法）</li>
+    <li>規模の経済：規模の拡大に応じて単位費用が減少。「通量（throughput）」の調整が条件</li>
+    <li>第三幕：単純企業から統合企業へ。垂直統合＋多角化</li>
+    <li>垂直統合のねらい：①通量の調整による規模の経済（Chandler）、②防衛的動機（Chandler）、③取引費用の節約（Williamson）</li>
+    <li>取引費用（Coase）：市場を利用するコスト。「取引費用＞組織化費用」の場合に内部化（Make or Buy問題）</li>
+    <li>20世紀の巨大企業「チャンドラーモデル」：統合企業＋階層的経営組織＋三又投資＋経営者企業</li>
+    <li>「見える手」から「消えゆく手」へ（Langlois 2003）：市場の厚みが増すと管理的調整から市場的調整に回帰</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>単純企業</dt>
+    <dd>19世紀資本主義の事業システム。単一機能・単一事業単位。市場的調整に依存。個人企業またはパートナーシップが主流</dd>
+
+    <dt>市場的調整 (market coordination)</dt>
+    <dd>モノの流れ（原材料調達、製品販売）を市場メカニズムに依存する方式。19世紀の多数の単純企業による自由競争の基盤</dd>
+
+    <dt>管理的調整</dt>
+    <dd>組織内部での階層的管理によるモノの流れの調整。統合企業（現代企業）の特徴</dd>
+
+    <dt>規模の経済 (economies of scale)</dt>
+    <dd>規模の拡大に応じて単位費用が減少すること。「通量（throughput）」の調整（維持・増大）が条件</dd>
+
+    <dt>通量 (throughput)</dt>
+    <dd>Chandlerの概念。一定時間内に生産設備を通過する生産物の量。規模の経済を実現するには通量の維持・増大が必要</dd>
+
+    <dt>垂直統合 (vertical integration)</dt>
+    <dd>事業単位の複数化の一形態。前方統合（販売側）と後方統合（原材料側）がある。単純企業から統合企業への転換</dd>
+
+    <dt>取引費用 (transaction cost)</dt>
+    <dd>Coase（1937）の概念。市場を利用するコスト。探索費用、交渉費用、監視（執行）費用。調整費用と動機付け費用に分けられる</dd>
+
+    <dt>Make or Buy問題</dt>
+    <dd>市場と組織は資源配分の代替的メカニズム。「取引費用＞組織化費用」の場合に内部化（Make）。取引費用は市場の制度、取引の性格によっても変動</dd>
+
+    <dt>ホールドアップ問題</dt>
+    <dd>関係特殊的資産に起因する機会主義的行動。GMとフィッシャー・ボディの事例：高額なボディ代金請求、隣接工場の新設拒否→1926年にGMが完全買収</dd>
+
+    <dt>現代企業（チャンドラーモデル）</dt>
+    <dd>20世紀の巨大企業モデル。①統合企業（複数事業単位の統合）、②階層的経営組織（トップ/ミドル/ロワー）、③三又投資（大量生産・大量販売・経営組織）、④経営者企業（専門経営者が支配）</dd>
+
+    <dt>三又投資</dt>
+    <dd>Chandlerの概念。大量生産・大量販売・経営組織への三方面への投資。現代企業成立の条件</dd>
+
+    <dt>チャンドラー的成長</dt>
+    <dd>「見える手」（管理的調整）による経済成長。cf. スミス的成長（市場的調整・分業による成長）</dd>
+
+    <dt>「見える手」から「消えゆく手」へ</dt>
+    <dd>Langlois（2003）。市場の厚みが増すと、管理的調整の利点が薄れ、再び市場的調整に移行する傾向</dd>
+
+    <dt>ペンシルベニア鉄道</dt>
+    <dd>1854年全線開通。1857年E.トムソンによる組織改革：管区制の分権的事業部制、ライン&スタッフ制の導入。最初の現代企業の一つ</dd>
+
+    <dt>グローバルバリューチェーン</dt>
+    <dd>Gereffi, Humphrey and Sturgeon（2005）。国際的な生産・流通ネットワークの統治構造の類型化</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <figure class="figure">
+    <svg viewBox="0 0 660 250" xmlns="http://www.w3.org/2000/svg">
+      <style>text{font-family:sans-serif;font-size:12px;fill:#1f2937}</style>
+      <defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2937"/></marker></defs>
+      <text x="330" y="18" text-anchor="middle" font-weight="bold" font-size="14" fill="#2563eb">垂直統合の構造</text>
+      <!-- 後方統合 -->
+      <rect x="30" y="80" width="140" height="50" rx="8" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+      <text x="100" y="102" text-anchor="middle" font-size="11">原材料調達</text>
+      <text x="100" y="118" text-anchor="middle" font-size="11">（後方統合）</text>
+      <!-- 中核 -->
+      <rect x="220" y="60" width="180" height="80" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+      <text x="310" y="95" text-anchor="middle" font-weight="bold" font-size="13">製造（中核事業）</text>
+      <text x="310" y="115" text-anchor="middle" font-size="10" fill="#6b7280">規模の経済・通量の調整</text>
+      <!-- 前方統合 -->
+      <rect x="450" y="80" width="140" height="50" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+      <text x="520" y="102" text-anchor="middle" font-size="11">販売・流通</text>
+      <text x="520" y="118" text-anchor="middle" font-size="11">（前方統合）</text>
+      <!-- 矢印 -->
+      <line x1="170" y1="105" x2="218" y2="100" class="arr" stroke="#1f2937" stroke-width="1.5" marker-end="url(#a3)"/>
+      <line x1="400" y1="100" x2="448" y2="105" class="arr" stroke="#1f2937" stroke-width="1.5" marker-end="url(#a3)"/>
+      <!-- 下の注釈 -->
+      <rect x="100" y="170" width="420" height="60" rx="8" fill="#f8fafc" stroke="#e5e7eb"/>
+      <text x="310" y="190" text-anchor="middle" font-size="11"><tspan font-weight="bold">垂直統合のねらい:</tspan></text>
+      <text x="310" y="206" text-anchor="middle" font-size="11">① 通量の調整→規模の経済 ② 防衛的動機</text>
+      <text x="310" y="222" text-anchor="middle" font-size="11">③ 取引費用の節約（取引費用 &gt; 組織化費用 → Make）</text>
+    </svg>
+    <figcaption>図3 垂直統合の構造と論理</figcaption>
+  </figure>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例：スウィフト（精肉業）の垂直統合</span>
+    1860sまでに大量生産技術（組織）が確立。鮮肉は日持ちしないが、生きた家畜の鉄道輸送は高コスト。1857-78年冷蔵貨車の開発、大手鉄道会社の抵抗。1880年Swift Refrigerator Line (SRL)開業。精肉工場→自社用冷蔵貨車→直営卸売店と前方・後方統合
+  </div>
+  <div class="example" style="margin-top:10px"><span class="label">例：GMとフィッシャー・ボディ（ホールドアップ問題）</span>
+    1919年にGMはフィッシャー・ボディと10年間の長期契約&60%出資。しかしフィッシャーが高額ボディ代金を請求し、GM組立工場に隣接した車体工場の新設を拒否。1926年にGMが完全買収→関係特殊的資産に起因する機会主義を所有によって解決
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>「見える手」の2つの歴史的条件：</b>チャンドラー的成長には①大量消費市場と②大量生産技術の両方が必要。条件が変わればソリューション（組織形態）も変わる<br><br>
+    <b>取引費用は固定的ではない：</b>市場の制度、取引の性格、取引制度によって変動する。組織化費用も組織デザインによって変動する。したがってMake or Buyの答えも変わりうる
+  </div>
+</section>
+
+<!-- ====== 第11回 ====== -->
+<section class="chapter" id="ch4">
+  <h2>第11回 下請制からサプライヤーシステムへ</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>日本企業の取引構造は外注率が高いが単純な下請ではない（トヨタ約200社 vs GM約1万社）</li>
+    <li>日本で系列取引が発達した3つの理由：A1. 在来的経済発展による零細・中小企業の存在、A2. 垂直統合より系列化が有利な歴史的条件、A3. 市場の変化→事業システムの変化</li>
+    <li>「在来的経済発展」（谷本1998）：小農社会を基礎に家族労働の伸縮的供給で発展。「もうひとつの工業化」</li>
+    <li>複線的工業化（19C後半-1910s）：①移植技術による工場制（飛び地的大企業）と②在来的経済発展が市場を棲み分け</li>
+    <li>下請制の形成：1930年代勃興→1940-45年制度的促進→1950年代急拡大</li>
+    <li>サプライヤーシステムの特徴：「まとめてまかせる」方式、少数サプライヤー間の有効競争、長期安定的な継続取引</li>
+    <li>関係的技能（浅沼1997）：承認図部品では仕様に沿って開発する能力、工程開発能力、品質保証能力、JIT納入能力、VA/VE能力</li>
+    <li>機会主義のリスクが小さい理由：「信頼」（酒向1998）、取引制度による長期取引関係の維持、コスト・リスクの分担、余剰の配分</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>下請制</dt>
+    <dd>①受発注関係によって組織される（カスタム品の生産・販売、しばしば関係特殊的投資を要する）、②大企業による中小零細企業の支配・収奪（系列化、買いたたき等の「しわよせ」）</dd>
+
+    <dt>在来的経済発展（谷本1998）</dt>
+    <dd>小農社会を基礎に、家族労働の伸縮的供給によって発展する工業化パターン。機械制大工業とは異なる「もうひとつの工業化」</dd>
+
+    <dt>二重構造</dt>
+    <dd>大企業と中小企業の間の企業規模別賃金格差。1950年代の下請制急拡大の社会的要因</dd>
+
+    <dt>複線的工業化</dt>
+    <dd>19C後半-1910sの日本で、①欧米からの移植技術による工場制（「飛び地」的大企業、垂直統合志向）と②在来的経済発展＋器械化・動力化が並存。市場を棲み分け、直接競合しなかった</dd>
+
+    <dt>サプライヤーシステム（藤本1998）</dt>
+    <dd>下請制が進化した形態。3つの特徴：1)「まとめてまかせる」方式、2)少数サプライヤー間の有効競争、3)長期安定的な継続取引</dd>
+
+    <dt>関係的技能（浅沼1997）</dt>
+    <dd>サプライヤーが中核企業との関係の中で蓄積する能力。部品カテゴリー（市販品/承認図/貸与図）ごとに求められる技能が異なる</dd>
+
+    <dt>承認図部品</dt>
+    <dd>サプライヤーが自社で設計し、中核企業の承認を得て納入する部品。仕様に沿った開発能力、仕様の改善提案能力が求められる</dd>
+
+    <dt>貸与図部品</dt>
+    <dd>中核企業が設計し、サプライヤーに図面を貸与して製造させる部品。工程開発能力、品質保証能力、JIT納入能力、VA/VE能力が求められる</dd>
+
+    <dt>VA/VE</dt>
+    <dd>VA（Value Analysis）：既存製品の原価低減。VE（Value Engineering）：開発段階での原価低減。成果還元ルールにより一定期間サプライヤーのものとなる</dd>
+
+    <dt>フルセット型産業構造（関1993）</dt>
+    <dd>1990年代の日本産業が、素材から最終製品まで一通り揃えている構造</dd>
+
+    <dt>中小企業比率の推移</dt>
+    <dd>日本1930s、台湾70s前半、韓国70s後半に下降→反転上昇。零細企業から中小企業への成長を示す。欧米は低い（大企業が制覇）</dd>
+
+    <dt>単価決定のルール</dt>
+    <dd>型費は中核企業が負担。人件費・エネルギー単価上昇による引上げは認めない。改善による余剰は一定期間サプライヤーのものとなる（VA成果還元ルール）</dd>
+  </dl>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例：日本自動車サプライヤーの階層構造（1990年代）</span>
+    一次サプライヤー：従業員1,198人、取引先5.3社、月産454万個、独自設計27%<br>
+    二次サプライヤー：従業員69人、取引先4.5社、月産53万個、独自設計7%<br>
+    三次サプライヤー：従業員10人、取引先2.5社、月産14万個、独自設計0%（全て納入先設計）
+  </div>
+  <div class="example" style="margin-top:10px"><span class="label">例：下請制の歴史的形成</span>
+    1930年代（勃興）：軍需増大→大企業の能力不足、中小企業の技術力向上、インフラ整備<br>
+    1940-45年（制度的促進）：「機械鉄鋼製品工業整備要綱」で系列化開始、大企業からの技術移転<br>
+    1950年代（急拡大）：高度経済成長、企業規模別賃金格差「二重構造」。1952年トヨタ系40社が系列診断を自主的に受診
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>下請制≠単なる搾取：</b>下請制は大企業による中小企業支配の側面をもつが、サプライヤーシステムへの進化により、技術蓄積・長期的関係・余剰分配の仕組みが発達した<br><br>
+    <b>日本の特殊性：</b>大企業と中小企業の並存・組合せは日本の特殊な歴史的条件（在来的経済発展、複線的工業化）による。1970年代以降の局面転換で「中核企業をもつネットワーク」のフレキシビリティが注目された
+  </div>
+</section>
+
+<!-- ====== 第12回 ====== -->
+<section class="chapter" id="ch5">
+  <h2>第12回 戦後日本経済の長期動態</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>戦後日本経済を3期に区分：高度成長期→安定成長期→「失われた20年」とその後</li>
+    <li>高度成長期の需要構造：民間消費が一貫して5-6%押し上げ、景気拡大局面では民間投資の寄与が大</li>
+    <li>安定成長期：オイルショック後に民間消費の寄与縮小。政府支出・輸出の寄与が相対的に拡大</li>
+    <li>長期停滞期：民間消費の冷え込み。リーマンショック（2009）、東日本大震災（2011）、コロナショック（2020）。安定的なプラス項目なし</li>
+    <li>成長会計：実質GDP成長率＝資本寄与＋労働寄与＋TFP寄与。労働力供給は1960年代末以降減少傾向</li>
+    <li>対外経済関係の変遷：入超基調→出超基調→「輸出立国から投資立国へ」（第一次所得収支の拡大）</li>
+    <li>為替：固定相場360円→1971ニクソンショック→1985プラザ合意→変動相場制</li>
+    <li>輸出品の交代：「繊維・雑貨」→「輸出御三家」→「自動車と家電」</li>
+    <li>産業構造の高度化：ペティ＝クラークの法則（第一次→第二次→第三次産業へシフト）</li>
+    <li>マクロ資金循環の変化：1960-90s（家計が資金余剰→企業が資金不足）→2000s-（企業が資金余剰へ転換）</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>GDP（GDE）の需要要因分解</dt>
+    <dd>$Y = C + I + G + (EX - IM)$。C：民間最終消費支出、I：民間投資（住宅＋設備＋在庫）、G：政府支出（最終消費＋公的固定資本形成＋公的在庫）、EX-IM：純輸出</dd>
+
+    <dt>成長会計分析</dt>
+    <dd>実質GDP成長率を資本寄与＋労働寄与＋TFP（全要素生産性）寄与に分解する分析手法。さらに労働時間寄与、労働の質上昇寄与、資本装備率上昇寄与に分解可能</dd>
+
+    <dt>TFP（全要素生産性）</dt>
+    <dd>資本・労働の投入量では説明できない生産性の上昇分。技術進歩、経営効率の改善などを反映。高度成長期に高く、長期停滞期に低迷</dd>
+
+    <dt>ニクソンショック（1971）</dt>
+    <dd>固定相場制（1ドル＝360円）の崩壊。変動相場制への移行の契機</dd>
+
+    <dt>プラザ合意（1985）</dt>
+    <dd>ドル高是正のためのG5合意。急激な円高が進行し、日本経済に大きな影響</dd>
+
+    <dt>第一次オイルショック（1973/74）</dt>
+    <dd>1974年に戦後初のマイナス成長。高度成長から安定成長への転換点</dd>
+
+    <dt>ペティ＝クラークの法則</dt>
+    <dd>「一国の産業構造は、経済発展とともに第一次産業→第二次産業→第三次産業へとシフトする」という経験法則。生産性がより高く所得が大きくなる産業に就業者が移動するため</dd>
+
+    <dt>マクロ資金循環の変化</dt>
+    <dd>1960-90s：家計が資金余剰（高貯蓄）→企業が資金不足（旺盛な投資）→間接金融。2000s-：企業が資金余剰に転換→投資低迷</dd>
+
+    <dt>加工貿易型工業化</dt>
+    <dd>原材料を輸入し、加工して製品を輸出する工業化パターン。日本の戦後経済成長の基盤。近年は「東アジア生産ネットワーク」によるFDI（海外直接投資）にともなう逆輸入が増大</dd>
+
+    <dt>輸出立国から投資立国へ</dt>
+    <dd>貿易収支（モノの輸出超過）から第一次所得収支（海外投資からの収益）が経常収支の主要な黒字要因に変化</dd>
+
+    <dt>プロダクトサイクル論（Vernon 1966）</dt>
+    <dd>各産業は工業化の特定の局面で純輸出産業となる。国内の比較優位構造の変動による輸出品の交代を説明</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <p class="ref-note">元PDF p.4-10 の実質GDP成長率グラフ、寄与度分解グラフ、成長会計分析の図を参照</p>
+  <p class="ref-note" style="margin-top:8px">元PDF p.17-20 の外国為替相場、貿易収支、経常収支の推移グラフを参照</p>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例：高度成長から安定成長への構造変化</span>
+    <table style="width:100%;border-collapse:collapse;font-size:.9em;margin-top:6px">
+      <tr style="border-bottom:2px solid var(--accent)"><th style="text-align:left;padding:4px"></th><th style="text-align:left;padding:4px">高度成長期</th><th style="text-align:left;padding:4px">安定成長期</th></tr>
+      <tr style="border-bottom:1px solid var(--line)"><td style="padding:4px"><b>ヒト</b></td><td style="padding:4px">人口増加・移動による安価な労働力の大量供給</td><td style="padding:4px">大企業：協調的労使関係で賃金抑制。中小：規模別賃金格差</td></tr>
+      <tr style="border-bottom:1px solid var(--line)"><td style="padding:4px"><b>モノ</b></td><td style="padding:4px">開放的世界市場で安価な原燃料を輸入。重化学工業化</td><td style="padding:4px">省エネ。軽薄短小化</td></tr>
+      <tr style="border-bottom:1px solid var(--line)"><td style="padding:4px"><b>カネ</b></td><td style="padding:4px">旺盛な貯蓄。間接金融による産業資金供給</td><td style="padding:4px">輸出産業中心に自己金融化。直接金融への段階的移行</td></tr>
+      <tr style="border-bottom:1px solid var(--line)"><td style="padding:4px"><b>市場</b></td><td style="padding:4px">民間消費・投資主導</td><td style="padding:4px">輸出主導、国内市場の飽和</td></tr>
+      <tr style="border-bottom:1px solid var(--line)"><td style="padding:4px"><b>企業</b></td><td style="padding:4px">国内市場＋輸出。コスト競争。大量生産志向</td><td style="padding:4px">国内＋輸出＋海外生産。コスト＋差別化。柔軟な生産</td></tr>
+      <tr><td style="padding:4px"><b>政府</b></td><td style="padding:4px">低負担・低福祉。キャッチアップ工業化支援</td><td style="padding:4px">中負担・中福祉。規制緩和</td></tr>
+    </table>
+  </div>
+  <div class="example" style="margin-top:10px"><span class="label">例：自動車産業の国内・海外生産</span>
+    国内生産のピーク：1,349万台（1990年）。輸出のピーク：673万台（1985年）。海外生産：1,997万台（2018年）→生産拠点が海外にシフト
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>「失われた20年」の複合要因：</b>単一の原因ではなく、①グローバル化とIT化→加工貿易路線の動揺、②超少子高齢化、③政府の失敗が複合的に作用<br><br>
+    <b>製造業の2つの歴史的役割を区別：</b>①財輸出を通じた外貨獲得（プロダクトサイクル）と②内部労働市場の大量創出（定型化された半熟練職場、長期雇用、企業内福祉）。後者は社会的格差の縮小にも貢献
+  </div>
+</section>
+
+<!-- ====== 第13回 ====== -->
+<section class="chapter" id="ch6">
+  <h2>第13回 東アジア資本主義と日本</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>日本は欧米に対する後発国として工業化し、アジアで「最初」に工業化に成功した</li>
+    <li>ガーシェンクロン理論：後発国ほど「大発進」する。消費財より生産財、より大規模な設備。「制度的道具」と「イデオロギー」が必要（ドイツ：銀行、ロシア：国家、日本：総合商社）</li>
+    <li>雁行形態論（赤松要）：①輸入→生産→輸出の順に上昇、②主要輸出品が時代とともに交替、③主要生産・輸出国が時代とともに交替</li>
+    <li>従属論（Francks）vs 近代化論（Rostow）：東アジアの工業化で従属論は説得力を喪失</li>
+    <li>アジア後発工業化の3条件（末廣2000）：①開かれたグローバル市場、②日本からの生産力伝播（「隣人効果」）、③工業化の社会的能力</li>
+    <li>中進国（中村1991）：資本主義部門が一応支配的だが非資本主義部門が広範に残存。低賃金・低労働分配率、高資本蓄積率。権威主義体制</li>
+    <li>日本の複線的工業化：A）移植技術による近代的工業化（資本集約的）、B）在来技術を基礎とする中小工業化（労働集約的）が別々に→下請制で結びつく</li>
+    <li>東アジア型経済発展経路（杉原2020）：労働集約型・資源節約型工業化。「勤勉革命」（速水2003）</li>
+    <li>東アジア4（日本・韓国・台湾・中国）が多くの産業でグローバル生産の4-10割を占める</li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>ガーシェンクロン理論</dt>
+    <dd>相対的後進性の度合いが高いほど、先進国の技術を迅速に入手可能→後発国ほど「大発進」する。ただし「制度的道具」と「イデオロギー」が必要。ドイツでは銀行、ロシアでは国家、日本では総合商社がこの役割を果たした。適用範囲はヨーロッパに限定</dd>
+
+    <dt>雁行形態論（赤松要）</dt>
+    <dd>3つの命題：①ある国のある産業では輸入→生産→輸出の順に上昇、②ある国の主要輸出品が時代とともに交替（生糸→綿糸布→鉄鋼・船舶→家電・自動車）、③ある商品の主要生産・輸出国が時代とともに交替</dd>
+
+    <dt>従属論的アプローチ（Francks 1975）</dt>
+    <dd>中心国・外国資本の役割を決定的に重視。低開発国が世界経済と関連をもちつつ工業化するのは不可能と主張。東アジアの工業化によって説得力を喪失</dd>
+
+    <dt>近代化論的アプローチ（Rostow 1960）</dt>
+    <dd>市場メカニズムの機能や政府による合理的な経済政策を重視。東アジアの工業化後に優勢</dd>
+
+    <dt>NICs / アジアNIES</dt>
+    <dd>NICs：OECD（1979）『NICsの挑戦』でアジア・南欧・南米10カ国を指定。アジアNIES：1988年トロントサミットで認知（韓国、台湾、香港、シンガポール）</dd>
+
+    <dt>中進国（中村1991）</dt>
+    <dd>資本主義部門が一応支配的だが非資本主義部門（小経営）が広範に残存。労働力は非資本主義部門から供給。低賃金・低労働分配率、高資本蓄積率。権威主義・開発主義的政治体制。先進国に対しては経済的に従属、低開発国に対しては先進国的地位</dd>
+
+    <dt>隣人効果（谷浦1991）</dt>
+    <dd>生産要素に関する知識、生産工程での結合と管理の方法、市場動向に関する展望などの情報資源が人的交流や文献を通じて伝播するメカニズム</dd>
+
+    <dt>東アジア型経済発展経路（杉原2020）</dt>
+    <dd>労働集約型・資源節約型工業化。土地の希少性＋労働集約的技術＋労働吸収的制度が特徴。cf.「西欧型」＝資本集約型</dd>
+
+    <dt>勤勉革命（速水2003）</dt>
+    <dd>東アジアにおける労働集約型の経済発展を、西欧の「産業革命」に対比して表現した概念</dd>
+
+    <dt>大分岐（Pomeranz 2000）</dt>
+    <dd>西欧中心史観を反省するグローバルヒストリーの代表的研究。西欧と東アジアの経済的分岐の時期と原因を問い直す</dd>
+
+    <dt>複線的工業化</dt>
+    <dd>日本の工業化を2つのパターンで説明：A）移植技術による近代的工業化（政府主導、資本集約的、国有セクター・財閥・紡績）、B）在来技術を基礎とする中小工業化（農村家内工業から自生的発展、労働集約的）。AとBが別々に→下請制などで結びつく</dd>
+
+    <dt>複線的工業化の歴史的条件</dt>
+    <dd>①近世の経済発展（小農社会、問屋制、全国市場）、②後発性（後進性の利益）、③アジア性（欧米から遠隔地、異なる生活様式）、④開発主義的政府（植民地化回避、近代的工業化主導）</dd>
+  </dl>
+
+  <h3>🧮 具体例・計算例</h3>
+  <div class="example"><span class="label">例：近代日本の中進国から先進国への段階的発展</span>
+    明治期（中進国）：入超・外資依存、地主制、財閥。世界的位置・国内構造・政治体制の全てで中進国<br>
+    戦間期・戦時期：独自のブロック経済圏で早熟的に先進国化→敗戦により挫折<br>
+    戦後：アメリカの制度を取り入れ、パクス・アメリカーナのもとで先進国化に成功。入超→出超→資本輸出
+  </div>
+  <div class="example" style="margin-top:10px"><span class="label">例：東アジア4のグローバル生産シェア（2015-18年頃）</span>
+    自動車（生産国基準）：日本10%、韓国4%、中国29%、計44%<br>
+    鉄鋼：日本6%、韓国4%、中国50%、計62%<br>
+    液晶パネル：日本4%、韓国34%、台湾35%、中国27%、計100%<br>
+    携帯端末（メーカー基準）：韓国23%、台湾28%、中国34%、計86%
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>
+    <b>ガーシェンクロンの適用範囲：</b>ガーシェンクロン自身は理論の適用範囲をヨーロッパに限定した。日本への適用（総合商社）は中川（1968）による拡張<br><br>
+    <b>先進国化は必ずしも容易ではない：</b>戦後のNIES・BRICSで中進国化は比較的容易になったが、先進国化は依然として困難。日本は第二次大戦前に中進国化した非欧米で唯一の国<br><br>
+    <b>雁行形態論の3つの命題を区別：</b>①一国一産業の輸入→生産→輸出、②一国の輸出品の交替、③国際的な生産・輸出国の交替は、それぞれ異なるレベルの議論
+  </div>
+</section>
+
+<!--CHAPTERS-END-->
+</main>
+
+<footer class="page">test-prep システムで生成 ｜ 元資料とあわせて使ってください</footer>
+
+</div>
+</body>
+</html>
