@@ -81,7 +81,7 @@ const KEY = 'testprep:' + D.id;
 const TYPE_LABEL = { term: '一問一答', mc: '4択', essay: '記述' };
 
 let stats = load();
-let session = null; // {list, idx, results:[{q, ok}], reverse}
+let session = null; // {list, idx, results:[{q, ok}], reverse, order}
 
 function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(stats)); } catch(e){} }
@@ -123,8 +123,13 @@ function home(){
     const n = D.questions.filter(q=>q.type===t).length;
     if (n>0) html += '<label class="chk"><input type="checkbox" class="f-type" value="'+t+'" checked>'+TYPE_LABEL[t]+'（'+n+'）</label>';
   });
+  let savedOrder = 'random';
+  try { savedOrder = localStorage.getItem(KEY + ':order') || 'random'; } catch(e){}
   html += '</div><div style="margin-top:8px">'
     + '<label class="chk"><input type="checkbox" id="f-rev">一問一答を逆方向（用語→定義）で出す</label>'
+    + '</div><div style="margin-top:8px"><span class="sub" style="margin-right:2px">出題順:</span>'
+    + '<label class="chk"><input type="radio" name="f-order" value="random"' + (savedOrder==='seq'?'':' checked') + '>🔀 ランダム</label>'
+    + '<label class="chk"><input type="radio" name="f-order" value="seq"' + (savedOrder==='seq'?' checked':'') + '>📖 問題順</label>'
     + '</div></div>';
 
   html += '<div class="card">'
@@ -147,10 +152,13 @@ function start(weakOnly){
   const selCh = Array.from(document.querySelectorAll('.f-ch:checked')).map(el=>chs[+el.value]);
   const selTy = Array.from(document.querySelectorAll('.f-type:checked')).map(el=>el.value);
   const reverse = document.getElementById('f-rev').checked;
+  const orderEl = document.querySelector('input[name="f-order"]:checked');
+  const order = orderEl ? orderEl.value : 'random';
+  try { localStorage.setItem(KEY + ':order', order); } catch(e){}
   let list = D.questions.filter(q => selCh.indexOf(q.chapter)>=0 && selTy.indexOf(q.type)>=0);
   if (weakOnly) list = list.filter(isWeak);
   if (list.length === 0) { alert('条件に合う問題がありません。範囲・形式を確認してください。'); return; }
-  session = { list: shuffle(list), idx: 0, results: [], reverse: reverse };
+  session = { list: order==='seq' ? list.slice() : shuffle(list), idx: 0, results: [], reverse: reverse, order: order };
   renderQ();
 }
 
@@ -272,7 +280,8 @@ function results(){
 
   app.innerHTML = html;
   if (wrongs.length) document.getElementById('b-retry').onclick = ()=>{
-    session = { list: shuffle(wrongs.map(r=>r.q)), idx: 0, results: [], reverse: session.reverse };
+    const qs = wrongs.map(r=>r.q);
+    session = { list: session.order==='seq' ? qs : shuffle(qs), idx: 0, results: [], reverse: session.reverse, order: session.order };
     renderQ();
   };
   document.getElementById('b-home').onclick = home;
