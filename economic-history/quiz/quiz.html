@@ -117,7 +117,10 @@ function home(){
     + '<div><div class="num">' + weak + '</div><div class="lbl">要復習（弱点）</div></div>'
     + '</div></div>';
 
-  html += '<div class="card"><h2>出題範囲</h2><div id="ch-filters">';
+  html += '<div class="card"><h2>出題範囲</h2>'
+    + '<div style="margin:-2px 0 8px"><button class="btn-ghost" id="b-check-all" style="padding:2px 10px;font-size:.85em;border:1px solid var(--line);border-radius:8px;text-decoration:none">☑ 全選択</button> '
+    + '<button class="btn-ghost" id="b-check-none" style="padding:2px 10px;font-size:.85em;border:1px solid var(--line);border-radius:8px;text-decoration:none">☐ 全解除</button></div>'
+    + '<div id="ch-filters">';
   chs.forEach((c,i)=>{ html += '<label class="chk"><input type="checkbox" class="f-ch" value="'+i+'" checked>'+c+'</label>'; });
   html += '</div><div style="margin-top:8px">';
   Object.keys(TYPE_LABEL).forEach(t=>{
@@ -142,6 +145,8 @@ function home(){
   app.innerHTML = html;
   document.getElementById('b-all').onclick = ()=>start(false);
   document.getElementById('b-weak').onclick = ()=>start(true);
+  document.getElementById('b-check-all').onclick = ()=>{ Array.from(document.querySelectorAll('.f-ch, .f-type')).forEach(function(el){ el.checked = true; }); };
+  document.getElementById('b-check-none').onclick = ()=>{ Array.from(document.querySelectorAll('.f-ch, .f-type')).forEach(function(el){ el.checked = false; }); };
   document.getElementById('b-reset').onclick = ()=>{
     if (confirm('この科目の成績記録をすべて消しますか？')) { stats = {}; save(); home(); }
   };
