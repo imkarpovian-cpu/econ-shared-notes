@@ -61,16 +61,18 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
 </style>
 </head>
 <body>
+<script src="../auth.js"></script>
 <nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
   <a href="../index.html" style="color:#2563eb;text-decoration:none;font-weight:700">&#9664; 共有ノート</a>
   <span style="color:#6b7280">／</span>
   <span style="font-weight:600">ミクロ経済学</span>
 </nav>
+
 <div class="wrap">
 
 <header class="page">
   <h1>ミクロ経済学 期末試験対策資料</h1>
-  <p class="meta">全12章 + 公式クイックリファレンス ｜ NotebookLM要約より生成</p>
+  <p class="meta">全13章 + 公式クイックリファレンス ｜ 講義資料より生成（7/18 第13章 生産コストを追加）</p>
 </header>
 
 <div class="notice" style="margin:16px 0;padding:12px 16px;background:#fef9c3;border:1px solid #eab308;border-radius:8px;font-size:14px;color:#713f12">
@@ -91,6 +93,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <li><a href="#ch9">第10章 外部性</a></li>
     <li><a href="#ch10">第11章 財の分類と共有資源</a></li>
     <li><a href="#ch11">第12章 情報の非対称性</a></li>
+    <li><a href="#ch13">第13章 生産コスト</a></li>
     <li><a href="#ch12">付録 公式クイックリファレンス</a></li>
 <!--TOC-END-->
   </ol>
@@ -554,6 +557,122 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
 
   <h3>⚠️ つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>逆選択（契約前の隠れた属性）とモラルハザード（契約後の隠れた行動）のタイミングの違いを混同しない。</div>
+</section>
+
+<section class="chapter" id="ch13">
+  <h2>第13章 生産コスト</h2>
+
+  <h3>📌 要点</h3>
+  <div class="summary"><ul>
+    <li>利潤 = 総収入 − 総費用。総収入は生産物の販売で受け取る金額、総費用は生産に使う投入物の市場価値</li>
+    <li>企業の生産コストは「実際に出ていくお金」だけでなく、諦めたもの＝<b>機会費用</b>をすべて含む（明示的費用＋潜在的費用）</li>
+    <li><b>経済上の利潤</b> = 総収入 −（明示的費用＋潜在的費用）、<b>会計上の利潤</b> = 総収入 − 明示的費用。会計上の利潤の方が大きくなる</li>
+    <li><b>生産関数</b> $Q=f(L)$ は投入量と生産量の関係。その傾きが<b>限界生産物（MP）</b>＝投入1単位追加による生産量の増加分</li>
+    <li><b>限界生産物の逓減</b>：投入量が増えるほどMPは小さくなる → 生産関数はだんだん平らに、総費用曲線はだんだん急になる（MP↓ なら MC↑）</li>
+    <li>総費用 = 固定費用（FC：生産量によらない）＋ 可変費用（VC：生産量とともに変化）</li>
+    <li>費用の尺度：ATC = TC/Q、AFC = FC/Q、AVC = VC/Q、MC = ΔTC/ΔQ、そして ATC = AFC + AVC</li>
+    <li>典型的な費用曲線の3つの特徴：①MCは最終的に生産量とともに上昇 ②ATC曲線はU字型 ③MC曲線はATCの最小値でATC曲線と交差する</li>
+    <li>ATCの底（最小点）の生産量を<b>効率的規模</b>と呼ぶ。MC＜ATCならATCは低下、MC＞ATCならATCは上昇</li>
+    <li>短期は一部の投入物が固定されている期間、長期はすべての投入物を調整できる期間。短期ATC曲線は長期ATC曲線の上か上側に位置し、長期の方が平坦</li>
+    <li>長期ATCが低下＝<b>規模の経済</b>、不変＝<b>規模に関して収穫一定</b>、上昇＝<b>規模の不経済</b></li>
+  </ul></div>
+
+  <h3>📖 重要用語</h3>
+  <dl class="terms">
+    <dt>総収入（TR）</dt><dd>企業が生産物の販売に対して受け取る金額（例：400円×100杯 = 40,000円）</dd>
+    <dt>総費用（TC）</dt><dd>企業が生産に使用する投入物の市場価値。材料費・人件費・家賃だけでなく「諦めたもの」も含む</dd>
+    <dt>利潤</dt><dd>総収入から総費用を引いたもの（利潤 = TR − TC）</dd>
+    <dt>経済上の利潤</dt><dd>総収入から、明示的費用と潜在的費用の両方を含んだ総費用を引いたもの</dd>
+    <dt>会計上の利潤</dt><dd>総収入から明示的総費用のみを引いたもの（潜在的費用は含めない）</dd>
+    <dt>生産関数</dt><dd>財の生産に使用される投入物の量とその財の生産量との関係。$Q = f(L)$</dd>
+    <dt>限界生産物（MP）</dt><dd>投入物を1単位追加することによって生じる生産量の増加分（生産関数の傾き）</dd>
+    <dt>限界生産物の逓減</dt><dd>投入量の増加に伴って、投入物の限界生産物が減少する性質。生産関数の傾きが小さくなっていく</dd>
+    <dt>固定費用（FC）</dt><dd>生産量によって変化しない費用（例：家賃、契約済みの機械リース、基本料金）</dd>
+    <dt>可変費用（VC）</dt><dd>生産量によって変化する費用（例：材料費、時間給の人件費、配送費）</dd>
+    <dt>平均総費用（ATC）</dt><dd>総費用を生産量で割ったもの。$ATC = TC/Q$（1個あたり全部でいくらかかったか）</dd>
+    <dt>平均固定費用（AFC）</dt><dd>固定費用を生産量で割ったもの。$AFC = FC/Q$</dd>
+    <dt>平均可変費用（AVC）</dt><dd>可変費用を生産量で割ったもの。$AVC = VC/Q$</dd>
+    <dt>限界費用（MC）</dt><dd>1単位の追加生産によって生じる総費用の増加分。$MC = \Delta TC / \Delta Q$（もう1個作ると追加でいくらかかるか）</dd>
+    <dt>効率的規模</dt><dd>平均総費用を最小化する生産量（U字型ATCの底）</dd>
+    <dt>規模の経済</dt><dd>生産量が増加するにつれて長期平均総費用が低下する性質（例：大量仕入れ、専門化、固定費用の分散）</dd>
+    <dt>規模に関して収穫一定</dt><dd>生産量が変化しても長期平均総費用が変わらない性質（例：同じ店舗を複製できる場合）</dd>
+    <dt>規模の不経済</dt><dd>生産量が増加するにつれて長期平均総費用が上昇する性質（例：組織拡大による調整・管理コストの増加）</dd>
+  </dl>
+
+  <h3>📊 図・グラフ</h3>
+  <figure class="figure">
+    <svg viewBox="0 0 440 320" xmlns="http://www.w3.org/2000/svg">
+      <line x1="50" y1="20" x2="50" y2="280" stroke="#1f2937" stroke-width="2"/>
+      <line x1="50" y1="280" x2="420" y2="280" stroke="#1f2937" stroke-width="2"/>
+      <text x="14" y="34" font-size="12" fill="#1f2937">費用</text>
+      <text x="380" y="302" font-size="12" fill="#1f2937">生産量 Q</text>
+      <path d="M70,120 Q110,235 160,240 T400,60" fill="none" stroke="#dc2626" stroke-width="3"/>
+      <text x="392" y="50" font-size="12" fill="#dc2626" font-weight="bold">MC</text>
+      <path d="M80,90 Q180,170 250,172 T400,120" fill="none" stroke="#2563eb" stroke-width="3"/>
+      <text x="404" y="118" font-size="12" fill="#2563eb" font-weight="bold">ATC</text>
+      <path d="M80,160 Q160,215 230,214 T400,150" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+      <text x="404" y="152" font-size="12" fill="#16a34a" font-weight="bold">AVC</text>
+      <path d="M70,110 Q120,240 220,256 T400,268" fill="none" stroke="#9333ea" stroke-width="2" stroke-dasharray="5,4"/>
+      <text x="404" y="270" font-size="12" fill="#9333ea" font-weight="bold">AFC</text>
+      <circle cx="268" cy="172" r="5" fill="#dc2626"/>
+      <line x1="268" y1="172" x2="268" y2="280" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="212" y="300" font-size="11" fill="#475569">効率的規模（ATC最小）</text>
+      <text x="240" y="130" font-size="11" fill="#334155">MCはATCの最小点で交差</text>
+    </svg>
+    <figcaption>図13-A 典型的な費用曲線：MCは最終的に上昇、ATCはU字型、MCはATCの最下点で交差（表14-2 のデータに対応）</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <svg viewBox="0 0 440 300" xmlns="http://www.w3.org/2000/svg">
+      <line x1="50" y1="20" x2="50" y2="250" stroke="#1f2937" stroke-width="2"/>
+      <line x1="50" y1="250" x2="420" y2="250" stroke="#1f2937" stroke-width="2"/>
+      <text x="8" y="34" font-size="12" fill="#1f2937">ATC</text>
+      <text x="360" y="272" font-size="12" fill="#1f2937">生産量 Q</text>
+      <path d="M60,60 Q95,140 130,142 T200,90" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <path d="M140,110 Q185,178 230,180 T320,130" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <path d="M250,100 Q300,172 345,176 T415,120" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <text x="60" y="52" font-size="11" fill="#64748b">短期ATC（小工場）</text>
+      <text x="330" y="96" font-size="11" fill="#64748b">短期ATC（大工場）</text>
+      <path d="M60,120 Q140,182 220,183 Q290,183 415,150" fill="none" stroke="#2563eb" stroke-width="3"/>
+      <text x="330" y="168" font-size="12" fill="#2563eb" font-weight="bold">長期ATC</text>
+      <line x1="165" y1="250" x2="165" y2="30" stroke="#e2e8f0" stroke-width="1"/>
+      <line x1="290" y1="250" x2="290" y2="30" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="68" y="290" font-size="11" fill="#16a34a">規模の経済</text>
+      <text x="185" y="290" font-size="11" fill="#475569">収穫一定</text>
+      <text x="310" y="290" font-size="11" fill="#dc2626">規模の不経済</text>
+    </svg>
+    <figcaption>図13-B 短期と長期の平均総費用：短期ATCは長期ATCの上か上側に位置し、長期ATCは各生産量で最も低い費用をつないだ平坦な曲線になる</figcaption>
+  </figure>
+
+  <p class="ref-note">表14-1（クロエのクッキー工場の生産関数と総費用）、表14-2（ケイレブのコーヒーショップの費用の諸尺度）、表14-3（多種多様なコストのまとめ）の数値表は元PDF p.19, 28, 43 を参照。</p>
+
+  <h3>🧮 計算例</h3>
+  <div class="example"><span class="label">例1</span>
+    <b>経済上の利潤 vs 会計上の利潤（カフェの1日）</b>：400円のコーヒーが100杯売れた。<br>
+    総収入 = 40,000円、材料費・人件費・家賃（明示的費用）= 28,000円、自分が別の仕事で得られたはずの賃金（潜在的費用）= 8,000円<br>
+    → 会計上の利潤 = 40,000 − 28,000 = <b>12,000円</b><br>
+    → 経済上の利潤 = 40,000 − 28,000 − 8,000 = <b>4,000円</b><br>
+    会計上は黒字でも、経済学では「本当に割に合うか（最適な資源の使い方か）」を問う。
+  </div>
+  <div class="example"><span class="label">例2</span>
+    <b>費用の諸尺度の計算</b>（FC = 50）：使う式は TC = FC + VC、AFC = FC/Q、AVC = VC/Q、ATC = TC/Q、MC = ΔTC/ΔQ<br>
+    Q=1：VC=10, TC=60 → AFC=50, AVC=10, ATC=60, MC=10<br>
+    Q=2：VC=30, TC=80 → AFC=25, AVC=15, ATC=40, MC=20<br>
+    Q=3：VC=60, TC=110 → AFC≒16.7, AVC=20, ATC≒36.7, MC=30<br>
+    Q=4：VC=100, TC=150 → AFC=12.5, AVC=25, ATC=37.5, MC=40<br>
+    MCが上昇し続け、ATCがU字（40 → 36.7 → 37.5）を描くことを確認。
+  </div>
+  <div class="example"><span class="label">例3</span>
+    <b>限界生産物の計算</b>：生産量が 0人→0、1人→45、2人→85、3人→115、4人→135、5人→145 のとき<br>
+    2人目のMP = 85 − 45 = <b>40</b>、4人目のMP = 135 − 115 = <b>20</b><br>
+    MPが 45 → 40 → 30 → 20 → 10 と減っていく＝限界生産物の逓減（収穫逓減）を示している。
+  </div>
+
+  <h3>⚠️ つまずきポイント</h3>
+  <div class="pitfall"><span class="label">注意</span>限界生産物の逓減は「生産量が減る」ことではなく「生産量の<b>増え方</b>が小さくなる」こと。生産関数の傾きが緩やかになるだけで、曲線自体は右上がりのまま。</div>
+  <div class="pitfall"><span class="label">注意</span>経済上の利潤と会計上の利潤の混同に注意。オフィスの家賃相場が上がった場合、レンタルしていれば両方の利潤が減るが、<b>所有している場合は経済上の利潤だけが減る</b>（潜在的費用＝貸して得られた家賃が増えるため。会計士はお金が流出しない費用を計上しない）。</div>
+  <div class="pitfall"><span class="label">注意</span>ATCがU字型になる理由は左右で異なる：生産量が少ないときは<b>AFCの高さ</b>（固定費用を少ない生産量で割る）、多いときは<b>限界生産物逓減によるMC上昇</b>が効く。そしてMCがATCを下から上へ横切る点がATCの最小点（効率的規模）。</div>
+  <div class="pitfall"><span class="label">注意</span>短期と長期の違いは「時間の長さ」そのものではなく<b>固定された投入物があるかどうか</b>。固定費用は長期では可変費用になる（工場規模を自由に選べる）。だから長期ATC曲線は短期より平坦で、短期ATC曲線は長期ATC曲線の上か上側に位置する。</div>
 </section>
 
 <section class="chapter" id="ch12">
