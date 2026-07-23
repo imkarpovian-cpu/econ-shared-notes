@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>復習クイズ</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{
+  --accent:#2563eb; --accent-dark:#1e40af; --accent-light:#dbeafe;
+  --ok:#10b981; --ok-bg:#ecfdf5; --ng:#ef4444; --ng-bg:#fef2f2;
+  --ink:#1f2937; --sub:#6b7280; --bg:#f1f5f9; --card:#fff; --line:#e5e7eb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
+  line-height:1.7;font-size:16px}
+.wrap{max-width:640px;margin:0 auto;padding:12px 12px 48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:12px 0}
+h1{font-size:1.25em;margin:12px 4px}
+h2{font-size:1.05em;margin:0 0 10px}
+.sub{color:var(--sub);font-size:.88em}
+button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:#fff;padding:10px 16px}
+button:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:bold}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-big{display:block;width:100%;padding:14px;font-size:1.05em;margin:8px 0}
+.btn-ok{background:var(--ok);border-color:var(--ok);color:#fff;font-weight:bold}
+.btn-ng{background:var(--ng);border-color:var(--ng);color:#fff;font-weight:bold}
+.btn-ghost{background:transparent;border:none;color:var(--sub);text-decoration:underline}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>button{flex:1}
+label.chk{display:inline-flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid var(--line);
+  border-radius:8px;padding:6px 10px;margin:3px 2px;font-size:.92em;cursor:pointer}
+label.chk input{accent-color:var(--accent)}
+.tag{display:inline-block;font-size:.75em;padding:2px 10px;border-radius:99px;background:var(--accent-light);color:var(--accent-dark);margin-right:6px}
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0}
+.progress>div{height:100%;background:var(--accent);transition:width .25s}
+.qtext{font-size:1.1em;margin:14px 0}
+.choice{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px;font-size:1em}
+.choice.correct{background:var(--ok-bg);border-color:var(--ok);font-weight:bold}
+.choice.wrong{background:var(--ng-bg);border-color:var(--ng)}
+.choice:disabled{cursor:default;opacity:1}
+.answer-box{background:var(--accent-light);border-radius:10px;padding:14px;margin:12px 0}
+.explain{background:#f8fafc;border-left:4px solid var(--accent);padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:.95em}
+.points{background:#fffbeb;border-left:4px solid #f59e0b;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:.95em}
+.points ul{margin:4px 0 0;padding-left:1.3em}
+textarea{width:100%;min-height:90px;font:inherit;border:1px solid var(--line);border-radius:10px;padding:10px;resize:vertical}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:10px 0}
+.stat-grid .num{font-size:1.5em;font-weight:bold;color:var(--accent)}
+.stat-grid .lbl{font-size:.78em;color:var(--sub)}
+.wrong-item{padding:8px 0;border-bottom:1px dashed var(--line);font-size:.94em}
+.feedback{font-size:1.15em;font-weight:bold;margin:10px 0}
+.feedback.ok{color:var(--ok)} .feedback.ng{color:var(--ng)}
+.center{text-align:center}
+</style>
+</head>
+<body>
+<script src="../../auth.js"></script>
+<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
+  <a href="../../index.html" style="color:#2563eb;text-decoration:none;font-weight:700">&#9664; 共有ノート</a>
+  <span style="color:#6b7280">／</span>
+  <span style="font-weight:600">マクロ経済学　入門 クイズ</span>
+</nav>
+<div class="wrap"><div id="app"></div></div>
+<script src="questions.js"></script>
+<script>
+(function(){
+"use strict";
+const app = document.getElementById('app');
+
+if (!window.QUIZ_DATA || !Array.isArray(window.QUIZ_DATA.questions) || window.QUIZ_DATA.questions.length === 0) {
+  app.innerHTML = '<div class="card"><h2>問題データが見つかりません</h2><p>このファイルと同じフォルダに <b>questions.js</b> を置いてください。</p></div>';
+  return;
+}
+
+const D = window.QUIZ_DATA;
+const KEY = 'testprep:' + D.id;
+const TYPE_LABEL = { term: '一問一答', mc: '4択', essay: '記述' };
+
+let stats = load();
+let session = null; // {list, idx, results:[{q, ok}], reverse, order}
+
+function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(stats)); } catch(e){} }
+function record(qid, ok){
+  const s = stats[qid] || { o:0, x:0 };
+  ok ? s.o++ : s.x++;
+  s.last = ok ? 'o' : 'x';
+  s.ts = Date.now();
+  stats[qid] = s; save();
+}
+function shuffle(a){
+  a = a.slice();
+  for (let i = a.length-1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; }
+  return a;
+}
+function typeset(){ if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([app]).catch(function(){}); }
+function chapters(){ const seen=[]; D.questions.forEach(q=>{ if(seen.indexOf(q.chapter)<0) seen.push(q.chapter); }); return seen; }
+function isWeak(q){ const s = stats[q.id]; return !s || s.last === 'x'; }
+
+/* ---------- ホーム画面 ---------- */
+function home(){
+  session = null;
+  const total = D.questions.length;
+  const answered = D.questions.filter(q=>stats[q.id]).length;
+  const weak = D.questions.filter(isWeak).length;
+  const chs = chapters();
+
+  let html = '<h1>' + D.title + ' 復習クイズ</h1>';
+  html += '<div class="card"><div class="stat-grid">'
+    + '<div><div class="num">' + total + '</div><div class="lbl">全問題数</div></div>'
+    + '<div><div class="num">' + answered + '</div><div class="lbl">挑戦済み</div></div>'
+    + '<div><div class="num">' + weak + '</div><div class="lbl">要復習（弱点）</div></div>'
+    + '</div></div>';
+
+  html += '<div class="card"><h2>出題範囲</h2>'
+    + '<div style="margin:-2px 0 8px"><button class="btn-ghost" id="b-check-all" style="padding:2px 10px;font-size:.85em;border:1px solid var(--line);border-radius:8px;text-decoration:none">☑ 全選択</button> '
+    + '<button class="btn-ghost" id="b-check-none" style="padding:2px 10px;font-size:.85em;border:1px solid var(--line);border-radius:8px;text-decoration:none">☐ 全解除</button></div>'
+    + '<div id="ch-filters">';
+  chs.forEach((c,i)=>{ html += '<label class="chk"><input type="checkbox" class="f-ch" value="'+i+'" checked>'+c+'</label>'; });
+  html += '</div><div style="margin-top:8px">';
+  Object.keys(TYPE_LABEL).forEach(t=>{
+    const n = D.questions.filter(q=>q.type===t).length;
+    if (n>0) html += '<label class="chk"><input type="checkbox" class="f-type" value="'+t+'" checked>'+TYPE_LABEL[t]+'（'+n+'）</label>';
+  });
+  let savedOrder = 'random';
+  try { savedOrder = localStorage.getItem(KEY + ':order') || 'random'; } catch(e){}
+  html += '</div><div style="margin-top:8px">'
+    + '<label class="chk"><input type="checkbox" id="f-rev">一問一答を逆方向（用語→定義）で出す</label>'
+    + '</div><div style="margin-top:8px"><span class="sub" style="margin-right:2px">出題順:</span>'
+    + '<label class="chk"><input type="radio" name="f-order" value="random"' + (savedOrder==='seq'?'':' checked') + '>🔀 ランダム</label>'
+    + '<label class="chk"><input type="radio" name="f-order" value="seq"' + (savedOrder==='seq'?' checked':'') + '>📖 問題順</label>'
+    + '</div></div>';
+
+  html += '<div class="card">'
+    + '<button class="btn-primary btn-big" id="b-all">▶ 全問モード</button>'
+    + '<button class="btn-big" id="b-weak" ' + (weak===0?'disabled':'') + '>🎯 弱点モード（間違い＋未回答 '+weak+'問）</button>'
+    + '<div class="center" style="margin-top:10px"><button class="btn-ghost" id="b-reset">成績をリセット</button></div>'
+    + '</div>';
+
+  app.innerHTML = html;
+  document.getElementById('b-all').onclick = ()=>start(false);
+  document.getElementById('b-weak').onclick = ()=>start(true);
+  document.getElementById('b-check-all').onclick = ()=>{ Array.from(document.querySelectorAll('.f-ch, .f-type')).forEach(function(el){ el.checked = true; }); };
+  document.getElementById('b-check-none').onclick = ()=>{ Array.from(document.querySelectorAll('.f-ch, .f-type')).forEach(function(el){ el.checked = false; }); };
+  document.getElementById('b-reset').onclick = ()=>{
+    if (confirm('この科目の成績記録をすべて消しますか？')) { stats = {}; save(); home(); }
+  };
+  typeset();
+}
+
+function start(weakOnly){
+  const chs = chapters();
+  const selCh = Array.from(document.querySelectorAll('.f-ch:checked')).map(el=>chs[+el.value]);
+  const selTy = Array.from(document.querySelectorAll('.f-type:checked')).map(el=>el.value);
+  const reverse = document.getElementById('f-rev').checked;
+  const orderEl = document.querySelector('input[name="f-order"]:checked');
+  const order = orderEl ? orderEl.value : 'random';
+  try { localStorage.setItem(KEY + ':order', order); } catch(e){}
+  let list = D.questions.filter(q => selCh.indexOf(q.chapter)>=0 && selTy.indexOf(q.type)>=0);
+  if (weakOnly) list = list.filter(isWeak);
+  if (list.length === 0) { alert('条件に合う問題がありません。範囲・形式を確認してください。'); return; }
+  session = { list: order==='seq' ? list.slice() : shuffle(list), idx: 0, results: [], reverse: reverse, order: order };
+  renderQ();
+}
+
+/* ---------- 出題画面 ---------- */
+function header(q){
+  const cur = session.idx + 1, total = session.list.length;
+  return '<div class="sub">'+cur+' / '+total+' 問</div>'
+    + '<div class="progress"><div style="width:'+(session.idx/total*100)+'%"></div></div>'
+    + '<div><span class="tag">'+TYPE_LABEL[q.type]+'</span><span class="sub">'+q.chapter+'</span></div>';
+}
+function renderQ(){
+  if (session.idx >= session.list.length) return results();
+  const q = session.list[session.idx];
+  if (q.type === 'term') renderTerm(q);
+  else if (q.type === 'mc') renderMC(q);
+  else renderEssay(q);
+}
+function next(ok, q){
+  record(q.id, ok);
+  session.results.push({ q: q, ok: ok });
+  session.idx++;
+  renderQ();
+}
+function quitBtn(){ return '<div class="center" style="margin-top:14px"><button class="btn-ghost" id="b-quit">中断してホームへ</button></div>'; }
+function bindQuit(){ document.getElementById('b-quit').onclick = ()=>{ if(confirm('中断しますか？（ここまでの正誤は記録済みです）')) home(); }; }
+
+function renderTerm(q){
+  const front = session.reverse ? q.back : q.front;
+  const back  = session.reverse ? q.front : q.back;
+  app.innerHTML = '<div class="card">' + header(q)
+    + '<div class="qtext">' + front + '</div>'
+    + '<div id="zone"><button class="btn-primary btn-big" id="b-show">答えを見る</button></div>'
+    + quitBtn() + '</div>';
+  document.getElementById('b-show').onclick = ()=>{
+    document.getElementById('zone').innerHTML =
+      '<div class="answer-box"><b>答え:</b> ' + back + '</div>'
+      + '<div class="row"><button class="btn-ok btn-big" id="b-ok">◯ 答えられた</button>'
+      + '<button class="btn-ng btn-big" id="b-ng">✗ まだ</button></div>';
+    document.getElementById('b-ok').onclick = ()=>next(true, q);
+    document.getElementById('b-ng').onclick = ()=>next(false, q);
+    typeset();
+  };
+  bindQuit(); typeset();
+}
+
+function renderMC(q){
+  const order = shuffle(q.choices.map((c,i)=>({ text:c, correct: i===q.answer })));
+  let html = '<div class="card">' + header(q) + '<div class="qtext">' + q.question + '</div><div id="zone">';
+  order.forEach((c,i)=>{ html += '<button class="choice" data-i="'+i+'">' + c.text + '</button>'; });
+  html += '</div><div id="after"></div>' + quitBtn() + '</div>';
+  app.innerHTML = html;
+  Array.from(document.querySelectorAll('.choice')).forEach(btn=>{
+    btn.onclick = ()=>{
+      const ok = order[+btn.dataset.i].correct;
+      Array.from(document.querySelectorAll('.choice')).forEach((b,j)=>{
+        b.disabled = true;
+        if (order[j].correct) b.classList.add('correct');
+        else if (b === btn) b.classList.add('wrong');
+      });
+      let after = '<div class="feedback ' + (ok?'ok':'ng') + '">' + (ok?'◯ 正解！':'✗ 不正解') + '</div>';
+      if (q.explanation) after += '<div class="explain"><b>解説:</b> ' + q.explanation + '</div>';
+      after += '<button class="btn-primary btn-big" id="b-next">次へ</button>';
+      document.getElementById('after').innerHTML = after;
+      document.getElementById('b-next').onclick = ()=>next(ok, q);
+      typeset();
+    };
+  });
+  bindQuit(); typeset();
+}
+
+function renderEssay(q){
+  app.innerHTML = '<div class="card">' + header(q)
+    + '<div class="qtext">' + q.question + '</div>'
+    + '<textarea id="memo" placeholder="ここに自分の答えをメモ（任意・採点には使いません）"></textarea>'
+    + '<div id="zone" style="margin-top:10px"><button class="btn-primary btn-big" id="b-show">模範解答を見る</button></div>'
+    + quitBtn() + '</div>';
+  document.getElementById('b-show').onclick = ()=>{
+    let html = '<div class="answer-box"><b>模範解答</b><br>' + q.modelAnswer + '</div>';
+    if (q.points && q.points.length) {
+      html += '<div class="points"><b>採点ポイント（自己チェック）</b><ul>';
+      q.points.forEach(p=>{ html += '<li>' + p + '</li>'; });
+      html += '</ul></div>';
+    }
+    html += '<div class="row"><button class="btn-ok btn-big" id="b-ok">◯ 書けた</button>'
+      + '<button class="btn-ng btn-big" id="b-ng">✗ まだ</button></div>';
+    document.getElementById('zone').innerHTML = html;
+    document.getElementById('b-ok').onclick = ()=>next(true, q);
+    document.getElementById('b-ng').onclick = ()=>next(false, q);
+    typeset();
+  };
+  bindQuit(); typeset();
+}
+
+/* ---------- 結果画面 ---------- */
+function results(){
+  const total = session.results.length;
+  const ok = session.results.filter(r=>r.ok).length;
+  const wrongs = session.results.filter(r=>!r.ok);
+  const rate = total ? Math.round(ok/total*100) : 0;
+
+  let html = '<h1>結果</h1><div class="card"><div class="stat-grid">'
+    + '<div><div class="num">' + total + '</div><div class="lbl">出題数</div></div>'
+    + '<div><div class="num">' + ok + '</div><div class="lbl">正解</div></div>'
+    + '<div><div class="num">' + rate + '%</div><div class="lbl">正答率</div></div>'
+    + '</div></div>';
+
+  if (wrongs.length) {
+    html += '<div class="card"><h2>間違えた問題（' + wrongs.length + '）</h2>';
+    wrongs.forEach(r=>{
+      const q = r.q;
+      const label = q.type==='term' ? (session.reverse?q.back:q.front) : q.question;
+      html += '<div class="wrong-item"><span class="tag">'+TYPE_LABEL[q.type]+'</span>' + label + '</div>';
+    });
+    html += '<button class="btn-primary btn-big" id="b-retry" style="margin-top:12px">間違いだけやり直す</button></div>';
+  } else {
+    html += '<div class="card center"><div style="font-size:2em">🎉</div><b>全問正解！</b></div>';
+  }
+  html += '<div class="card"><button class="btn-big" id="b-home">ホームへ戻る</button></div>';
+
+  app.innerHTML = html;
+  if (wrongs.length) document.getElementById('b-retry').onclick = ()=>{
+    const qs = wrongs.map(r=>r.q);
+    session = { list: session.order==='seq' ? qs : shuffle(qs), idx: 0, results: [], reverse: session.reverse, order: session.order };
+    renderQ();
+  };
+  document.getElementById('b-home').onclick = home;
+  typeset();
+}
+
+home();
+})();
+</script>
+</body>
+</html>
