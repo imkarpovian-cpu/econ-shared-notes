@@ -1,6 +1,6 @@
 window.QUIZ_DATA = {
   id: "マクロ経済学入門_期末",
-  title: "マクロ経済学　入門 期末",
+  title: "マクロ経済学 入門 期末",
   questions: [
     // ===== 第1章 経済学の10原則 =====
     { id: "s01-t01", chapter: "第1章 経済学の10原則", type: "term",
