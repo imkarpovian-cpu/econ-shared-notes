@@ -16,7 +16,8 @@ window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
+  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Meiryo",sans-serif;
+  font-weight:500;
   line-height:1.7;font-size:16px}
 .wrap{max-width:640px;margin:0 auto;padding:12px 12px 48px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:12px 0}
@@ -56,12 +57,45 @@ textarea{width:100%;min-height:90px;font:inherit;border:1px solid var(--line);bo
 .feedback{font-size:1.15em;font-weight:bold;margin:10px 0}
 .feedback.ok{color:var(--ok)} .feedback.ng{color:var(--ng)}
 .center{text-align:center}
+/* ── 立体ボタン（ホームの資料・クイズボタンと同じ表現） ── */
+button{border-color:#93c5fd;color:var(--accent-dark);font-weight:600;
+  background:linear-gradient(180deg,#fff 0%,var(--accent-light) 100%);
+  box-shadow:0 3px 0 #93c5fd,0 4px 10px rgba(37,99,235,.15);
+  transition:transform .1s,box-shadow .1s,background .15s}
+button:hover:not(:disabled){background:linear-gradient(180deg,#fff 0%,#bfdbfe 100%);transform:translateY(-1px);
+  box-shadow:0 4px 0 #93c5fd,0 6px 14px rgba(37,99,235,.2)}
+button:active:not(:disabled){transform:translateY(1px);box-shadow:0 2px 0 #93c5fd,0 2px 6px rgba(37,99,235,.15)}
+button:disabled{opacity:.55;cursor:default}
+.btn-primary{background:linear-gradient(180deg,#3b82f6 0%,var(--accent) 100%);border-color:var(--accent);color:#fff;
+  box-shadow:0 3px 0 var(--accent-dark),0 4px 10px rgba(37,99,235,.25)}
+.btn-primary:hover:not(:disabled){background:linear-gradient(180deg,#2f76f0 0%,#1d4ed8 100%);
+  box-shadow:0 4px 0 var(--accent-dark),0 6px 14px rgba(37,99,235,.3)}
+.btn-ok{background:linear-gradient(180deg,#34d399 0%,var(--ok) 100%);border-color:var(--ok);color:#fff;
+  box-shadow:0 3px 0 #047857,0 4px 10px rgba(16,185,129,.25)}
+.btn-ok:hover:not(:disabled){background:linear-gradient(180deg,#2dc98f 0%,#0ea572 100%);
+  box-shadow:0 4px 0 #047857,0 6px 14px rgba(16,185,129,.3)}
+.btn-ng{background:linear-gradient(180deg,#f87171 0%,var(--ng) 100%);border-color:var(--ng);color:#fff;
+  box-shadow:0 3px 0 #b91c1c,0 4px 10px rgba(239,68,68,.25)}
+.btn-ng:hover:not(:disabled){background:linear-gradient(180deg,#f46565 0%,#e03a3a 100%);
+  box-shadow:0 4px 0 #b91c1c,0 6px 14px rgba(239,68,68,.3)}
+.btn-primary:active:not(:disabled){box-shadow:0 2px 0 var(--accent-dark),0 2px 6px rgba(37,99,235,.25)}
+.btn-ok:active:not(:disabled){box-shadow:0 2px 0 #047857,0 2px 6px rgba(16,185,129,.25)}
+.btn-ng:active:not(:disabled){box-shadow:0 2px 0 #b91c1c,0 2px 6px rgba(239,68,68,.25)}
+/* 文字だけのボタンは平らなまま（出題範囲の全選択・全解除は小さな立体ボタン） */
+.btn-ghost,.btn-ghost:hover:not(:disabled),.btn-ghost:active:not(:disabled){background:none;box-shadow:none;transform:none;color:var(--sub);font-weight:normal}
+#b-check-all,#b-check-none{border-color:#93c5fd!important;color:var(--accent-dark);
+  background:linear-gradient(180deg,#fff 0%,var(--accent-light) 100%);box-shadow:0 2px 0 #93c5fd}
+#b-check-all:active,#b-check-none:active{transform:translateY(1px);box-shadow:0 1px 0 #93c5fd}
+/* 4択の選択肢は本文と同じ色で読みやすく */
+.choice{color:var(--ink);font-weight:normal}
+.choice.correct{background:var(--ok-bg);box-shadow:0 3px 0 var(--ok)}
+.choice.wrong{background:var(--ng-bg);box-shadow:0 3px 0 var(--ng)}
 </style>
 </head>
 <body>
 <script src="../../auth.js"></script>
 <nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
-  <a href="../../index.html" style="color:#2563eb;text-decoration:none;font-weight:700">&#9664; 共有ノート</a>
+  <a href="../../index.html" style="color:#1e40af;text-decoration:none;font-weight:800;font-size:.92em;letter-spacing:.04em;padding:4px 16px;border:1px solid #bfdbfe;border-radius:99px;background:linear-gradient(180deg,#fff 0%,#dbeafe 100%);box-shadow:0 2px 0 #bfdbfe,0 4px 10px rgba(37,99,235,.1)">&#9664; 共有ノート</a>
   <span style="color:#6b7280">／</span>
   <span style="font-weight:600">統計学1 クイズ</span>
 </nav>

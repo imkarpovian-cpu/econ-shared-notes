@@ -27,8 +27,9 @@
     '.auth-box p{margin:0 0 24px;font-size:.88em;color:#6b7280}' +
     '#auth-form input{display:block;width:100%;padding:12px 14px;margin:0 0 12px;border:1px solid #e5e7eb;border-radius:10px;font:inherit;font-size:.95em;background:#f8fafc;outline:none;transition:border-color .15s}' +
     '#auth-form input:focus{border-color:#2563eb;background:#fff}' +
-    '#auth-form button{display:block;width:100%;padding:13px;border:none;border-radius:10px;background:#2563eb;color:#fff;font:inherit;font-weight:700;font-size:1em;cursor:pointer;transition:background .15s}' +
-    '#auth-form button:hover{background:#1e40af}' +
+    '#auth-form button{display:block;width:100%;padding:13px;border:1px solid #2563eb;border-radius:10px;background:linear-gradient(180deg,#3b82f6 0%,#2563eb 100%);color:#fff;font:inherit;font-weight:700;font-size:1em;cursor:pointer;box-shadow:0 3px 0 #1e40af,0 4px 10px rgba(37,99,235,.25);transition:transform .1s,box-shadow .1s,background .15s}' +
+    '#auth-form button:hover{background:linear-gradient(180deg,#2f76f0 0%,#1d4ed8 100%);transform:translateY(-1px);box-shadow:0 4px 0 #1e40af,0 6px 14px rgba(37,99,235,.3)}' +
+    '#auth-form button:active{transform:translateY(1px);box-shadow:0 2px 0 #1e40af,0 2px 6px rgba(37,99,235,.25)}' +
     '#auth-error{color:#ef4444;font-size:.85em;margin-top:10px;min-height:1.2em}';
 
   document.documentElement.appendChild(style);
