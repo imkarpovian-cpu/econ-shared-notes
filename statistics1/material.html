@@ -8,73 +8,97 @@
 window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* Material 3 の考え方：枠線や影ではなく面の濃淡で区切る。色は元の青を種にした濃淡 */
 :root{
-  --accent:#2563eb; --accent-light:#dbeafe;
-  --ink:#1f2937; --sub:#6b7280;
-  --warn-bg:#fef9c3; --warn-edge:#eab308;
-  --ok-bg:#ecfdf5; --ok-edge:#10b981;
-  --bg:#f8fafc; --card:#ffffff; --line:#e5e7eb;
+  --accent:#2357c9; --accent-light:#dae2ff; --on-accent-light:#0b2a6b;
+  --ink:#1a1c22; --sub:#454852;
+  --warn-bg:#fdf1d3; --warn-edge:#e0a800; --on-warn:#5c4300;
+  --ok-bg:#dcf3e4; --ok-edge:#2e8b57; --on-ok:#0d4a2b;
+  --bg:#f2f3fb; --card:#ffffff; --line:#dcdde6;
+  --surface-low:#f4f5fb; --surface:#eceef6;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Meiryo",sans-serif;
-  font-weight:500;
-  line-height:1.8;font-size:16px}
-.wrap{max-width:860px;margin:0 auto;padding:16px}
-header.page{background:var(--accent);color:#fff;border-radius:12px;padding:24px 28px;margin:16px 0}
-header.page h1{margin:0;font-size:1.6em}
-header.page .meta{margin:6px 0 0;opacity:.85;font-size:.9em}
-nav.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 24px;margin-bottom:24px}
-nav.toc h2{margin:0 0 8px;font-size:1.05em;color:var(--accent)}
-nav.toc ol{margin:0;padding-left:1.4em}
+  font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Meiryo",sans-serif;
+  font-weight:400;
+  line-height:1.85;font-size:16px;-webkit-font-smoothing:antialiased}
+b,strong{font-weight:700}
+.wrap{max-width:860px;margin:0 auto;padding:8px 16px 16px}
+/* 上部ナビ（公開サイト版のみ。共有ノートのトップへ戻る） */
+nav.topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:4px;height:64px;
+  padding:0 max(4px,calc((100% - 860px)/2 + 4px));background:var(--bg);font-size:.95em}
+nav.topnav a.back{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px 0 12px;border-radius:99px;
+  color:var(--accent);text-decoration:none;font-weight:500;flex-shrink:0}
+nav.topnav a.back:hover{background:rgba(35,87,201,.08)}
+nav.topnav a.back svg{width:20px;height:20px;fill:currentColor}
+nav.topnav .sep{color:var(--sub);opacity:.5}
+nav.topnav .here{padding-left:8px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+header.page{background:var(--accent-light);color:var(--on-accent-light);border-radius:28px;padding:32px 32px 28px;margin:8px 0 12px}
+header.page h1{margin:0;font-size:1.9em;font-weight:400;line-height:1.35}
+header.page .meta{margin:8px 0 0;font-size:.9em;opacity:.8}
+.notice{margin:12px 0;padding:12px 18px;border-radius:16px;background:var(--warn-bg);color:var(--on-warn);font-size:.9em}
+nav.toc{background:var(--card);border-radius:28px;padding:24px 32px;margin-bottom:12px}
+nav.toc h2{margin:0 0 8px;font-size:.85em;font-weight:500;letter-spacing:.06em;color:var(--sub)}
+nav.toc ol{margin:0;padding-left:1.6em}
+nav.toc li{padding:2px 0}
+nav.toc li::marker{color:var(--sub)}
 nav.toc a{color:var(--ink);text-decoration:none}
-nav.toc a:hover{color:var(--accent);text-decoration:underline}
-section.chapter{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:28px}
-section.chapter h2{margin:0 0 16px;padding-bottom:10px;border-bottom:3px solid var(--accent);font-size:1.35em}
-section.chapter h3{margin:24px 0 8px;font-size:1.05em;color:var(--accent);display:flex;align-items:center;gap:6px}
-.summary{background:var(--accent-light);border-radius:8px;padding:12px 16px}
+nav.toc a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+section.chapter{background:var(--card);border-radius:28px;padding:32px;margin-bottom:12px;scroll-margin-top:72px}
+section.chapter h2{margin:0 0 20px;font-size:1.55em;font-weight:400;line-height:1.4}
+section.chapter h3{margin:28px 0 10px;font-size:1.02em;font-weight:500;color:var(--accent)}
+.summary{background:var(--surface-low);border-radius:16px;padding:14px 20px}
 .summary ul{margin:0;padding-left:1.3em}
 .summary li{margin:4px 0}
+.summary li::marker{color:var(--accent)}
 dl.terms{margin:0}
-dl.terms dt{font-weight:bold;color:var(--accent);margin-top:10px}
-dl.terms dt::before{content:"■ "}
-dl.terms dd{margin:2px 0 0 1.2em}
-.figure{text-align:center;margin:16px 0;padding:16px;border:1px dashed var(--line);border-radius:8px;background:#fff}
+dl.terms dt{font-weight:700;margin-top:14px}
+dl.terms dd{margin:2px 0 0;color:var(--sub)}
+.figure{text-align:center;margin:16px 0;padding:20px 16px;border:1px solid var(--line);border-radius:16px;background:#fff}
 .figure svg{max-width:100%;height:auto}
-.figure figcaption{font-size:.88em;color:var(--sub);margin-top:8px}
-.ref-note{background:#f1f5f9;border-left:4px solid var(--sub);padding:8px 14px;border-radius:0 8px 8px 0;font-size:.92em;color:var(--sub)}
-.example{background:var(--ok-bg);border-left:4px solid var(--ok-edge);padding:12px 16px;border-radius:0 8px 8px 0;margin:10px 0}
-.example .label,.pitfall .label{font-weight:bold;font-size:.9em;display:block;margin-bottom:4px}
-.example .label{color:#047857}
-.pitfall{background:var(--warn-bg);border-left:4px solid var(--warn-edge);padding:12px 16px;border-radius:0 8px 8px 0;margin:10px 0}
-.pitfall .label{color:#a16207}
-footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32px}
+.figure figcaption{font-size:.85em;color:var(--sub);margin-top:10px}
+.ref-note{background:var(--surface);padding:10px 16px;border-radius:12px;font-size:.9em;color:var(--sub)}
+.example{background:var(--ok-bg);padding:14px 18px;border-radius:16px;margin:10px 0}
+.example .label,.pitfall .label{font-weight:500;font-size:.8em;letter-spacing:.06em;display:block;margin-bottom:4px}
+.example .label{color:var(--on-ok)}
+.pitfall{background:var(--warn-bg);padding:14px 18px;border-radius:16px;margin:10px 0}
+.pitfall .label{color:var(--on-warn)}
+footer.page{color:var(--sub);font-size:.8em;text-align:center;padding:24px 0 40px}
+@media (max-width:640px){
+  header.page{padding:24px 20px;border-radius:24px}
+  header.page h1{font-size:1.5em}
+  nav.toc,section.chapter{padding:24px 20px;border-radius:24px}
+}
 pre.code{background:#1e293b;color:#e2e8f0;border-radius:8px;padding:14px 16px;overflow-x:auto;font-family:"Consolas","Monaco","Courier New",monospace;font-size:.9em;line-height:1.6;margin:8px 0}
 pre.code .comment{color:#94a3b8}
 pre.code .keyword{color:#7dd3fc}
 pre.code .string{color:#86efac}
 pre.code .general{color:#fbbf24;font-weight:bold}
 .fn-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.93em}
-.fn-table th{background:var(--accent);color:#fff;padding:8px 10px;text-align:left}
+.fn-table th{background:var(--accent-light);color:var(--on-accent-light);font-weight:500;padding:8px 10px;text-align:left}
 .fn-table td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-.fn-table tr:nth-child(even) td{background:#f8fafc}
+.fn-table tr:nth-child(even) td{background:var(--surface-low)}
 .fn-table code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.92em}
 @media print{
   body{background:#fff;font-size:12px;line-height:1.6}
   section.chapter{border:none;padding:0 0 16px;break-inside:avoid-page}
   header.page{border-radius:0}
   nav.toc{border:none}
+  nav.topnav{display:none}
   pre.code{background:#f1f5f9;color:#1e293b}
 }
 </style>
 </head>
 <body>
 <script src="../auth.js"></script>
-<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
-  <a href="../index.html" style="color:#1e40af;text-decoration:none;font-weight:800;font-size:.92em;letter-spacing:.04em;padding:4px 16px;border:1px solid #bfdbfe;border-radius:99px;background:linear-gradient(180deg,#fff 0%,#dbeafe 100%);box-shadow:0 2px 0 #bfdbfe,0 4px 10px rgba(37,99,235,.1)">&#9664; 共有ノート</a>
-  <span style="color:#6b7280">／</span>
-  <span style="font-weight:600">統計学1</span>
+<nav class="topnav">
+  <a class="back" href="../index.html"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>共有ノート</a>
+  <span class="sep">/</span>
+  <span class="here">統計学1</span>
 </nav>
 <div class="wrap">
 
@@ -107,7 +131,7 @@ pre.code .general{color:#fbbf24;font-weight:bold}
 <section class="chapter" id="ch1">
   <h2>第1章 基本操作（算術・オブジェクト・コメント）</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>Rは電卓のように算術演算ができる（<code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>^</code>）</li>
     <li><code>#</code> 以降はコメント（実行されない）</li>
@@ -116,7 +140,7 @@ pre.code .general{color:#fbbf24;font-weight:bold}
     <li>オブジェクトは上書き可能</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>算術演算</dt>
     <dd>
@@ -140,7 +164,7 @@ pre.code .general{color:#fbbf24;font-weight:bold}
     </dd>
   </dl>
 
-  <h3>🧮 具体例</h3>
+  <h3>具体例</h3>
   <div class="example"><span class="label">例</span>
     <pre class="code">5 + 3          <span class="comment"># → 8</span>
 5 ^ 3          <span class="comment"># → 125</span>
@@ -149,7 +173,7 @@ result &lt;- 5 + 3  <span class="comment"># resultに8が保存される</span>
 result         <span class="comment"># → 8</span></pre>
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     大文字・小文字は区別される。<code>result</code> と <code>Result</code> は別のオブジェクト。未定義のオブジェクトを参照すると <code>Error: object 'Result' not found</code> になる。
   </div>
@@ -162,7 +186,7 @@ result         <span class="comment"># → 8</span></pre>
 <section class="chapter" id="ch2">
   <h2>第2章 ベクトルとデータ型</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>ベクトルは <code>c()</code> で作成。同じデータ型の要素を複数持つ</li>
     <li>インデックスは <b>1始まり</b>。<code>x[2]</code> で2番目の要素</li>
@@ -172,7 +196,7 @@ result         <span class="comment"># → 8</span></pre>
     <li>論理値は数値演算時に TRUE=1、FALSE=0 に変換される</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>ベクトルの作成</dt>
     <dd>
@@ -247,7 +271,7 @@ result         <span class="comment"># → 8</span></pre>
     </dd>
   </dl>
 
-  <h3>🧮 具体例</h3>
+  <h3>具体例</h3>
   <div class="example"><span class="label">例：ベクトルの作成と操作</span>
     <pre class="code">world.pop &lt;- c(2525779, 3026003, 3691173)
 world.pop[2]                <span class="comment"># → 3026003</span>
@@ -264,7 +288,7 @@ mean(x)    <span class="comment"># → 0.6667（TRUEの割合）</span>
 sum(x)     <span class="comment"># → 2（TRUEの個数）</span></pre>
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     ベクトル内で型が混在すると、<b>数値が文字に自動変換</b>される。<br>
     <code>c(1, 2, "a")</code> → <code>"1" "2" "a"</code>（全部文字型になる）
@@ -281,7 +305,7 @@ sum(x)     <span class="comment"># → 2（TRUEの個数）</span></pre>
 <section class="chapter" id="ch3">
   <h2>第3章 関数の基本と自作関数</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>関数は<b>特定の入力（引数）に対して特定の出力を返す</b>もの</li>
     <li>引数は位置（順序）でも、名前でも指定できる</li>
@@ -290,7 +314,7 @@ sum(x)     <span class="comment"># → 2（TRUEの個数）</span></pre>
     <li><code>function(){}</code> で自作関数を定義できる</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>組み込み関数（1変数）</dt>
     <dd>
@@ -357,7 +381,7 @@ sum(x)     <span class="comment"># → 2（TRUEの個数）</span></pre>
     </dd>
   </dl>
 
-  <h3>🧮 具体例</h3>
+  <h3>具体例</h3>
   <div class="example"><span class="label">例：自作関数の定義と使用</span>
     <pre class="code">my.difference &lt;- function(input1, input2) {
   output &lt;- input1 - input2
@@ -377,7 +401,7 @@ my.difference(input2 = 3, input1 = 1)  <span class="comment"># → -2（名前�
 }</pre>
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     <code>na.rm = TRUE</code> を忘れると、NAが1つでもあれば結果がNAになる。<br>
     <code>mean(c(1, 2, NA))</code> → <code>NA</code><br>
@@ -392,7 +416,7 @@ my.difference(input2 = 3, input1 = 1)  <span class="comment"># → -2（名前�
 <section class="chapter" id="ch4">
   <h2>第4章 データフレーム操作（読み込み・加工・保存）</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>tidyverse（readrなど）を使う現代的な書き方が授業推奨</li>
     <li>パイプ演算子 <code>|&gt;</code> でコードを上から下に読める</li>
@@ -402,7 +426,7 @@ my.difference(input2 = 3, input1 = 1)  <span class="comment"># → -2（名前�
     <li>整然データ（tidy data）: 各変数＝列、各観測＝行、各値＝セル</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>パッケージの導入</dt>
     <dd>
@@ -515,7 +539,7 @@ my.difference(input2 = 3, input1 = 1)  <span class="comment"># → -2（名前�
     </dd>
   </dl>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     列名にスペースが含まれる場合はバッククォートで囲む。<br>
     <code>filter(`Country Name` == "Japan")</code>
@@ -529,7 +553,7 @@ my.difference(input2 = 3, input1 = 1)  <span class="comment"># → -2（名前�
 <section class="chapter" id="ch5">
   <h2>第5章 データ集計（group_by・summarize・table）</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li><code>group_by() |&gt; summarize()</code> はtidyverseでのグループ別集計の基本パターン</li>
     <li>ダミー変数（0/1）の平均値 ＝ 条件を満たす割合</li>
@@ -538,7 +562,7 @@ my.difference(input2 = 3, input1 = 1)  <span class="comment"># → -2（名前�
     <li>sapply() で複数列に関数を一括適用</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>グループ別集計（最重要パターン）</dt>
     <dd>
@@ -602,7 +626,7 @@ my.difference(input2 = 3, input1 = 1)  <span class="comment"># → -2（名前�
     </dd>
   </dl>
 
-  <h3>🧮 具体例</h3>
+  <h3>具体例</h3>
   <div class="example"><span class="label">例：人種別書類通過率</span>
     <pre class="code">resume |&gt;
   group_by(race) |&gt;
@@ -623,7 +647,7 @@ my.difference(input2 = 3, input1 = 1)  <span class="comment"># → -2（名前�
 did$diff_before_after[1] - did$diff_before_after[2]</pre>
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     <code>group_by()</code> は見た目を変えないが、以降の <code>summarize()</code> がグループごとに計算される。<code># Groups:</code> の表示で確認可能。
   </div>
@@ -636,7 +660,7 @@ did$diff_before_after[1] - did$diff_before_after[2]</pre>
 <section class="chapter" id="ch6">
   <h2>第6章 ggplotによるグラフ作成</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>ggplotの基本構造: <code>ggplot(aes()) + geom_xxx() + labs() + theme()</code></li>
     <li>グラフの種類: 棒グラフ(<code>geom_bar</code>)、ヒストグラム(<code>geom_histogram</code>)、箱ひげ図(<code>geom_boxplot</code>)、散布図(<code>geom_point</code>)、線グラフ(<code>geom_line</code>)</li>
@@ -644,7 +668,7 @@ did$diff_before_after[1] - did$diff_before_after[2]</pre>
     <li><code>ggsave()</code> でグラフを画像として保存</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>ggplotの基本構造</dt>
     <dd>
@@ -729,7 +753,7 @@ did$diff_before_after[1] - did$diff_before_after[2]</pre>
     </dd>
   </dl>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     ggplotの各要素は <code>+</code> でつなぐ（パイプ <code>|&gt;</code> ではない）。
   </div>
@@ -745,7 +769,7 @@ did$diff_before_after[1] - did$diff_before_after[2]</pre>
 <section class="chapter" id="ch7">
   <h2>第7章 統計分析（相関・k平均法・Q-Qプロット）</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>相関係数 <code>cor(x, y)</code> は2変数の線形関係の強さ（-1〜1）</li>
     <li>Q-Qプロットは2つの分布の同一性を視覚的に確認する方法</li>
@@ -753,7 +777,7 @@ did$diff_before_after[1] - did$diff_before_after[2]</pre>
     <li>対数変換 <code>log()</code> は分布の偏りを修正し、差を変化率に変換する</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>相関係数</dt>
     <dd>
@@ -800,7 +824,7 @@ did$diff_before_after[1] - did$diff_before_after[2]</pre>
     </dd>
   </dl>
 
-  <h3>🧮 具体例</h3>
+  <h3>具体例</h3>
   <div class="example"><span class="label">例：k平均法の実行と結果確認</span>
     <pre class="code">result &lt;- congress |&gt;
   filter(congress == 112) |&gt;
@@ -814,7 +838,7 @@ table(
 )  <span class="comment"># クラスターと政党の対応</span></pre>
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     $k$平均法のクラスター番号（1, 2, 3...）に意味はない。実行するたびに番号と中心点の対応が変わりうる。<code>nstart</code>で複数回試行し最良の結果を選ぶ。
   </div>
@@ -830,7 +854,7 @@ table(
 <section class="chapter" id="ch8">
   <h2>第8章 ループと条件文（for・if・else）</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li><code>for (i in ベクトル) {}</code> で同じ処理を繰り返す。<code>i</code> にベクトルの値が1つずつ順番に入る</li>
     <li>繰り返しの結果を保存するには、先に <code>rep(NA, length(x))</code> で入れ物を作る</li>
@@ -840,7 +864,7 @@ table(
     <li>forとifは組み合わせて使える</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>for構文（繰り返し）</dt>
     <dd>
@@ -884,7 +908,7 @@ table(
     </dd>
   </dl>
 
-  <h3>🧮 具体例</h3>
+  <h3>具体例</h3>
   <div class="example"><span class="label">例：各要素を2倍して保存</span>
     <pre class="code">values &lt;- c(2, 4, 6)
 results &lt;- rep(NA, length(values))
@@ -909,7 +933,7 @@ for (i in 1:length(values)) {
 results    <span class="comment"># → 1 4 9 8 25</span></pre>
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     <code>if</code> の中の条件は <b>TRUEまたはFALSEのどちらか1つ</b>になる必要がある。
   </div>
@@ -925,7 +949,7 @@ results    <span class="comment"># → 1 4 9 8 25</span></pre>
 <section class="chapter" id="ch9">
   <h2>第9章 予測と予測誤差（選挙予測・バイアス・RMSE）</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>予測誤差 ＝ 実際の結果 − 予測値</li>
     <li>予測誤差の平均値を<b>バイアス</b>と呼ぶ</li>
@@ -935,7 +959,7 @@ results    <span class="comment"># → 1 4 9 8 25</span></pre>
     <li>予測と実際の符号（勝敗）の一致は <code>sign()</code> で確認できる</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>予測誤差・バイアス・RMSE（数式）</dt>
     <dd>
@@ -980,7 +1004,7 @@ results    <span class="comment"># → 1 4 9 8 25</span></pre>
     </dd>
   </dl>
 
-  <h3>🧮 具体例</h3>
+  <h3>具体例</h3>
   <div class="example"><span class="label">例：2008年大統領選の予測誤差（結果）</span>
     <pre class="code">errors_df |&gt;
   summarise(
@@ -995,7 +1019,7 @@ results    <span class="comment"># → 1 4 9 8 25</span></pre>
 <span class="comment"># → IN, MO, NC の3州のみ。いずれも接戦州だった</span></pre>
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     予測誤差は「<b>実際 − 予測</b>」の順。逆にすると符号（バイアスの向き）が反転する。
   </div>
@@ -1011,7 +1035,7 @@ results    <span class="comment"># → 1 4 9 8 25</span></pre>
 <section class="chapter" id="ch10">
   <h2>第10章 線形回帰（feols・係数・予測値・残差・決定係数）</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>線形回帰モデル: $Y = \alpha + \beta X + \epsilon$（$\alpha$＝切片、$\beta$＝傾き、$\epsilon$＝誤差項）</li>
     <li>$\beta$ は「$X$ が1単位増加したとき $Y$ が平均してどれだけ増加するか」を表す</li>
@@ -1022,7 +1046,7 @@ results    <span class="comment"># → 1 4 9 8 25</span></pre>
     <li>外れ値（例: パームビーチ郡）は回帰の当てはまりを大きく悪化させる</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>線形回帰モデル（数式）</dt>
     <dd>
@@ -1096,7 +1120,7 @@ results    <span class="comment"># → 1 4 9 8 25</span></pre>
     </dd>
   </dl>
 
-  <h3>🧮 具体例</h3>
+  <h3>具体例</h3>
   <div class="example"><span class="label">例：顔の見た目と選挙結果の回帰</span>
     <pre class="code">fit &lt;- feols(diff.share ~ d.comp, data = face)
 coef(fit)    <span class="comment"># → 切片 -0.312, 傾き 0.660</span>
@@ -1111,7 +1135,7 @@ fit3 &lt;- feols(Buchanan00 ~ Perot96, data = florida_nopb)
 r2(fit3, type = "r2")    <span class="comment"># → 0.851（外れ値を除くと大きく改善）</span></pre>
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     フォーミュラは「<b>結果変数 ~ 予測変数</b>」の順。逆にすると意味が変わる。
   </div>
@@ -1127,7 +1151,7 @@ r2(fit3, type = "r2")    <span class="comment"># → 0.851（外れ値を除く�
 <section class="chapter" id="ch11">
   <h2>第11章 回帰分析と因果推論（実験・重回帰・交互作用）</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>2値トリートメントの実験データでは、回帰の傾き係数 ＝ <b>平均トリートメント効果の推定値</b> ＝ 2グループの平均の差</li>
     <li>この因果解釈には<b>トリートメントの割り当てがランダム</b>であるなどの仮定が重要</li>
@@ -1137,7 +1161,7 @@ r2(fit3, type = "r2")    <span class="comment"># → 0.851（外れ値を除く�
     <li>交互作用項の係数は、グループによってトリートメント効果がどれだけ異なるか（不均一トリートメント効果）を表す</li>
   </ul></div>
 
-  <h3>📖 一般形</h3>
+  <h3>一般形</h3>
   <dl class="terms">
     <dt>トリートメント効果の回帰（2値トリートメント）</dt>
     <dd>
@@ -1175,7 +1199,7 @@ r2(fit3, type = "r2")    <span class="comment"># → 0.851（外れ値を除く�
     </dd>
   </dl>
 
-  <h3>🧮 具体例</h3>
+  <h3>具体例</h3>
   <div class="example"><span class="label">例：インドの女性割当のランダム化実験</span>
     <pre class="code">feols(water ~ reserved, data = women)
 <span class="comment"># reservedの係数 9.25 = 女性割当の平均因果効果（飲用水設備が増加）</span>
@@ -1191,7 +1215,7 @@ feols(irrigation ~ reserved, data = women)
 <span class="comment">#   （不均一トリートメント効果）</span></pre>
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>
     回帰係数を因果効果と解釈できるのは、<b>トリートメントの割り当てがランダム</b>などの仮定が満たされる場合だけ。観察データの回帰は基本的に予測の道具。
   </div>

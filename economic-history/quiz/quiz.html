@@ -8,96 +8,92 @@
 window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* Material 3 の考え方：枠線や影ではなく面の濃淡で区切る。色は元の青を種にした濃淡 */
 :root{
-  --accent:#2563eb; --accent-dark:#1e40af; --accent-light:#dbeafe;
-  --ok:#10b981; --ok-bg:#ecfdf5; --ng:#ef4444; --ng-bg:#fef2f2;
-  --ink:#1f2937; --sub:#6b7280; --bg:#f1f5f9; --card:#fff; --line:#e5e7eb;
+  --accent:#2357c9; --accent-dark:#0b2a6b; --accent-light:#dae2ff;
+  --tonal:#dfe2f3; --on-tonal:#171b2c;
+  --ok:#2e7d4f; --ok-bg:#dcf3e4; --ng:#ba1a1a; --ng-bg:#ffdad6;
+  --ink:#1a1c22; --sub:#454852; --bg:#f9f9ff; --card:#f2f3fb; --line:#c5c6d2;
+  --surface-high:#e6e8f0;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Meiryo",sans-serif;
-  font-weight:500;
-  line-height:1.7;font-size:16px}
-.wrap{max-width:640px;margin:0 auto;padding:12px 12px 48px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:12px 0}
-h1{font-size:1.25em;margin:12px 4px}
-h2{font-size:1.05em;margin:0 0 10px}
-.sub{color:var(--sub);font-size:.88em}
-button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:#fff;padding:10px 16px}
-button:active{transform:translateY(1px)}
-.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:bold}
-.btn-primary:hover{background:var(--accent-dark)}
-.btn-big{display:block;width:100%;padding:14px;font-size:1.05em;margin:8px 0}
-.btn-ok{background:var(--ok);border-color:var(--ok);color:#fff;font-weight:bold}
-.btn-ng{background:var(--ng);border-color:var(--ng);color:#fff;font-weight:bold}
-.btn-ghost{background:transparent;border:none;color:var(--sub);text-decoration:underline}
+  font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Meiryo",sans-serif;
+  font-weight:400;
+  line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased}
+b,strong{font-weight:700}
+.wrap{max-width:640px;margin:0 auto;padding:4px 16px 48px}
+/* 上部ナビ（公開サイト版のみ。共有ノートのトップへ戻る） */
+nav.topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:4px;height:64px;
+  padding:0 max(4px,calc((100% - 640px)/2 + 4px));background:var(--bg);font-size:.95em}
+nav.topnav a.back{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px 0 12px;border-radius:99px;
+  color:var(--accent);text-decoration:none;font-weight:500;flex-shrink:0}
+nav.topnav a.back:hover{background:rgba(35,87,201,.08)}
+nav.topnav a.back svg{width:20px;height:20px;fill:currentColor}
+nav.topnav .sep{color:var(--sub);opacity:.5}
+nav.topnav .here{padding-left:8px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card{background:var(--card);border-radius:24px;padding:24px;margin:12px 0}
+h1{font-size:1.5em;font-weight:400;line-height:1.4;margin:16px 4px 8px}
+h2{font-size:1em;font-weight:500;margin:0 0 12px}
+.sub{color:var(--sub);font-size:.875em}
+/* ボタン：楕円・影なし。hover / 押下は色を薄く重ねて表す（M3 の state layer） */
+button{font:inherit;font-size:.95em;font-weight:500;cursor:pointer;border:none;border-radius:99px;
+  min-height:40px;padding:8px 24px;background:var(--tonal);color:var(--on-tonal);transition:box-shadow .15s}
+button:hover:not(:disabled){box-shadow:inset 0 0 0 100vmax rgba(26,28,34,.08)}
+button:active:not(:disabled){box-shadow:inset 0 0 0 100vmax rgba(26,28,34,.12)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{background:rgba(26,28,34,.08);color:rgba(26,28,34,.38);cursor:default}
+.btn-primary,.btn-ok,.btn-ng{color:#fff}
+.btn-primary{background:var(--accent)}
+.btn-ok{background:var(--ok)}
+.btn-ng{background:var(--ng)}
+.btn-primary:hover:not(:disabled),.btn-ok:hover:not(:disabled),.btn-ng:hover:not(:disabled){box-shadow:inset 0 0 0 100vmax rgba(255,255,255,.1)}
+.btn-primary:active:not(:disabled),.btn-ok:active:not(:disabled),.btn-ng:active:not(:disabled){box-shadow:inset 0 0 0 100vmax rgba(255,255,255,.16)}
+.btn-big{display:block;width:100%;min-height:52px;font-size:1em;margin:8px 0}
+.btn-ghost{background:transparent;color:var(--accent)}
+.btn-small{min-height:32px;padding:2px 14px;font-size:.85em;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--accent)}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 .row>button{flex:1}
-label.chk{display:inline-flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid var(--line);
-  border-radius:8px;padding:6px 10px;margin:3px 2px;font-size:.92em;cursor:pointer}
-label.chk input{accent-color:var(--accent)}
-.tag{display:inline-block;font-size:.75em;padding:2px 10px;border-radius:99px;background:var(--accent-light);color:var(--accent-dark);margin-right:6px}
-.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0}
-.progress>div{height:100%;background:var(--accent);transition:width .25s}
-.qtext{font-size:1.1em;margin:14px 0}
-.choice{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px;font-size:1em}
-.choice.correct{background:var(--ok-bg);border-color:var(--ok);font-weight:bold}
+/* 絞り込みはチップ（M3 の filter chip）。選んでいるものは色の付いた面になる */
+label.chk{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:4px 12px 4px 10px;margin:3px 2px;
+  border:1px solid var(--line);border-radius:8px;font-size:.9em;cursor:pointer;transition:background .15s,border-color .15s}
+label.chk:hover{background:rgba(26,28,34,.05)}
+label.chk:has(input:checked){background:var(--tonal);border-color:var(--tonal);color:var(--on-tonal)}
+label.chk input{accent-color:var(--accent);margin:0}
+.tag{display:inline-block;font-size:.75em;font-weight:500;padding:2px 10px;border-radius:8px;background:var(--accent-light);color:var(--accent-dark);margin-right:8px}
+.progress{height:4px;background:var(--accent-light);border-radius:99px;overflow:hidden;margin:10px 0 14px}
+.progress>div{height:100%;background:var(--accent);border-radius:99px;transition:width .25s}
+.qtext{font-size:1.15em;margin:14px 0 18px}
+.choice{display:block;width:100%;text-align:left;margin:8px 0;padding:14px 18px;font-size:1em;font-weight:400;
+  border-radius:16px;background:#fff;color:var(--ink);border:1px solid var(--line)}
+.choice:disabled{background:#fff;color:var(--ink)}
+.choice.correct{background:var(--ok-bg);border-color:var(--ok);font-weight:500}
 .choice.wrong{background:var(--ng-bg);border-color:var(--ng)}
-.choice:disabled{cursor:default;opacity:1}
-.answer-box{background:var(--accent-light);border-radius:10px;padding:14px;margin:12px 0}
-.explain{background:#f8fafc;border-left:4px solid var(--accent);padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:.95em}
-.points{background:#fffbeb;border-left:4px solid #f59e0b;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:.95em}
+.answer-box{background:var(--accent-light);color:var(--accent-dark);border-radius:16px;padding:14px 18px;margin:12px 0}
+.explain{background:var(--surface-high);border-radius:16px;padding:12px 16px;margin:10px 0;font-size:.95em}
+.points{background:#fdf1d3;color:#3d2e00;border-radius:16px;padding:12px 16px;margin:10px 0;font-size:.95em}
 .points ul{margin:4px 0 0;padding-left:1.3em}
-textarea{width:100%;min-height:90px;font:inherit;border:1px solid var(--line);border-radius:10px;padding:10px;resize:vertical}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:10px 0}
-.stat-grid .num{font-size:1.5em;font-weight:bold;color:var(--accent)}
+textarea{width:100%;min-height:96px;font:inherit;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical;outline:none}
+textarea:focus{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin:4px 0}
+.stat-grid .num{font-size:1.9em;font-weight:400;line-height:1.3;color:var(--accent)}
 .stat-grid .lbl{font-size:.78em;color:var(--sub)}
-.wrong-item{padding:8px 0;border-bottom:1px dashed var(--line);font-size:.94em}
-.feedback{font-size:1.15em;font-weight:bold;margin:10px 0}
+.wrong-item{padding:10px 0;border-bottom:1px solid var(--line);font-size:.94em}
+.feedback{font-size:1.1em;font-weight:500;margin:12px 0}
 .feedback.ok{color:var(--ok)} .feedback.ng{color:var(--ng)}
 .center{text-align:center}
-/* ── 立体ボタン（ホームの資料・クイズボタンと同じ表現） ── */
-button{border-color:#93c5fd;color:var(--accent-dark);font-weight:600;
-  background:linear-gradient(180deg,#fff 0%,var(--accent-light) 100%);
-  box-shadow:0 3px 0 #93c5fd,0 4px 10px rgba(37,99,235,.15);
-  transition:transform .1s,box-shadow .1s,background .15s}
-button:hover:not(:disabled){background:linear-gradient(180deg,#fff 0%,#bfdbfe 100%);transform:translateY(-1px);
-  box-shadow:0 4px 0 #93c5fd,0 6px 14px rgba(37,99,235,.2)}
-button:active:not(:disabled){transform:translateY(1px);box-shadow:0 2px 0 #93c5fd,0 2px 6px rgba(37,99,235,.15)}
-button:disabled{opacity:.55;cursor:default}
-.btn-primary{background:linear-gradient(180deg,#3b82f6 0%,var(--accent) 100%);border-color:var(--accent);color:#fff;
-  box-shadow:0 3px 0 var(--accent-dark),0 4px 10px rgba(37,99,235,.25)}
-.btn-primary:hover:not(:disabled){background:linear-gradient(180deg,#2f76f0 0%,#1d4ed8 100%);
-  box-shadow:0 4px 0 var(--accent-dark),0 6px 14px rgba(37,99,235,.3)}
-.btn-ok{background:linear-gradient(180deg,#34d399 0%,var(--ok) 100%);border-color:var(--ok);color:#fff;
-  box-shadow:0 3px 0 #047857,0 4px 10px rgba(16,185,129,.25)}
-.btn-ok:hover:not(:disabled){background:linear-gradient(180deg,#2dc98f 0%,#0ea572 100%);
-  box-shadow:0 4px 0 #047857,0 6px 14px rgba(16,185,129,.3)}
-.btn-ng{background:linear-gradient(180deg,#f87171 0%,var(--ng) 100%);border-color:var(--ng);color:#fff;
-  box-shadow:0 3px 0 #b91c1c,0 4px 10px rgba(239,68,68,.25)}
-.btn-ng:hover:not(:disabled){background:linear-gradient(180deg,#f46565 0%,#e03a3a 100%);
-  box-shadow:0 4px 0 #b91c1c,0 6px 14px rgba(239,68,68,.3)}
-.btn-primary:active:not(:disabled){box-shadow:0 2px 0 var(--accent-dark),0 2px 6px rgba(37,99,235,.25)}
-.btn-ok:active:not(:disabled){box-shadow:0 2px 0 #047857,0 2px 6px rgba(16,185,129,.25)}
-.btn-ng:active:not(:disabled){box-shadow:0 2px 0 #b91c1c,0 2px 6px rgba(239,68,68,.25)}
-/* 文字だけのボタンは平らなまま（出題範囲の全選択・全解除は小さな立体ボタン） */
-.btn-ghost,.btn-ghost:hover:not(:disabled),.btn-ghost:active:not(:disabled){background:none;box-shadow:none;transform:none;color:var(--sub);font-weight:normal}
-#b-check-all,#b-check-none{border-color:#93c5fd!important;color:var(--accent-dark);
-  background:linear-gradient(180deg,#fff 0%,var(--accent-light) 100%);box-shadow:0 2px 0 #93c5fd}
-#b-check-all:active,#b-check-none:active{transform:translateY(1px);box-shadow:0 1px 0 #93c5fd}
-/* 4択の選択肢は本文と同じ色で読みやすく */
-.choice{color:var(--ink);font-weight:normal}
-.choice.correct{background:var(--ok-bg);box-shadow:0 3px 0 var(--ok)}
-.choice.wrong{background:var(--ng-bg);box-shadow:0 3px 0 var(--ng)}
 </style>
 </head>
 <body>
 <script src="../../auth.js"></script>
-<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
-  <a href="../../index.html" style="color:#1e40af;text-decoration:none;font-weight:800;font-size:.92em;letter-spacing:.04em;padding:4px 16px;border:1px solid #bfdbfe;border-radius:99px;background:linear-gradient(180deg,#fff 0%,#dbeafe 100%);box-shadow:0 2px 0 #bfdbfe,0 4px 10px rgba(37,99,235,.1)">&#9664; 共有ノート</a>
-  <span style="color:#6b7280">／</span>
-  <span style="font-weight:600">経済史・思想史入門 クイズ</span>
+<nav class="topnav">
+  <a class="back" href="../../index.html"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>共有ノート</a>
+  <span class="sep">/</span>
+  <span class="here">経済史・思想史入門 クイズ</span>
 </nav>
 <div class="wrap"><div id="app"></div></div>
 <script src="questions.js"></script>
@@ -152,8 +148,8 @@ function home(){
     + '</div></div>';
 
   html += '<div class="card"><h2>出題範囲</h2>'
-    + '<div style="margin:-2px 0 8px"><button class="btn-ghost" id="b-check-all" style="padding:2px 10px;font-size:.85em;border:1px solid var(--line);border-radius:8px;text-decoration:none">☑ 全選択</button> '
-    + '<button class="btn-ghost" id="b-check-none" style="padding:2px 10px;font-size:.85em;border:1px solid var(--line);border-radius:8px;text-decoration:none">☐ 全解除</button></div>'
+    + '<div style="margin:-2px 0 8px"><button class="btn-small" id="b-check-all">全選択</button> '
+    + '<button class="btn-small" id="b-check-none">全解除</button></div>'
     + '<div id="ch-filters">';
   chs.forEach((c,i)=>{ html += '<label class="chk"><input type="checkbox" class="f-ch" value="'+i+'" checked>'+c+'</label>'; });
   html += '</div><div style="margin-top:8px">';
@@ -166,13 +162,13 @@ function home(){
   html += '</div><div style="margin-top:8px">'
     + '<label class="chk"><input type="checkbox" id="f-rev">一問一答を逆方向（用語→定義）で出す</label>'
     + '</div><div style="margin-top:8px"><span class="sub" style="margin-right:2px">出題順:</span>'
-    + '<label class="chk"><input type="radio" name="f-order" value="random"' + (savedOrder==='seq'?'':' checked') + '>🔀 ランダム</label>'
-    + '<label class="chk"><input type="radio" name="f-order" value="seq"' + (savedOrder==='seq'?' checked':'') + '>📖 問題順</label>'
+    + '<label class="chk"><input type="radio" name="f-order" value="random"' + (savedOrder==='seq'?'':' checked') + '>ランダム</label>'
+    + '<label class="chk"><input type="radio" name="f-order" value="seq"' + (savedOrder==='seq'?' checked':'') + '>問題順</label>'
     + '</div></div>';
 
   html += '<div class="card">'
-    + '<button class="btn-primary btn-big" id="b-all">▶ 全問モード</button>'
-    + '<button class="btn-big" id="b-weak" ' + (weak===0?'disabled':'') + '>🎯 弱点モード（間違い＋未回答 '+weak+'問）</button>'
+    + '<button class="btn-primary btn-big" id="b-all">全問モード</button>'
+    + '<button class="btn-big" id="b-weak" ' + (weak===0?'disabled':'') + '>弱点モード（間違い＋未回答 '+weak+'問）</button>'
     + '<div class="center" style="margin-top:10px"><button class="btn-ghost" id="b-reset">成績をリセット</button></div>'
     + '</div>';
 
@@ -314,7 +310,7 @@ function results(){
     });
     html += '<button class="btn-primary btn-big" id="b-retry" style="margin-top:12px">間違いだけやり直す</button></div>';
   } else {
-    html += '<div class="card center"><div style="font-size:2em">🎉</div><b>全問正解！</b></div>';
+    html += '<div class="card center"><b>全問正解！</b></div>';
   }
   html += '<div class="card"><button class="btn-big" id="b-home">ホームへ戻る</button></div>';
 

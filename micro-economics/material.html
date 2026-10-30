@@ -8,65 +8,86 @@
 window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* Material 3 の考え方：枠線や影ではなく面の濃淡で区切る。色は元の青を種にした濃淡 */
 :root{
-  --accent:#2563eb; --accent-light:#dbeafe;
-  --ink:#1f2937; --sub:#6b7280;
-  --warn-bg:#fef9c3; --warn-edge:#eab308;
-  --ok-bg:#ecfdf5; --ok-edge:#10b981;
-  --bg:#f8fafc; --card:#ffffff; --line:#e5e7eb;
+  --accent:#2357c9; --accent-light:#dae2ff; --on-accent-light:#0b2a6b;
+  --ink:#1a1c22; --sub:#454852;
+  --warn-bg:#fdf1d3; --warn-edge:#e0a800; --on-warn:#5c4300;
+  --ok-bg:#dcf3e4; --ok-edge:#2e8b57; --on-ok:#0d4a2b;
+  --bg:#f2f3fb; --card:#ffffff; --line:#dcdde6;
+  --surface-low:#f4f5fb; --surface:#eceef6;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Meiryo",sans-serif;
-  font-weight:500;
-  line-height:1.8;font-size:16px}
-.wrap{max-width:860px;margin:0 auto;padding:16px}
-header.page{background:var(--accent);color:#fff;border-radius:12px;padding:24px 28px;margin:16px 0}
-header.page h1{margin:0;font-size:1.6em}
-header.page .meta{margin:6px 0 0;opacity:.85;font-size:.9em}
-nav.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 24px;margin-bottom:24px}
-nav.toc h2{margin:0 0 8px;font-size:1.05em;color:var(--accent)}
-nav.toc ol{margin:0;padding-left:1.4em}
+  font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Meiryo",sans-serif;
+  font-weight:400;
+  line-height:1.85;font-size:16px;-webkit-font-smoothing:antialiased}
+b,strong{font-weight:700}
+.wrap{max-width:860px;margin:0 auto;padding:8px 16px 16px}
+/* 上部ナビ（公開サイト版のみ。共有ノートのトップへ戻る） */
+nav.topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:4px;height:64px;
+  padding:0 max(4px,calc((100% - 860px)/2 + 4px));background:var(--bg);font-size:.95em}
+nav.topnav a.back{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px 0 12px;border-radius:99px;
+  color:var(--accent);text-decoration:none;font-weight:500;flex-shrink:0}
+nav.topnav a.back:hover{background:rgba(35,87,201,.08)}
+nav.topnav a.back svg{width:20px;height:20px;fill:currentColor}
+nav.topnav .sep{color:var(--sub);opacity:.5}
+nav.topnav .here{padding-left:8px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+header.page{background:var(--accent-light);color:var(--on-accent-light);border-radius:28px;padding:32px 32px 28px;margin:8px 0 12px}
+header.page h1{margin:0;font-size:1.9em;font-weight:400;line-height:1.35}
+header.page .meta{margin:8px 0 0;font-size:.9em;opacity:.8}
+.notice{margin:12px 0;padding:12px 18px;border-radius:16px;background:var(--warn-bg);color:var(--on-warn);font-size:.9em}
+nav.toc{background:var(--card);border-radius:28px;padding:24px 32px;margin-bottom:12px}
+nav.toc h2{margin:0 0 8px;font-size:.85em;font-weight:500;letter-spacing:.06em;color:var(--sub)}
+nav.toc ol{margin:0;padding-left:1.6em}
+nav.toc li{padding:2px 0}
+nav.toc li::marker{color:var(--sub)}
 nav.toc a{color:var(--ink);text-decoration:none}
-nav.toc a:hover{color:var(--accent);text-decoration:underline}
-section.chapter{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:28px}
-section.chapter h2{margin:0 0 16px;padding-bottom:10px;border-bottom:3px solid var(--accent);font-size:1.35em}
-section.chapter h3{margin:24px 0 8px;font-size:1.05em;color:var(--accent);display:flex;align-items:center;gap:6px}
-.summary{background:var(--accent-light);border-radius:8px;padding:12px 16px}
+nav.toc a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+section.chapter{background:var(--card);border-radius:28px;padding:32px;margin-bottom:12px;scroll-margin-top:72px}
+section.chapter h2{margin:0 0 20px;font-size:1.55em;font-weight:400;line-height:1.4}
+section.chapter h3{margin:28px 0 10px;font-size:1.02em;font-weight:500;color:var(--accent)}
+.summary{background:var(--surface-low);border-radius:16px;padding:14px 20px}
 .summary ul{margin:0;padding-left:1.3em}
 .summary li{margin:4px 0}
+.summary li::marker{color:var(--accent)}
 dl.terms{margin:0}
-dl.terms dt{font-weight:bold;color:var(--accent);margin-top:10px}
-dl.terms dt::before{content:"■ "}
-dl.terms dd{margin:2px 0 0 1.2em}
-.figure{text-align:center;margin:16px 0;padding:16px;border:1px dashed var(--line);border-radius:8px;background:#fff}
+dl.terms dt{font-weight:700;margin-top:14px}
+dl.terms dd{margin:2px 0 0;color:var(--sub)}
+.figure{text-align:center;margin:16px 0;padding:20px 16px;border:1px solid var(--line);border-radius:16px;background:#fff}
 .figure svg{max-width:100%;height:auto}
-.figure figcaption{font-size:.88em;color:var(--sub);margin-top:8px}
-.ref-note{background:#f1f5f9;border-left:4px solid var(--sub);padding:8px 14px;border-radius:0 8px 8px 0;font-size:.92em;color:var(--sub)}
-.example{background:var(--ok-bg);border-left:4px solid var(--ok-edge);padding:12px 16px;border-radius:0 8px 8px 0}
-.example .label,.pitfall .label{font-weight:bold;font-size:.9em;display:block;margin-bottom:4px}
-.example .label{color:#047857}
-.pitfall{background:var(--warn-bg);border-left:4px solid var(--warn-edge);padding:12px 16px;border-radius:0 8px 8px 0}
-.pitfall .label{color:#a16207}
-.figtable{border-collapse:collapse;margin:0 auto;font-size:.92em}
-.figtable th,.figtable td{border:1px solid var(--line);padding:8px 14px}
-.figtable th{background:var(--accent-light)}
-footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32px}
+.figure figcaption{font-size:.85em;color:var(--sub);margin-top:10px}
+.ref-note{background:var(--surface);padding:10px 16px;border-radius:12px;font-size:.9em;color:var(--sub)}
+.example{background:var(--ok-bg);padding:14px 18px;border-radius:16px;margin:10px 0}
+.example .label,.pitfall .label{font-weight:500;font-size:.8em;letter-spacing:.06em;display:block;margin-bottom:4px}
+.example .label{color:var(--on-ok)}
+.pitfall{background:var(--warn-bg);padding:14px 18px;border-radius:16px;margin:10px 0}
+.pitfall .label{color:var(--on-warn)}
+footer.page{color:var(--sub);font-size:.8em;text-align:center;padding:24px 0 40px}
+@media (max-width:640px){
+  header.page{padding:24px 20px;border-radius:24px}
+  header.page h1{font-size:1.5em}
+  nav.toc,section.chapter{padding:24px 20px;border-radius:24px}
+}
 @media print{
   body{background:#fff;font-size:12px;line-height:1.6}
   section.chapter{border:none;padding:0 0 16px;break-inside:avoid-page}
   header.page{border-radius:0}
   nav.toc{border:none}
+  nav.topnav{display:none}
 }
 </style>
 </head>
 <body>
 <script src="../auth.js"></script>
-<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:8px;padding:0 24px;height:52px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid #e5e7eb;font-size:.95em">
-  <a href="../index.html" style="color:#1e40af;text-decoration:none;font-weight:800;font-size:.92em;letter-spacing:.04em;padding:4px 16px;border:1px solid #bfdbfe;border-radius:99px;background:linear-gradient(180deg,#fff 0%,#dbeafe 100%);box-shadow:0 2px 0 #bfdbfe,0 4px 10px rgba(37,99,235,.1)">&#9664; 共有ノート</a>
-  <span style="color:#6b7280">／</span>
-  <span style="font-weight:600">ミクロ経済学</span>
+<nav class="topnav">
+  <a class="back" href="../index.html"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>共有ノート</a>
+  <span class="sep">/</span>
+  <span class="here">ミクロ経済学</span>
 </nav>
 
 <div class="wrap">
@@ -76,7 +97,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
   <p class="meta">全13章 + 公式クイックリファレンス ｜ 講義資料より生成（7/18 第13章 生産コストを追加）</p>
 </header>
 
-<div class="notice" style="margin:16px 0;padding:12px 16px;background:#fef9c3;border:1px solid #eab308;border-radius:8px;font-size:14px;color:#713f12">
+<div class="notice">
   <strong>お知らせ</strong>：7/14　グラフのレイアウトが悪かったり、誤植があったりしたため修正しました。申し訳ございませんでした
 </div>
 
@@ -105,7 +126,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
 <section class="chapter" id="ch1">
   <h2>第1章 経済学の10大原理とPPF</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>資源は稀少であり、あらゆる意思決定には「トレードオフ」が伴う</li>
     <li>ある選択の真のコストは、それを得るために諦めた「機会費用」である</li>
@@ -116,7 +137,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <li>政策評価では、便益と機会費用を比較し、資源配分の効率性を論じる</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>機会費用（Opportunity Cost）</dt><dd>ある選択をするために諦めた次善の選択肢の価値</dd>
     <dt>効率性</dt><dd>社会が保有する希少な資源から可能な限り多くのものを得ている状態（パイの大きさの最大化）</dd>
@@ -125,7 +146,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <dt>機会費用逓増の法則</dt><dd>一方の財の生産を増やすほど、犠牲にする他方の財の量が増えていく法則</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
       <line x1="50" y1="20" x2="50" y2="260" stroke="#1f2937" stroke-width="2"/>
@@ -140,38 +161,38 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <figcaption>図1-1 生産可能性フロンティア（PPF）と技術革新によるシフト</figcaption>
   </figure>
 
-  <h3>🧮 論述の型（トレードオフを用いた政策評価）</h3>
+  <h3>論述の型（トレードオフを用いた政策評価）</h3>
   <div class="example"><span class="label">型</span>
     1. 政策Aには「環境保護」という便益がある<br>
     2. しかし、その「機会費用」として「企業の生産性低下や消費者の家計圧迫」が生じる<br>
     3. 結論として、両者の限界的な評価を比較し、資源配分の効率性を論じる
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>機会費用は金銭的支出だけでなく「諦めた次善の選択肢」全体を指す。PPFが直線ではなく凸型（弓なり）になるのは、資源の適性が財ごとに異なり機会費用が逓増するため。</div>
 </section>
 
 <section class="chapter" id="ch2">
   <h2>第2章・第3章 相互依存と交易の利益</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>絶対優位ではなく「比較優位（機会費用の低さ）」に特化して取引を行うことで、社会全体の消費可能性がPPFの外側にまで拡大する</li>
     <li>比較優位とは、ある財の生産における機会費用が他者よりも低いことを意味する</li>
     <li>交易はゼロサムゲームではなく、資源を相対的に効率的な部門へ再配置させる「プラスサムの協力」である</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>絶対優位</dt><dd>より少ない資源投入量で財を生産できる能力</dd>
     <dt>比較優位</dt><dd>ある財の生産における機会費用が他者よりも低いこと</dd>
     <dt>特化</dt><dd>比較優位を持つ財の生産に資源を集中させること</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <p class="ref-note">比較優位による交易利益（PPF外側の消費点）の図は元PDFの該当ページを参照。本資料では計算例で理解を補う。</p>
 
-  <h3>🧮 具体例・計算例（フランクとルビーの生産）</h3>
+  <h3>具体例・計算例（フランクとルビーの生産）</h3>
   <div class="example"><span class="label">例</span>
     設定：フランク（農家）とルビー（牧場主）が「肉」と「ジャガイモ」を生産する。フランクは8時間で肉8ozまたはジャガイモ32oz作れる。<br>
     機会費用の計算： $1\text{oz}の肉の機会費用 = \dfrac{諦めたジャガイモの生産量}{得た肉の生産量}$<br>
@@ -180,14 +201,14 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     結論：ルビーは肉の生産における機会費用が低いため「比較優位」を持つ。ルビーが肉、フランクがジャガイモに特化して交易すれば、双方が特化前より多くの財を消費できる。
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>「なぜ絶対優位がなくても利益があるか？」への答えは「交易はゼロサムゲームではなく、資源を相対的に効率的な部門へ再配置させるプラスサムの協力だから」。比較優位の判定は生産量の絶対的な多さ（絶対優位）ではなく「機会費用の大小」で行う。</div>
 </section>
 
 <section class="chapter" id="ch3">
   <h2>第4章 市場における需要と供給</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>需要曲線・供給曲線のシフトと、それによる均衡（$P^*, Q^*$）の変化を読み取る</li>
     <li>需要法則：右下がりの曲線。所得増や代替財の価格上昇で「右方シフト」</li>
@@ -196,7 +217,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <li>超過供給：市場価格が均衡より高いと余りが生じ、価格下落圧力が働く</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>需要法則</dt><dd>他の条件が一定なら、価格が上昇すると需要量は減少するという関係</dd>
     <dt>供給法則</dt><dd>他の条件が一定なら、価格が上昇すると供給量は増加するという関係</dd>
@@ -205,7 +226,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <dt>超過供給</dt><dd>価格が均衡より高いときに生じる、供給量が需要量を上回る状態</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
       <line x1="50" y1="20" x2="50" y2="260" stroke="#1f2937" stroke-width="2"/>
@@ -222,14 +243,14 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <figcaption>図4-1 需要曲線と供給曲線の均衡</figcaption>
   </figure>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>「価格変化による需要量の変化（曲線上の移動）」と「価格以外の要因による需要曲線自体のシフト」を混同しない。</div>
 </section>
 
 <section class="chapter" id="ch4">
   <h2>第5章 弾力性とその応用</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>価格の変化に対する感度（弾力性）が、企業の総収入（$TR = P \times Q$）にどう影響するかを把握する</li>
     <li>需要の価格弾力性は中間点法で計算する</li>
@@ -238,7 +259,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <li>贅沢品は弾力的：値上げは総収入を減少させる</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>需要の価格弾力性</dt><dd>価格の変化率に対する需要量の変化率の比（中間点法で計算）</dd>
     <dt>弾力的</dt><dd>弾力性の絶対値が1より大きい状態。価格変化に需要量が敏感に反応する</dd>
@@ -246,7 +267,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <dt>総収入（Total Revenue）</dt><dd>価格×数量（$P \times Q$）</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
       <line x1="50" y1="20" x2="50" y2="260" stroke="#1f2937" stroke-width="2"/>
@@ -261,21 +282,21 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <figcaption>図5-1 弾力的な需要曲線と非弾力的な需要曲線の比較</figcaption>
   </figure>
 
-  <h3>🧮 具体例・計算例（中間点法）</h3>
+  <h3>具体例・計算例（中間点法）</h3>
   <div class="example"><span class="label">例</span>
     価格が100ドルから110ドル（10%増）になり、需要量が100個から80個（20%減）になった場合：<br>
     $$需要の価格弾力性 = \dfrac{(80-100)/[(80+100)/2]}{(110-100)/[(110+100)/2]} \approx \dfrac{-0.222}{0.095} \approx |2.34|$$
     絶対値が1より大きいため「弾力的」と判断する。
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>弾力性は符号ではなく絶対値の大小で弾力的・非弾力的を判断する。「弾力的な財は値上げでTR減少、非弾力的な財は値上げでTR増加」という対応を逆に覚えない。</div>
 </section>
 
 <section class="chapter" id="ch5">
   <h2>第6章 需要・供給と政府の政策</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>政府による課税は供給曲線を税額分シフトさせ、価格や取引量に影響する</li>
     <li>税の帰着（負担配分）は弾力性に依存する。需要が非弾力的であれば税の大部分は買い手が負担する</li>
@@ -284,14 +305,14 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <li>価格床（最低賃金など）は失業（超過供給）を招く</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>税の帰着</dt><dd>税負担が最終的に買い手・売り手のどちらにどれだけ配分されるかということ</dd>
     <dt>価格天井（価格上限規制）</dt><dd>市場価格より低い水準に設定される価格の上限</dd>
     <dt>価格床（価格下限規制）</dt><dd>市場価格より高い水準に設定される価格の下限</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
       <line x1="50" y1="20" x2="50" y2="260" stroke="#1f2937" stroke-width="2"/>
@@ -310,31 +331,31 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <figcaption>図6-1 従量税による供給曲線の上方シフトと税の帰着</figcaption>
   </figure>
 
-  <h3>🧮 具体例（京都の宿泊税）</h3>
+  <h3>具体例（京都の宿泊税）</h3>
   <div class="example"><span class="label">例</span>京都市が導入した宿泊税は、供給曲線（ホテル側）を税額分だけ上方にシフトさせる。需要が非弾力的（観光客がどうしても京都に泊まりたい）であれば、税の大部分は価格に転嫁され、買い手が負担する。</div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>「法律上誰が納税するか」と「経済的に誰が負担するか（税の帰着）」は別物で、帰着は弾力性で決まる。価格天井（不足）と価格床（失業＝超過供給）のどちらがどちらの現象を招くか混同しない。</div>
 </section>
 
 <section class="chapter" id="ch6">
   <h2>第7章 消費者・生産者・市場の効率性</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>均衡状態において「社会的総余剰（消費者余剰＋生産者余剰）」が最大化される</li>
     <li>消費者余剰は需要曲線の下側かつ価格線の上側の三角形の面積</li>
     <li>生産者余剰は価格線の下側かつ供給曲線の上側の三角形の面積</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>消費者余剰（Consumer Surplus）</dt><dd>消費者が支払ってもよいと考える額と実際に支払った額の差の合計</dd>
     <dt>生産者余剰（Producer Surplus）</dt><dd>生産者が実際に受け取る額とその生産コストの差の合計</dd>
     <dt>社会的総余剰</dt><dd>消費者余剰と生産者余剰の合計</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
       <line x1="50" y1="20" x2="50" y2="260" stroke="#1f2937" stroke-width="2"/>
@@ -352,14 +373,14 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <figcaption>図7-1 消費者余剰と生産者余剰</figcaption>
   </figure>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>消費者余剰・生産者余剰の面積の境界（どちらが需要曲線側で、どちらが供給曲線側か）を取り違えない。</div>
 </section>
 
 <section class="chapter" id="ch7">
   <h2>第8章 課税の費用</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>課税は「死荷重（DWL）」という社会的損失を生む</li>
     <li>税が課されると、取引量が均衡量$Q_1$から$Q_2$へ減少する</li>
@@ -368,13 +389,13 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <li>需要や供給が弾力的であるほど、税による取引量の減少幅が大きくなり、死荷重の三角形は巨大化する</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>死荷重（Deadweight Loss, DWL）</dt><dd>課税などの市場の歪みによって失われる社会的総余剰の減少分</dd>
     <dt>税収</dt><dd>政府が徴収する税額×取引量</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
       <line x1="50" y1="20" x2="50" y2="260" stroke="#1f2937" stroke-width="2"/>
@@ -395,27 +416,27 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <figcaption>図8-1 課税による税収と死荷重（DWL）</figcaption>
   </figure>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>税収（長方形）と死荷重（三角形）の図形上の違いを取り違えない。弾力性が高いほど死荷重が大きくなる関係を逆に覚えない。</div>
 </section>
 
 <section class="chapter" id="ch8">
   <h2>第9章 国際貿易</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>輸出国の分析：国内価格＜世界価格。国内生産者が得をし（PS増）、消費者が損をする（CS減）が、総余剰は増加する</li>
     <li>輸入国の分析：国内価格＞世界価格。国内消費者が得をし（CS増）、生産者が損をする（PS減）が、総余剰は増加する</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>世界価格</dt><dd>世界市場における財の取引価格</dd>
     <dt>輸出国</dt><dd>貿易開始前の国内価格が世界価格より低い国（貿易開始後、輸出を行う）</dd>
     <dt>輸入国</dt><dd>貿易開始前の国内価格が世界価格より高い国（貿易開始後、輸入を行う）</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
       <line x1="50" y1="20" x2="50" y2="260" stroke="#1f2937" stroke-width="2"/>
@@ -432,14 +453,14 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <figcaption>図9-1 輸出国における国内価格と世界価格・輸出量</figcaption>
   </figure>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>輸出国・輸入国いずれの場合も総余剰は増加するが、国内の消費者・生産者間での得失の方向は正反対になる。</div>
 </section>
 
 <section class="chapter" id="ch9">
   <h2>第10章 外部性</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>ある主体の行動が第三者の厚生に影響し、価格に反映されない場合、市場は最適な配分に失敗する（市場の失敗）</li>
     <li>負の外部性（例：汚染）：社会的コスト曲線は私的コスト（供給曲線）に外部コストを上乗せしたもので、供給曲線の上方に位置する。市場均衡$Q_{MARKET}$は社会的最適$Q_{OPTIMUM}$より大きく、過剰生産となる</li>
@@ -448,7 +469,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <li>コースの定理：交渉コストがゼロなら、権利の所在に関わらず当事者間で効率的解決が可能。現実には取引コストが壁となり政府介入が必要となる</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>外部性</dt><dd>ある主体の行動が、対価のやり取りなしに第三者の厚生に影響を与えること</dd>
     <dt>負の外部性</dt><dd>第三者に不利益をもたらす外部性（例：汚染）</dd>
@@ -458,7 +479,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <dt>取引費用</dt><dd>交渉や契約の締結・履行に伴うコスト</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
       <line x1="50" y1="20" x2="50" y2="260" stroke="#1f2937" stroke-width="2"/>
@@ -481,7 +502,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <figcaption>図10-1 負の外部性における社会的コスト曲線と過剰生産</figcaption>
   </figure>
 
-  <h3>🧮 計算例（直接規制 vs 排出権取引）</h3>
+  <h3>計算例（直接規制 vs 排出権取引）</h3>
   <div class="example"><span class="label">例</span>
     設定：ティアナ工場（削減コスト100ドル/トン）、ジョーダン工場（削減コスト200ドル/トン）。合計200トンの汚染を140トンへ削減（計60トン削減）を目指す。<br>
     ①直接規制（各30トン削減）：コスト = (30×100) + (30×200) = 9,000ドル<br>
@@ -489,21 +510,21 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     試験のポイント：市場ベースの政策は、削減コストの低い企業に削減を促すため、社会全体の総コストを最小化できる。
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>負の外部性では「社会的コスト曲線は供給曲線の上方」、正の外部性では「社会的価値曲線は需要曲線の上方」。負の外部性は市場均衡が社会的最適より「過剰生産」、正の外部性は「過少生産」になる対応を逆に覚えない。</div>
 </section>
 
 <section class="chapter" id="ch10">
   <h2>第11章 財の分類と共有資源</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>財は「排除可能性（対価を払わない人を排除できるか）」と「競合性（他人が使うと自分の分が減るか）」の2軸で分類できる</li>
     <li>共有資源（排除不可・競合あり）の代表例が「コモンズの悲劇」であり、各人が私利を追求した結果、資源が枯渇する</li>
     <li>解決策として、私有財産化や政府による規制が挙げられる</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>排除可能性</dt><dd>対価を支払わない人をその財の消費から排除できる性質</dd>
     <dt>競合性</dt><dd>ある人がその財を消費すると、他の人が消費できる量が減る性質</dd>
@@ -511,7 +532,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <dt>コモンズの悲劇</dt><dd>共有資源において各人が私利を追求した結果、資源が過剰利用され枯渇してしまう現象</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <table class="figtable">
       <tr><th></th><th>競合性あり</th><th>競合性なし</th></tr>
@@ -521,14 +542,14 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <figcaption>図11-1 排除可能性×競合性による財の分類</figcaption>
   </figure>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>「共有資源」と「公共財」を混同しない。共有資源は競合性があるが、公共財は競合性がない。</div>
 </section>
 
 <section class="chapter" id="ch11">
   <h2>第12章 情報の非対称性</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>情報の非対称性は「逆選択（隠れた属性）」と「モラルハザード（隠れた行動）」の2種類に分類される</li>
     <li>逆選択：取引前の情報の偏りにより、質の悪いもの（レモン）しか市場に残らなくなる現象</li>
@@ -537,7 +558,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <li>逆選択への対応策として、強制加入やシグナリング・スクリーニングがある</li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>情報の非対称性</dt><dd>取引の当事者間で保有する情報に差があること</dd>
     <dt>逆選択</dt><dd>情報の非対称性により、取引前の「隠れた属性」を原因として質の低い財・人のみが市場に残る現象</dd>
@@ -546,24 +567,24 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <dt>スクリーニング</dt><dd>情報を持たない側が、相手の質を見分けるための仕組みを用意すること</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <p class="ref-note">医療保険のデス・スパイラルのプロセス図は元PDFの該当ページを参照。本資料では下記の例で流れを補う。</p>
 
-  <h3>🧮 具体例（医療保険のデス・スパイラル）</h3>
+  <h3>具体例（医療保険のデス・スパイラル）</h3>
   <div class="example"><span class="label">例</span>
     1. 低リスク者が「保険料が高い」と脱退する<br>
     2. 高リスク者のみが残り、給付増により保険料がさらに上昇する<br>
     3. 最終的に市場が崩壊する（解決策：強制加入、シグナリング/スクリーニング）
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>逆選択（契約前の隠れた属性）とモラルハザード（契約後の隠れた行動）のタイミングの違いを混同しない。</div>
 </section>
 
 <section class="chapter" id="ch13">
   <h2>第13章 生産コスト</h2>
 
-  <h3>📌 要点</h3>
+  <h3>要点</h3>
   <div class="summary"><ul>
     <li>利潤 = 総収入 − 総費用。総収入は生産物の販売で受け取る金額、総費用は生産に使う投入物の市場価値</li>
     <li>企業の生産コストは「実際に出ていくお金」だけでなく、諦めたもの＝<b>機会費用</b>をすべて含む（明示的費用＋潜在的費用）</li>
@@ -578,7 +599,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <li>長期ATCが低下＝<b>規模の経済</b>、不変＝<b>規模に関して収穫一定</b>、上昇＝<b>規模の不経済</b></li>
   </ul></div>
 
-  <h3>📖 重要用語</h3>
+  <h3>重要用語</h3>
   <dl class="terms">
     <dt>総収入（TR）</dt><dd>企業が生産物の販売に対して受け取る金額（例：400円×100杯 = 40,000円）</dd>
     <dt>総費用（TC）</dt><dd>企業が生産に使用する投入物の市場価値。材料費・人件費・家賃だけでなく「諦めたもの」も含む</dd>
@@ -600,7 +621,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     <dt>規模の不経済</dt><dd>生産量が増加するにつれて長期平均総費用が上昇する性質（例：組織拡大による調整・管理コストの増加）</dd>
   </dl>
 
-  <h3>📊 図・グラフ</h3>
+  <h3>図・グラフ</h3>
   <figure class="figure">
     <svg viewBox="0 0 440 320" xmlns="http://www.w3.org/2000/svg">
       <line x1="50" y1="20" x2="50" y2="280" stroke="#1f2937" stroke-width="2"/>
@@ -654,7 +675,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
 
   <p class="ref-note">表14-1（クロエのクッキー工場の生産関数と総費用）、表14-2（ケイレブのコーヒーショップの費用の諸尺度）、表14-3（多種多様なコストのまとめ）の数値表は元PDF p.19, 28, 43 を参照。</p>
 
-  <h3>🧮 計算例</h3>
+  <h3>計算例</h3>
   <div class="example"><span class="label">例1</span>
     <b>経済上の利潤 vs 会計上の利潤（カフェの1日）</b>：400円のコーヒーが100杯売れた。<br>
     総収入 = 40,000円、材料費・人件費・家賃（明示的費用）= 28,000円、自分が別の仕事で得られたはずの賃金（潜在的費用）= 8,000円<br>
@@ -676,7 +697,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
     MPが 45 → 40 → 30 → 20 → 10 と減っていく＝限界生産物の逓減（収穫逓減）を示している。
   </div>
 
-  <h3>⚠️ つまずきポイント</h3>
+  <h3>つまずきポイント</h3>
   <div class="pitfall"><span class="label">注意</span>限界生産物の逓減は「生産量が減る」ことではなく「生産量の<b>増え方</b>が小さくなる」こと。生産関数の傾きが緩やかになるだけで、曲線自体は右上がりのまま。</div>
   <div class="pitfall"><span class="label">注意</span>経済上の利潤と会計上の利潤の混同に注意。オフィスの家賃相場が上がった場合、レンタルしていれば両方の利潤が減るが、<b>所有している場合は経済上の利潤だけが減る</b>（潜在的費用＝貸して得られた家賃が増えるため。会計士はお金が流出しない費用を計上しない）。</div>
   <div class="pitfall"><span class="label">注意</span>ATCがU字型になる理由は左右で異なる：生産量が少ないときは<b>AFCの高さ</b>（固定費用を少ない生産量で割る）、多いときは<b>限界生産物逓減によるMC上昇</b>が効く。そしてMCがATCを下から上へ横切る点がATCの最小点（効率的規模）。</div>
@@ -686,7 +707,7 @@ footer.page{color:var(--sub);font-size:.85em;text-align:center;padding:16px 0 32
 <section class="chapter" id="ch12">
   <h2>付録 公式クイックリファレンス</h2>
 
-  <h3>📖 数式・計算問題クイックリファレンス</h3>
+  <h3>数式・計算問題クイックリファレンス</h3>
   <dl class="terms">
     <dt>需要の価格弾力性（中間点法）</dt><dd>$$Elasticity = \dfrac{(Q_2 - Q_1) / [(Q_1 + Q_2) / 2]}{(P_2 - P_1) / [(P_1 + P_2) / 2]}$$</dd>
     <dt>機会費用の公式</dt><dd>財Aの1単位あたりの機会費用 $= \dfrac{諦めた財Bの数量}{得られた財Aの数量}$</dd>

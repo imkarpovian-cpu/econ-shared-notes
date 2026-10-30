@@ -4,63 +4,71 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>経済学部・共有ノート</title>
-<!-- 丸ゴシック：立体ボタンの丸みに合わせる。読み込めない環境では下のシステムフォントで表示 -->
+<!-- Material 3 の和文に合わせて Noto Sans JP。欧文・数字は Roboto Flex。読み込めない環境では下のシステムフォントで表示 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto+Flex:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* 色は Material 3 の考え方で「役割」ごとに定義。元の青 #2563eb を種にした濃淡 */
 :root {
-  --accent: #2563eb;
-  --accent-dark: #1e40af;
-  --accent-light: #dbeafe;
-  --ink: #1f2937;
-  --sub: #6b7280;
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --line: #e5e7eb;
-  --hero-bg: #0f172a;
-  --radius: 14px;
+  --primary: #2357c9;
+  --on-primary: #ffffff;
+  --primary-container: #dae2ff;
+  --on-primary-container: #0b2a6b;
+  --secondary-container: #dfe2f3;
+  --on-secondary-container: #171b2c;
+  --surface: #f9f9ff;
+  --surface-container-low: #f2f3fb;
+  --surface-container: #eceef6;
+  --surface-container-high: #e6e8f0;
+  --on-surface: #1a1c22;
+  --on-surface-variant: #454852;
+  --outline: #757782;
+  --outline-variant: #c5c6d2;
+  --hero: #111a2e;
+  --shape-xl: 28px;
+  --shape-l: 20px;
+  /* 上部バー・ヒーロー・本文の左右端をそろえる余白（本文幅 1100px − 左右 24px） */
+  --gutter: max(24px, calc((100% - 1052px) / 2));
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif;
-  font-weight: 500;
-  letter-spacing: .02em;
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: "Roboto Flex", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-weight: 400;
   line-height: 1.7;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── Navbar ── */
-.navbar {
+/* ── Top app bar ── */
+.top-bar {
   position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 24px; height: 52px;
-  background: rgba(255,255,255,.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 12px;
+  height: 64px; padding: 0 var(--gutter);
+  background: var(--surface);
+  transition: background .2s;
 }
-/* 「科目一覧」と同じ楕円。ナビの高さに収まるよう一回り小さく、厚みも薄め */
-.navbar .logo {
-  font-weight: 700;
-  font-size: .92em;
-  letter-spacing: .04em;
-  color: var(--accent-dark);
-  padding: 4px 16px;
-  border: 1px solid #bfdbfe;
-  border-radius: 99px;
-  background: linear-gradient(180deg, #ffffff 0%, var(--accent-light) 100%);
-  box-shadow: 0 2px 0 #bfdbfe, 0 4px 10px rgba(37,99,235,.1);
+/* スクロールしたら一段濃い面に切り替える（M3 の top app bar と同じ振る舞い） */
+.top-bar.scrolled { background: var(--surface-container); }
+.top-bar .mark {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
 }
+.top-bar .mark svg { width: 18px; height: 18px; fill: currentColor; }
+.top-bar .title { font-size: 1.1em; font-weight: 500; }
 
 /* ── Hero ── */
 .hero {
   position: relative;
-  background: var(--hero-bg);
-  border-radius: var(--radius);
-  margin: 20px 24px 0;
-  padding: 56px 40px;
+  background: var(--hero);
+  border-radius: var(--shape-xl);
+  margin: 8px var(--gutter) 0;
+  padding: 64px 48px 56px;
   overflow: hidden;
   color: #fff;
 }
@@ -69,152 +77,149 @@ body {
   width: 100%; height: 100%;
   opacity: .35;
 }
-.hero-content { position: relative; z-index: 1; }
+.hero-content { position: relative; z-index: 1; max-width: 520px; }
 .hero .kicker {
-  font-size: .85em;
-  font-weight: 700;
-  letter-spacing: .15em;
-  color: #60a5fa;
-  margin-bottom: 8px;
+  font-size: .875em;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: #b1c5ff;
+  margin-bottom: 4px;
 }
 .hero h1 {
-  font-size: 2.1em;
-  font-weight: 900;
-  letter-spacing: .04em;
+  font-size: 3em;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0;
   margin-bottom: 12px;
-  line-height: 1.3;
 }
 .hero .subtitle {
-  font-size: .95em;
-  opacity: .7;
+  font-size: 1em;
+  color: rgba(255,255,255,.72);
+  margin-bottom: 28px;
 }
+
+/* ── Buttons（M3：高さ40px・完全な楕円・影なし。押下感は state layer で出す） ── */
+.btn {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 40px; padding: 0 24px;
+  border-radius: 99px;
+  font: inherit; font-size: .875em; font-weight: 500;
+  letter-spacing: .02em;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+.btn::before {
+  content: ""; position: absolute; inset: 0;
+  background: currentColor; opacity: 0;
+  transition: opacity .15s;
+}
+.btn:hover::before { opacity: .08; }
+.btn:active::before { opacity: .12; }
+.btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.btn svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+.btn.has-icon { padding-left: 16px; }
+.btn-filled { background: var(--primary); color: var(--on-primary); }
+.btn-tonal { background: var(--secondary-container); color: var(--on-secondary-container); }
+.btn-outlined { border: 1px solid var(--outline-variant); color: var(--primary); }
+.hero .btn-filled { background: #b1c5ff; color: #002a77; }
 
 /* ── Main ── */
 .main { max-width: 1100px; margin: 0 auto; padding: 0 24px 64px; }
-/* 見出しもボタン・カードと同じ「グラデーション＋下側の厚み」の楕円で囲む */
-.section-title {
-  display: inline-flex; align-items: center;
-  font-size: 1.15em;
-  font-weight: 700;
-  letter-spacing: .04em;
-  color: var(--accent-dark);
-  margin: 40px 0 22px;
-  padding: 8px 22px;
-  border: 1px solid #bfdbfe;
-  border-radius: 99px;
-  background: linear-gradient(180deg, #ffffff 0%, var(--accent-light) 100%);
-  box-shadow: 0 3px 0 #bfdbfe, 0 6px 14px rgba(37,99,235,.1);
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  margin: 48px 4px 16px;
 }
+.section-head h2 { font-size: 1.5em; font-weight: 400; }
+.section-head .count { font-size: .875em; color: var(--on-surface-variant); }
 
-/* ── Subject Cards ── */
+/* ── Subject cards（枠線も影も使わず、面の濃淡だけで区切る） ── */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
+  gap: 12px;
 }
 .card {
   display: flex; flex-direction: column;
-  background: linear-gradient(180deg, #ffffff 55%, #f5f9ff 100%);
-  border: 1px solid #dbeafe;
-  border-radius: var(--radius);
-  padding: 22px 24px 20px;
-  text-decoration: none;
-  color: var(--ink);
-  /* ボタンと同じ「下側の厚み」を、ボタンより控えめに付ける */
-  box-shadow: 0 4px 0 #dbeafe, 0 8px 20px rgba(37,99,235,.07);
-  transition: box-shadow .2s, border-color .2s, transform .2s;
+  background: var(--surface-container-low);
+  border-radius: var(--shape-l);
+  padding: 24px;
+  transition: background .2s;
 }
-.card:hover {
-  border-color: #bfdbfe;
-  box-shadow: 0 5px 0 #bfdbfe, 0 12px 28px rgba(37,99,235,.12);
-  transform: translateY(-2px);
-}
-/* タグは影なしのフラットなチップにして、押せるボタンと区別する */
-.card .tag {
-  align-self: flex-start;
-  font-size: .72em;
-  font-weight: 700;
+.card:hover { background: var(--surface-container); }
+.card .label {
+  font-size: .75em;
+  font-weight: 500;
   letter-spacing: .04em;
-  color: var(--accent);
-  background: var(--accent-light);
-  padding: 2px 10px;
-  border-radius: 99px;
-  margin-bottom: 10px;
+  color: var(--on-surface-variant);
+  margin-bottom: 6px;
 }
 .card .card-title {
-  font-size: 1.2em;
-  font-weight: 700;
+  font-size: 1.375em;
+  font-weight: 400;
+  line-height: 1.4;
   margin-bottom: 4px;
 }
 .card .card-meta {
-  font-size: .85em;
-  color: var(--sub);
-  margin-bottom: 16px;
+  font-size: .875em;
+  color: var(--on-surface-variant);
 }
 .card .card-links {
-  display: flex; gap: 10px; margin-top: auto;
-  padding-top: 16px;
-  border-top: 1px solid #e8f0fe;
-}
-.card .card-links a {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: .85em;
-  font-weight: 700;
-  color: var(--accent-dark);
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 9px;
-  border: 1px solid #93c5fd;
-  background: linear-gradient(180deg, #ffffff 0%, var(--accent-light) 100%);
-  /* 下側の濃い縁で厚みを出し、ぼかし影で浮かせる */
-  box-shadow: 0 3px 0 #93c5fd, 0 4px 10px rgba(37,99,235,.15);
-  transition: transform .1s, box-shadow .1s, background .15s;
-}
-.card .card-links a:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #bfdbfe 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 0 #93c5fd, 0 6px 14px rgba(37,99,235,.2);
-}
-.card .card-links a:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 0 #93c5fd, 0 2px 6px rgba(37,99,235,.15);
-}
-.card .card-links a svg {
-  width: 14px; height: 14px; fill: currentColor;
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: auto;
+  padding-top: 24px;
 }
 
 /* ── Notice ── */
 .notice {
-  font-size: .88em;
-  color: var(--sub);
+  display: flex; align-items: center; gap: 12px;
   margin: 24px 0 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--surface-container);
+  color: var(--on-surface-variant);
+  font-size: .875em;
+}
+.notice svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+.notice kbd {
+  font-family: "Roboto Flex", sans-serif;
+  font-size: .92em;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--surface-container-high);
+  color: var(--on-surface);
 }
 
 /* ── Footer ── */
 .footer {
-  text-align: center;
-  padding: 32px 24px;
-  font-size: .82em;
-  color: var(--sub);
-  border-top: 1px solid var(--line);
-  margin-top: 48px;
+  max-width: 1100px;
+  margin: 48px auto 0;
+  padding: 24px 28px 40px;
+  font-size: .8em;
+  color: var(--on-surface-variant);
+  border-top: 1px solid var(--outline-variant);
 }
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
-  .hero { margin: 12px 12px 0; padding: 36px 24px; }
-  .hero h1 { font-size: 1.5em; }
+  :root { --gutter: 12px; }
+  .hero { margin-top: 4px; padding: 40px 24px 32px; border-radius: 24px; }
+  .hero h1 { font-size: 2.1em; }
   .main { padding: 0 12px 48px; }
+  .section-head { margin-top: 36px; }
   .card-grid { grid-template-columns: 1fr; }
+  .footer { padding: 24px 16px 32px; }
 }
 </style>
 </head>
 <body>
 <script src="auth.js"></script>
 
-<nav class="navbar">
-  <span class="logo">共有ノート</span>
-</nav>
+<header class="top-bar" id="topBar">
+  <span class="mark"><svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg></span>
+  <span class="title">共有ノート</span>
+</header>
 
 <div class="hero">
   <canvas id="econ"></canvas>
@@ -222,89 +227,91 @@ body {
     <div class="kicker">経済学部</div>
     <h1>共有ノート</h1>
     <div class="subtitle">講義ノート・復習クイズをまとめた学習スペース</div>
+    <a class="btn btn-filled" href="#subjects">科目を見る</a>
   </div>
 </div>
 
 <div class="main">
-  <p class="notice">アップデート反映時はブラウザを強制リロード（Ctrl + Shift + R）してください。</p>
+  <p class="notice">
+    <svg viewBox="0 0 24 24"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+    <span>アップデート反映時はブラウザを強制リロード（<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>）してください。</span>
+  </p>
 
-  <h2 class="section-title">科目一覧</h2>
+  <div class="section-head" id="subjects">
+    <h2>科目一覧</h2>
+    <span class="count" id="subjectCount"></span>
+  </div>
   <div class="card-grid">
-
     <div class="card">
-      <span class="tag">経済学</span>
+      <span class="label">経済学</span>
       <div class="card-title">ミクロ経済学 入門</div>
       <div class="card-meta">期末試験対策</div>
       <div class="card-links">
-        <a href="micro-economics/material.html">
+        <a class="btn btn-tonal has-icon" href="micro-economics/material.html">
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg>
           資料
         </a>
-        <a href="micro-economics/quiz/quiz.html">
+        <a class="btn btn-outlined has-icon" href="micro-economics/quiz/quiz.html">
           <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
           クイズ
         </a>
       </div>
     </div>
-
     <div class="card">
-      <span class="tag">数学・統計</span>
+      <span class="label">数学・統計</span>
       <div class="card-title">統計学1</div>
       <div class="card-meta">期末 Rコード一般形まとめ</div>
       <div class="card-links">
-        <a href="statistics1/material.html">
+        <a class="btn btn-tonal has-icon" href="statistics1/material.html">
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg>
           資料
         </a>
-        <a href="statistics1/quiz/quiz.html">
+        <a class="btn btn-outlined has-icon" href="statistics1/quiz/quiz.html">
           <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
           クイズ
         </a>
       </div>
     </div>
-
     <div class="card">
-      <span class="tag">情報</span>
+      <span class="label">情報</span>
       <div class="card-title">情報処理入門</div>
       <div class="card-meta">期末試験対策</div>
       <div class="card-links">
-        <a href="information/material.html">
+        <a class="btn btn-tonal has-icon" href="information/material.html">
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg>
           資料
         </a>
-        <a href="information/quiz/quiz.html">
+        <a class="btn btn-outlined has-icon" href="information/quiz/quiz.html">
           <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
           クイズ
         </a>
       </div>
     </div>
-
     <div class="card">
-      <span class="tag">経済学</span>
+      <span class="label">経済学</span>
       <div class="card-title">経済史・思想史入門</div>
       <div class="card-meta">期末試験対策（経済史編＋思想史編）</div>
       <div class="card-links">
-        <a href="economic-history/material.html">
+        <a class="btn btn-tonal has-icon" href="economic-history/material.html">
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg>
           資料
         </a>
-        <a href="economic-history/quiz/quiz.html">
+        <a class="btn btn-outlined has-icon" href="economic-history/quiz/quiz.html">
           <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
           クイズ
         </a>
       </div>
     </div>
-
     <div class="card">
-      <span class="tag">経済学</span>
+      <span class="label">経済学</span>
       <div class="card-title">マクロ経済学 入門</div>
       <div class="card-meta">期末試験対策（マンキュー マクロ 第1〜13章）</div>
       <div class="card-links">
-        <a href="macro-economics/material.html">
+        <a class="btn btn-tonal has-icon" href="macro-economics/material.html">
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg>
           資料
         </a>
-        <a href="macro-economics/quiz/quiz.html">
+        <a class="btn btn-outlined has-icon" href="macro-economics/quiz/quiz.html">
           <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
           クイズ
         </a>
@@ -319,6 +326,17 @@ body {
   経済学部・共有ノート
 </footer>
 
+<script>
+document.getElementById('subjectCount').textContent = document.querySelectorAll('.card-grid .card').length + ' 科目';
+
+// スクロールしたら top app bar の面を一段濃くする
+(function() {
+  const bar = document.getElementById('topBar');
+  const onScroll = () => bar.classList.toggle('scrolled', window.scrollY > 4);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 <script>
 // Econ animation (hero background): supply-demand curves + bar chart
 (function() {
