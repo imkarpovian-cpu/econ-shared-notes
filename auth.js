@@ -46,13 +46,13 @@
       }).join('');
       if (hex === VALID_HASH) {
         sessionStorage.setItem(KEY, 'ok');
-        // ログイン画面を下へスライドさせて消す（動きを減らす設定ならすぐ消す）
+        // ログイン画面を上へスライドさせて消す（動きを減らす設定ならすぐ消す）
         var done = function() { overlay.remove(); style.remove(); };
         if (matchMedia('(prefers-reduced-motion: reduce)').matches) return done();
         document.activeElement && document.activeElement.blur();
         overlay.style.pointerEvents = 'none';
         overlay.style.transition = 'transform .45s cubic-bezier(.3,0,.8,.15)';
-        overlay.style.transform = 'translateY(100%)';
+        overlay.style.transform = 'translateY(-100%)';
         overlay.addEventListener('transitionend', done);
         setTimeout(done, 700); // transitionend が来なかったとき用
       } else {
