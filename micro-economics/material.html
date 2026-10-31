@@ -60,6 +60,8 @@ dl.terms dt{font-weight:700;margin-top:14px}
 dl.terms dd{margin:2px 0 0;color:var(--sub)}
 .figure{text-align:center;margin:16px 0;padding:20px 16px;border:1px solid var(--line);border-radius:16px;background:#fff}
 .figure svg{max-width:100%;height:auto}
+/* 長い数式はスマホで横にはみ出さず、その数式だけ横スクロールにする */
+mjx-container[display="true"]{max-width:100%;overflow-x:auto;overflow-y:hidden}
 .figure figcaption{font-size:.85em;color:var(--sub);margin-top:10px}
 .ref-note{background:var(--surface);padding:10px 16px;border-radius:12px;font-size:.9em;color:var(--sub)}
 .example{background:var(--ok-bg);padding:14px 18px;border-radius:16px;margin:10px 0}
@@ -195,7 +197,7 @@ footer.page{color:var(--sub);font-size:.8em;text-align:center;padding:24px 0 40p
   <h3>具体例・計算例（フランクとルビーの生産）</h3>
   <div class="example"><span class="label">例</span>
     設定：フランク（農家）とルビー（牧場主）が「肉」と「ジャガイモ」を生産する。フランクは8時間で肉8ozまたはジャガイモ32oz作れる。<br>
-    機会費用の計算： $1\text{oz}の肉の機会費用 = \dfrac{諦めたジャガイモの生産量}{得た肉の生産量}$<br>
+    機会費用の計算：$$1\text{oz}の肉の機会費用 = \dfrac{諦めたジャガイモの生産量}{得た肉の生産量}$$
     フランク：1ozの肉 = 32 / 8 = 4ozのジャガイモ<br>
     ルビー：1ozの肉 = 48 / 24 = 2ozのジャガイモ<br>
     結論：ルビーは肉の生産における機会費用が低いため「比較優位」を持つ。ルビーが肉、フランクがジャガイモに特化して交易すれば、双方が特化前より多くの財を消費できる。
