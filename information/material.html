@@ -1670,5 +1670,411 @@ footer.page{color:var(--sub);font-size:.8em;text-align:center;padding:24px 0 40p
 <footer class="page">test-prep システムで生成 ｜ 元資料とあわせて使ってください</footer>
 
 </div>
+<!-- ask-ai:start -->
+<!-- 「AIに聞く」機能。各章の見出し横のボタンから、章の本文＋選んだ概念＋質問をClaude/ChatGPT/Geminiに渡す。
+     原本は templates/ask_ai_snippet.html。各資料ページの </body> 直前にこのブロックごと貼る（外部ファイル不要） -->
+<style>
+/* 見出し横のボタン（M3のトーナルボタン） */
+section.chapter{position:relative}
+section.chapter > h2.askai-h{padding-right:150px}
+.askai-btn{position:absolute;top:29px;right:32px;display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px 0 12px;
+  border:none;border-radius:99px;background:var(--accent-light,#dae2ff);color:var(--on-accent-light,#0b2a6b);
+  font:500 14px/1 "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;letter-spacing:.02em;
+  white-space:nowrap;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:box-shadow .15s}
+.askai-btn:hover{box-shadow:inset 0 0 0 100vmax rgba(11,42,107,.08)}
+.askai-btn:active{box-shadow:inset 0 0 0 100vmax rgba(11,42,107,.14)}
+.askai-btn:focus-visible,.askai-root :focus-visible,.askai-dlg :focus-visible{outline:2px solid var(--accent,#2357c9);outline-offset:2px}
+@media (max-width:640px){
+  section.chapter > h2.askai-h{padding-right:0}
+  .askai-btn{position:static;display:flex;width:fit-content;height:44px;margin-top:12px}
+}
+
+/* 下から開くシート */
+.askai-root,.askai-dlg{font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;color:var(--ink,#1a1c22);line-height:1.6;font-size:15px}
+.askai-root{position:fixed;inset:0;z-index:1000;display:none}
+.askai-root.open{display:block}
+.askai-scrim{position:absolute;inset:0;background:rgba(0,0,0,.32);opacity:0;transition:opacity .2s}
+.askai-sheet{position:absolute;left:0;right:0;bottom:0;margin:0 auto;max-width:640px;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;
+  background:var(--bg,#f2f3fb);border-radius:28px 28px 0 0;transform:translateY(100%);transition:transform .25s cubic-bezier(.2,0,0,1);outline:none}
+.askai-root.show .askai-scrim{opacity:1}
+.askai-root.show .askai-sheet{transform:none}
+.askai-handle{width:32px;height:4px;border-radius:2px;background:#757782;opacity:.4;margin:12px auto 4px;flex-shrink:0}
+.askai-head{display:flex;align-items:flex-start;gap:8px;padding:4px 12px 12px 24px;flex-shrink:0}
+.askai-head-t{flex:1;min-width:0}
+.askai-title{font-size:20px;font-weight:400;line-height:1.4}
+.askai-chap{font-size:13px;color:var(--sub,#454852);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.askai-x{width:48px;height:48px;flex-shrink:0;border:none;border-radius:50%;background:none;color:var(--sub,#454852);font-size:22px;cursor:pointer}
+.askai-x:hover{background:rgba(0,0,0,.06)}
+.askai-body{overflow-y:auto;padding:0 16px 4px;overscroll-behavior:contain}
+.askai-step{background:var(--card,#fff);border-radius:16px;padding:16px;margin-bottom:8px}
+.askai-step-t{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:15px;font-weight:500}
+.askai-num{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent,#2357c9);color:#fff;font-size:13px;flex-shrink:0}
+.askai-hint{font-size:12px;color:var(--sub,#454852);font-weight:400}
+.askai-chips{display:flex;flex-wrap:wrap;gap:8px}
+.askai-chip{min-height:40px;max-width:100%;padding:6px 14px;border:1px solid #c5c6d0;border-radius:8px;background:#fff;color:var(--ink,#1a1c22);
+  font:inherit;font-size:14px;line-height:1.4;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;overflow-wrap:anywhere}
+.askai-chip[aria-pressed="true"]{background:var(--accent-light,#dae2ff);border-color:transparent;color:var(--on-accent-light,#0b2a6b);font-weight:500}
+.askai-chip[aria-pressed="true"]::before{content:"✓ "}
+.askai-empty{font-size:13px;color:var(--sub,#454852);margin:0}
+.askai-field{display:block;width:100%;margin-top:12px;padding:10px 14px;border:1px solid #757782;border-radius:12px;background:#fff;color:inherit;
+  font:inherit;font-size:16px;line-height:1.5;outline:none;box-sizing:border-box}
+.askai-chips + .askai-field,.askai-empty + .askai-field{margin-top:12px}
+textarea.askai-field{min-height:88px;resize:vertical}
+.askai-field:focus{border-color:var(--accent,#2357c9);box-shadow:0 0 0 1px var(--accent,#2357c9)}
+.askai-step .askai-field:first-child{margin-top:0}
+.askai-ais{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.askai-ai{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:64px;padding:8px 6px;
+  border:1px solid #c5c6d0;border-radius:12px;background:#fff;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.askai-ai input{position:absolute;opacity:0;pointer-events:none}
+.askai-ai b{font-size:15px;font-weight:500}
+.askai-ai small{display:block;margin-top:2px;font-size:11px;line-height:1.35;color:var(--sub,#454852)}
+.askai-ai.on{border:2px solid var(--accent,#2357c9);padding:7px 5px;background:var(--accent-light,#dae2ff);color:var(--on-accent-light,#0b2a6b)}
+.askai-ai.on small{color:var(--on-accent-light,#0b2a6b)}
+.askai-ai:has(input:focus-visible){outline:2px solid var(--accent,#2357c9);outline-offset:2px}
+.askai-foot{padding:8px 16px calc(16px + env(safe-area-inset-bottom));flex-shrink:0}
+.askai-send{display:block;width:100%;height:52px;border:none;border-radius:99px;background:var(--accent,#2357c9);color:#fff;
+  font:inherit;font-size:16px;font-weight:500;cursor:pointer;transition:box-shadow .15s}
+.askai-send:hover{box-shadow:inset 0 0 0 100vmax rgba(255,255,255,.1)}
+.askai-send:active{box-shadow:inset 0 0 0 100vmax rgba(255,255,255,.16)}
+
+/* 貼り付け案内・手動コピー用のモーダル */
+.askai-dlg{position:fixed;inset:0;z-index:1001;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.32)}
+.askai-dlg.open{display:flex}
+.askai-dlg-box{width:100%;max-width:480px;max-height:90vh;overflow:auto;padding:24px;border-radius:28px;background:var(--bg,#f2f3fb)}
+.askai-dlg-t{margin:0 0 12px;font-size:20px;font-weight:400;line-height:1.4}
+.askai-dlg-msg{margin:0;font-size:15px}
+.askai-dlg-sub{margin:6px 0 0;font-size:13px;color:var(--sub,#454852)}
+.askai-dlg textarea.askai-field{height:36vh;min-height:160px;font-size:13px}
+.askai-dlg-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;margin-top:20px}
+.askai-open{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:99px;
+  background:var(--accent,#2357c9);color:#fff;font-weight:500;text-decoration:none}
+.askai-tbtn{height:48px;padding:0 16px;border:none;border-radius:99px;background:none;color:var(--accent,#2357c9);font:inherit;font-weight:500;cursor:pointer}
+.askai-tbtn:hover{background:rgba(35,87,201,.08)}
+.askai-toast{position:fixed;left:50%;bottom:24px;z-index:1002;max-width:calc(100% - 32px);padding:14px 20px;border-radius:8px;
+  background:#2f3036;color:#f1f0f7;font-size:14px;line-height:1.5;opacity:0;transform:translate(-50%,16px);transition:opacity .2s,transform .2s;pointer-events:none}
+.askai-toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){.askai-sheet,.askai-scrim,.askai-toast{transition:none}}
+@media print{.askai-btn,.askai-root,.askai-dlg,.askai-toast{display:none!important}}
+</style>
+<script>
+(function(){
+  'use strict';
+  var STORE_KEY = 'askai_target';
+  var URL_LIMIT = 6000; // encodeURIComponent後の本文がこれを超えたら貼り付け方式に切り替える
+  var AIS = {
+    claude:  {name:'Claude',  q:'https://claude.ai/new?q=', plain:'https://claude.ai/new'},
+    chatgpt: {name:'ChatGPT', q:'https://chatgpt.com/?q=',  plain:'https://chatgpt.com/'},
+    gemini:  {name:'Gemini',  q:null,                       plain:'https://gemini.google.com/app'}
+  };
+  // 概念チップに出さない、どの章にもある定型の小見出し
+  var GENERIC = /^(要点|重要用語|図・グラフ|図表|図|つまずきポイント|具体例|計算例|具体例・計算例|一般形)$/;
+  var BLOCK = /^(ADDRESS|ARTICLE|ASIDE|BLOCKQUOTE|DD|DETAILS|DIV|DL|DT|FIGCAPTION|FIGURE|FOOTER|H[1-6]|HEADER|HR|LI|MAIN|OL|P|PRE|SECTION|SUMMARY|TABLE|TR|UL)$/;
+  var SKIP = /^(SCRIPT|STYLE|BUTTON|SVG|NOSCRIPT|TEXTAREA|INPUT|SELECT)$/;
+
+  /* ---------- 本文テキストの取り出し（HTMLタグを除く。MathJaxの数式は元のTeXに戻す） ---------- */
+  function mathSources(root){
+    var map = new Map();
+    try {
+      var doc = window.MathJax && MathJax.startup && MathJax.startup.document;
+      if (doc && doc.getMathItemsWithin) doc.getMathItemsWithin(root).forEach(function(it){
+        if (it.typesetRoot) map.set(it.typesetRoot, it.display ? '$$' + it.math + '$$' : '$' + it.math + '$');
+      });
+    } catch (e) {}
+    return map;
+  }
+  function toText(root, skipEl){
+    var math = mathSources(root), out = [];
+    (function walk(node, pre){
+      for (var n = node.firstChild; n; n = n.nextSibling){
+        if (n.nodeType === 3){ out.push(pre ? n.nodeValue : n.nodeValue.replace(/\s+/g, ' ')); continue; }
+        if (n.nodeType !== 1 || n === skipEl) continue;
+        var tag = n.tagName.toUpperCase();
+        if (SKIP.test(tag)) continue;
+        if (tag === 'MJX-CONTAINER'){
+          var mml = n.querySelector('mjx-assistive-mml');
+          out.push(math.get(n) || (mml ? mml.textContent : ''));
+          continue;
+        }
+        if (tag === 'BR'){ out.push('\n'); continue; }
+        var block = BLOCK.test(tag);
+        if (block) out.push('\n');
+        if (tag === 'LI') out.push('・');
+        if (tag === 'TD' || tag === 'TH') out.push(' | ');
+        walk(n, pre || tag === 'PRE');
+        if (block) out.push('\n');
+      }
+    })(root, false);
+    return out.join('').split('\n')
+      .map(function(s){ return s.replace(/\s+$/, '').replace(/^ (?! )/, ''); })
+      .filter(function(s){ return s.trim(); })
+      .join('\n');
+  }
+  function oneLine(el){ return toText(el).replace(/\s+/g, ' ').trim(); }
+
+  function subjectName(){
+    var here = document.querySelector('nav.topnav .here');
+    if (here && here.textContent.trim()) return here.textContent.trim();
+    var h1 = document.querySelector('header.page h1') || document.querySelector('h1');
+    var t = (h1 ? h1.textContent : document.title).trim();
+    return t.replace(/\s*(期末|中間|前期|後期|試験対策).*$/, '') || t;
+  }
+
+  // 小見出し・太字（dtも太字表示）・<mark> を拾う
+  function conceptsOf(sec){
+    var seen = {}, list = [];
+    sec.querySelectorAll('h3, h4, dt, b, strong, mark').forEach(function(el){
+      var t = oneLine(el).replace(/[：:。、]$/, '');
+      if (!t || t.length > 60 || seen[t]) return;
+      if (/^H[34]$/.test(el.tagName) && GENERIC.test(t)) return;
+      seen[t] = 1; list.push(t);
+    });
+    return list;
+  }
+
+  function loadTarget(){
+    try { var v = localStorage.getItem(STORE_KEY); if (AIS[v]) return v; } catch (e) {}
+    return 'claude';
+  }
+  function saveTarget(v){ try { localStorage.setItem(STORE_KEY, v); } catch (e) {} }
+
+  function el(tag, cls, text){
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  /* ---------- 画面の組み立て ---------- */
+  var root = el('div', 'askai-root');
+  root.innerHTML =
+    '<div class="askai-scrim"></div>' +
+    '<div class="askai-sheet" role="dialog" aria-modal="true" aria-labelledby="askai-title" tabindex="-1">' +
+      '<div class="askai-handle"></div>' +
+      '<div class="askai-head"><div class="askai-head-t"><div class="askai-title" id="askai-title">🤖 AIに聞く</div><div class="askai-chap"></div></div>' +
+        '<button type="button" class="askai-x" aria-label="閉じる">✕</button></div>' +
+      '<div class="askai-body">' +
+        '<div class="askai-step"><div class="askai-step-t"><span class="askai-num">1</span>概念を選ぶ<span class="askai-hint">（複数可）</span></div>' +
+          '<div class="askai-chips"></div>' +
+          '<input class="askai-field askai-other" type="text" placeholder="その他（入力）　例：限界費用" enterkeyhint="done"></div>' +
+        '<div class="askai-step"><div class="askai-step-t"><span class="askai-num">2</span>質問を書く</div>' +
+          '<textarea class="askai-field askai-q" rows="3" placeholder="例：なぜこうなるの？／〇〇との違いは？&#10;（空欄なら「この概念を説明してください。」で送ります）"></textarea></div>' +
+        '<div class="askai-step"><div class="askai-step-t"><span class="askai-num">3</span>聞くAIを選んで送る</div>' +
+          '<div class="askai-ais" role="radiogroup" aria-label="聞くAI">' +
+            '<label class="askai-ai"><input type="radio" name="askai-ai" value="claude"><b>Claude</b></label>' +
+            '<label class="askai-ai"><input type="radio" name="askai-ai" value="chatgpt"><b>ChatGPT</b></label>' +
+            '<label class="askai-ai"><input type="radio" name="askai-ai" value="gemini"><b>Gemini</b><small>※開いたあと貼り付けが1回必要</small></label>' +
+          '</div></div>' +
+      '</div>' +
+      '<div class="askai-foot"><button type="button" class="askai-send"></button></div>' +
+    '</div>';
+
+  var dlg = el('div', 'askai-dlg');
+  dlg.innerHTML =
+    '<div class="askai-dlg-box" role="dialog" aria-modal="true" aria-labelledby="askai-dlg-t">' +
+      '<div class="askai-dlg-t" id="askai-dlg-t"></div>' +
+      '<p class="askai-dlg-msg"></p><p class="askai-dlg-sub"></p>' +
+      '<textarea class="askai-field" readonly></textarea>' +
+      '<div class="askai-dlg-actions">' +
+        '<button type="button" class="askai-tbtn askai-dlg-close">閉じる</button>' +
+        '<button type="button" class="askai-tbtn askai-dlg-copy">全文を選択してコピー</button>' +
+        '<a class="askai-open" target="_blank" rel="noopener"></a>' +
+      '</div>' +
+    '</div>';
+
+  var toastEl = el('div', 'askai-toast');
+  toastEl.setAttribute('role', 'status');
+
+  function $(sel, base){ return (base || root).querySelector(sel); }
+  var chipsBox = $('.askai-chips'), otherIn = $('.askai-other'), qIn = $('.askai-q'), sendBtn = $('.askai-send'), sheet = $('.askai-sheet');
+  var dTitle = $('.askai-dlg-t', dlg), dMsg = $('.askai-dlg-msg', dlg), dSub = $('.askai-dlg-sub', dlg),
+      dText = $('textarea', dlg), dCopy = $('.askai-dlg-copy', dlg), dOpen = $('.askai-open', dlg);
+
+  var state = {sec: null, title: '', opener: null, target: loadTarget()};
+
+  function setTarget(v){
+    state.target = v;
+    root.querySelectorAll('.askai-ai').forEach(function(l){
+      var inp = l.querySelector('input');
+      inp.checked = inp.value === v;
+      l.classList.toggle('on', inp.checked);
+    });
+    sendBtn.textContent = 'コピーして ' + AIS[v].name + ' で聞く';
+  }
+  root.querySelectorAll('.askai-ai input').forEach(function(inp){
+    inp.addEventListener('change', function(){ setTarget(inp.value); saveTarget(inp.value); });
+  });
+
+  function addChip(text, pressed){
+    var c = el('button', 'askai-chip', text.length > 40 ? text.slice(0, 40) + '…' : text);
+    c.type = 'button';
+    c.dataset.value = text;
+    c.title = text;
+    c.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+    c.addEventListener('click', function(){
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    });
+    chipsBox.appendChild(c);
+  }
+
+  function openSheet(sec, h2, selected, opener){
+    state.sec = sec; state.opener = opener;
+    state.title = oneLine(h2);
+    $('.askai-chap').textContent = state.title;
+    try { if (window.MathJax && MathJax.typesetClear) MathJax.typesetClear([chipsBox]); } catch (e) {}
+    chipsBox.innerHTML = '';
+    var list = conceptsOf(sec);
+    if (selected){
+      list = list.filter(function(t){ return t !== selected; });
+      addChip(selected, true);
+    }
+    list.forEach(function(t){ addChip(t, false); });
+    if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([chipsBox]).catch(function(){}); // チップ内の $..$ を数式表示に
+    var empty = chipsBox.nextElementSibling;
+    if (empty && empty.classList.contains('askai-empty')) empty.remove();
+    if (!chipsBox.children.length){
+      chipsBox.insertAdjacentElement('afterend', el('p', 'askai-empty', 'この章からは語句を拾えませんでした。下の欄に入力してください。'));
+    }
+    otherIn.value = ''; qIn.value = '';
+    setTarget(state.target);
+    $('.askai-body').scrollTop = 0;
+    root.classList.add('open');
+    document.documentElement.style.overflow = 'hidden';
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.add('show'); sheet.focus(); }); });
+  }
+  function closeSheet(){
+    if (!root.classList.contains('open')) return;
+    root.classList.remove('show');
+    document.documentElement.style.overflow = '';
+    setTimeout(function(){ root.classList.remove('open'); }, 250);
+    if (state.opener) state.opener.focus({preventScroll: true});
+  }
+  $('.askai-scrim').addEventListener('click', closeSheet);
+  $('.askai-x').addEventListener('click', closeSheet);
+
+  /* ---------- プロンプト ---------- */
+  function buildPrompt(){
+    var picked = [];
+    chipsBox.querySelectorAll('.askai-chip[aria-pressed="true"]').forEach(function(c){ picked.push(c.dataset.value); });
+    otherIn.value.split(/[、,，]/).forEach(function(s){ s = s.trim(); if (s) picked.push(s); });
+    picked = picked.filter(function(t, i){ return picked.indexOf(t) === i; });
+    var concept = picked.length ? picked.join('」「') : state.title;
+    var question = qIn.value.trim() || 'この概念を説明してください。';
+    var h2 = state.sec.querySelector('h2');
+    return '私は' + subjectName() + 'のテスト勉強中の大学生です。以下は授業スライドをまとめた『' + state.title + '』の内容です。\n' +
+      '---\n' + toText(state.sec, h2) + '\n---\n' +
+      'この中の「' + concept + '」について質問です。\n' +
+      question + '\n' +
+      '前提知識がない人にも分かるように説明してください。';
+  }
+
+  /* ---------- 送信 ---------- */
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toast.t);
+    toast.t = setTimeout(function(){ toastEl.classList.remove('show'); }, 3500);
+  }
+
+  // mode: 'paste'（開いてから貼り付け）/ 'direct'（URLで渡す）。copied=false なら全文のテキストエリアも出す
+  function showDialog(ai, prompt, url, mode, copied){
+    var pasteMsg = ai.name + 'が開いたら、入力欄に1回貼り付けて送信してください';
+    if (copied){
+      dTitle.textContent = ai.name + ' で聞く';
+      dMsg.textContent = '質問文をコピーしました。' + pasteMsg;
+    } else {
+      dTitle.textContent = '質問文をコピーしてください';
+      dMsg.textContent = mode === 'paste'
+        ? 'この環境では自動でコピーできません。下の全文をコピーし、' + pasteMsg + '。'
+        : 'この環境では自動でコピーできないため、全文をここに表示しています。' + ai.name + 'を開くと質問文は入力済みになります。';
+    }
+    dSub.textContent = mode === 'paste' && ai.q ? '（文章が長く、URLで直接渡せないため）' : '';
+    dSub.style.display = dSub.textContent ? '' : 'none';
+    dText.value = prompt;
+    dText.style.display = dCopy.style.display = copied ? 'none' : '';
+    dOpen.textContent = ai.name + ' を開く';
+    dOpen.href = url;
+    dlg.classList.add('open');
+    if (copied) dOpen.focus(); else { dText.focus(); dText.select(); }
+  }
+  function closeDialog(){ dlg.classList.remove('open'); }
+  dlg.addEventListener('click', function(e){ if (e.target === dlg) closeDialog(); });
+  $('.askai-dlg-close', dlg).addEventListener('click', closeDialog);
+  dOpen.addEventListener('click', function(){ setTimeout(function(){ closeDialog(); closeSheet(); }, 0); });
+  dCopy.addEventListener('click', function(){
+    dText.focus(); dText.select(); dText.setSelectionRange(0, dText.value.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    if (ok){ dMsg.textContent = '質問文をコピーしました。' + AIS[state.target].name + 'が開いたら、入力欄に1回貼り付けて送信してください'; }
+  });
+
+  sendBtn.addEventListener('click', function(){
+    var ai = AIS[state.target];
+    var prompt = buildPrompt();
+    var enc = encodeURIComponent(prompt);
+    var direct = !!ai.q && enc.length <= URL_LIMIT;
+    var url = direct ? ai.q + enc : ai.plain;
+    var canCopy = !!(navigator.clipboard && navigator.clipboard.writeText);
+
+    if (!canCopy){ showDialog(ai, prompt, url, direct ? 'direct' : 'paste', false); return; }
+
+    var copying = navigator.clipboard.writeText(prompt); // ボタン操作の中で呼ぶ（Safari対策）
+    if (direct){
+      copying.catch(function(){});
+      var w = window.open(url, '_blank');
+      if (w){
+        try { w.opener = null; } catch (e) {}
+        closeSheet();
+        toast('質問文をコピーして ' + ai.name + ' を開きました');
+      } else {
+        showDialog(ai, prompt, url, 'direct', true); // ポップアップがブロックされたときはリンクで開いてもらう
+      }
+      return;
+    }
+    // 貼り付け方式：開く前に案内を出す
+    copying.then(function(){ showDialog(ai, prompt, url, 'paste', true); },
+                 function(){ showDialog(ai, prompt, url, 'paste', false); });
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    if (dlg.classList.contains('open')) closeDialog();
+    else closeSheet();
+  });
+
+  /* ---------- 選択中の文章を覚えておく（スマホではボタンを押すと選択が消えることがあるため） ---------- */
+  var lastSel = null;
+  document.addEventListener('selectionchange', function(){
+    var s = window.getSelection();
+    var text = s ? String(s).replace(/\s+/g, ' ').trim() : '';
+    if (text && !root.contains(s.anchorNode) && !dlg.contains(s.anchorNode)) lastSel = {text: text, cleared: 0};
+    else if (!text && lastSel && !lastSel.cleared) lastSel.cleared = Date.now();
+  });
+  function takeSelection(){
+    var s = lastSel;
+    if (!s || (s.cleared && Date.now() - s.cleared > 1500)) return '';
+    return s.text;
+  }
+
+  /* ---------- 各章の見出しにボタンを付ける ---------- */
+  function init(){
+    document.body.appendChild(root);
+    document.body.appendChild(dlg);
+    document.body.appendChild(toastEl);
+    document.querySelectorAll('section.chapter').forEach(function(sec){
+      var h2 = sec.querySelector('h2');
+      if (!h2) return;
+      var b = el('button', 'askai-btn');
+      b.type = 'button';
+      b.innerHTML = '<span aria-hidden="true">🤖</span>AIに聞く';
+      b.setAttribute('aria-label', '「' + oneLine(h2) + '」についてAIに聞く');
+      b.addEventListener('click', function(){ openSheet(sec, h2, takeSelection(), b); });
+      h2.classList.add('askai-h');
+      h2.appendChild(b);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<!-- ask-ai:end -->
 </body>
 </html>
