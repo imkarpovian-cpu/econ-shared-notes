@@ -1,6 +1,7 @@
 (function() {
-  var VALID_ID = '[redacted]';
-  var VALID_PASS = '[redacted]';
+  // ID とパスワードは平文で置かず、SHA-256("ID:パスワード") だけを置く。
+  // 変更するときは python -c "import hashlib;print(hashlib.sha256(b'ID:パスワード').hexdigest())" の結果に差し替える
+  var VALID_HASH = '1a07f1d80ad255835bb625dad291045d6926ec064f5f32340061dbd84bd969cc';
   var KEY = 'shared_note_auth';
 
   if (sessionStorage.getItem(KEY) === 'ok') return;
@@ -39,14 +40,19 @@
     e.preventDefault();
     var id = document.getElementById('auth-id').value.trim();
     var pass = document.getElementById('auth-pass').value;
-    if (id === VALID_ID && pass === VALID_PASS) {
-      sessionStorage.setItem(KEY, 'ok');
-      overlay.remove();
-      style.remove();
-    } else {
-      document.getElementById('auth-error').textContent = 'IDまたはパスワードが違います';
-      document.getElementById('auth-pass').value = '';
-      document.getElementById('auth-pass').focus();
-    }
+    crypto.subtle.digest('SHA-256', new TextEncoder().encode(id + ':' + pass)).then(function(buf) {
+      var hex = Array.prototype.map.call(new Uint8Array(buf), function(b) {
+        return ('0' + b.toString(16)).slice(-2);
+      }).join('');
+      if (hex === VALID_HASH) {
+        sessionStorage.setItem(KEY, 'ok');
+        overlay.remove();
+        style.remove();
+      } else {
+        document.getElementById('auth-error').textContent = 'IDまたはパスワードが違います';
+        document.getElementById('auth-pass').value = '';
+        document.getElementById('auth-pass').focus();
+      }
+    });
   });
 })();
