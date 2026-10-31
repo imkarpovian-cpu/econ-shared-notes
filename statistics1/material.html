@@ -1237,7 +1237,7 @@ feols(irrigation ~ reserved, data = women)
 <!-- 「AIに聞く」機能。右下のボタン → ページ上で言葉・文のまとまりを選ぶ → 質問を書く → AIのボタンで送る。
      原本は templates/ask_ai_snippet.html。各資料ページの </body> 直前にこのブロックごと貼る（外部ファイル不要） -->
 <style>
-/* 右下のボタン（M3の拡張FAB。下へスクロール中は🤖だけに縮む） */
+/* 右下のボタン（M3の拡張FAB。スクロール中は🤖だけに縮む） */
 .askai-fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:900;display:inline-flex;align-items:center;
   height:56px;padding:0 20px 0 16px;border:none;border-radius:16px;background:var(--accent-light,#dae2ff);color:var(--on-accent-light,#0b2a6b);
   font:500 15px/1 "Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;letter-spacing:.02em;white-space:nowrap;cursor:pointer;
@@ -1691,13 +1691,12 @@ feols(irrigation ~ reserved, data = women)
     return {el: null, sec: s.sec, text: s.text};
   }
 
-  /* ---------- 右下ボタン：下へスクロール中は縮む ---------- */
-  var lastY = window.pageYOffset;
+  /* ---------- 右下ボタン：スクロール中は縮み、止まったら文字つきに戻る ---------- */
+  var scrollTimer = 0;
   window.addEventListener('scroll', function(){
-    var y = window.pageYOffset;
-    if (y < 80 || y < lastY - 4) fab.classList.remove('mini');
-    else if (y > lastY + 4) fab.classList.add('mini');
-    lastY = y;
+    fab.classList.add('mini');
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function(){ fab.classList.remove('mini'); }, 400);
   }, {passive: true});
 
   function init(){
