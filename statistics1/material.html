@@ -45,6 +45,8 @@ nav.toc{background:var(--card);border-radius:28px;padding:24px 32px;margin-botto
 nav.toc h2{margin:0 0 8px;font-size:.85em;font-weight:500;letter-spacing:.06em;color:var(--sub)}
 nav.toc ol{margin:0;padding-left:1.6em}
 nav.toc li{padding:2px 0}
+nav.toc h3{margin:14px 0 4px;font-size:.95em;font-weight:500}
+nav.toc h3 a{color:var(--accent)}
 nav.toc li::marker{color:var(--sub)}
 nav.toc a{color:var(--ink);text-decoration:none}
 nav.toc a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
@@ -68,11 +70,15 @@ mjx-container[display="true"]{display:block;max-width:100%;overflow-x:auto;overf
 .example .label{color:var(--on-ok)}
 .pitfall{background:var(--warn-bg);padding:14px 18px;border-radius:16px;margin:10px 0}
 .pitfall .label{color:var(--on-warn)}
+.part-head{background:var(--accent-light);color:var(--on-accent-light);border-radius:28px;padding:20px 32px;margin:28px 0 12px;scroll-margin-top:72px}
+.part-head h2{margin:0;font-size:1.35em;font-weight:500}
+.part-head p{margin:4px 0 0;font-size:.88em;opacity:.8}
 footer.page{color:var(--sub);font-size:.8em;text-align:center;padding:24px 0 40px}
 @media (max-width:640px){
   header.page{padding:24px 20px;border-radius:24px}
   header.page h1{font-size:1.5em}
   nav.toc,section.chapter{padding:24px 20px;border-radius:24px}
+  .part-head{padding:16px 20px;border-radius:24px}
 }
 pre.code{background:#1e293b;color:#e2e8f0;border-radius:8px;padding:14px 16px;overflow-x:auto;font-family:"Consolas","Monaco","Courier New",monospace;font-size:.9em;line-height:1.6;margin:8px 0}
 pre.code .comment{color:#94a3b8}
@@ -106,11 +112,12 @@ pre.code .general{color:#fbbf24;font-weight:bold}
 
 <header class="page">
   <h1>統計学1 期末 Rコード一般形まとめ</h1>
-  <p class="meta">第1〜11章：Rコードの一般形（テンプレート）を網羅的に整理／第12〜15章：講義スライド（第2〜4章）の理論・計算問題対策</p>
+  <p class="meta">Rコード編：Rコードの一般形（テンプレート）を網羅的に整理／統計学編：講義スライド（第2〜4章）の理論・計算問題対策</p>
 </header>
 
 <nav class="toc">
   <h2>目次</h2>
+  <h3><a href="#part-r">Rコード編</a></h3>
   <ol>
     <li><a href="#ch1">基本操作（算術・オブジェクト・コメント）</a></li>
     <li><a href="#ch2">ベクトルとデータ型</a></li>
@@ -123,15 +130,24 @@ pre.code .general{color:#fbbf24;font-weight:bold}
     <li><a href="#ch9">予測と予測誤差（選挙予測・バイアス・RMSE）</a></li>
     <li><a href="#ch10">線形回帰（feols・係数・予測値・残差・決定係数）</a></li>
     <li><a href="#ch11">回帰分析と因果推論（実験・重回帰・交互作用）</a></li>
-    <li><a href="#ch12">因果推論の理論（反事実・RCT・観察研究・差の差分法）</a></li>
-    <li><a href="#ch13">記述統計と測定（中央値・分位数・ヒストグラム・標本調査）</a></li>
-    <li><a href="#ch14">2変量関係の要約（ジニ係数・z得点・相関係数・Q-Qプロット）</a></li>
-    <li><a href="#ch15">予測と回帰の理論（DiDの解釈・最小2乗法・決定係数）</a></li>
 <!--TOC-END-->
+  </ol>
+  <h3><a href="#part-stat">統計学編</a></h3>
+  <ol>
+    <li><a href="#st1">因果推論の理論（反事実・RCT・観察研究・差の差分法）</a></li>
+    <li><a href="#st2">記述統計と測定（中央値・分位数・ヒストグラム・標本調査）</a></li>
+    <li><a href="#st3">2変量関係の要約（ジニ係数・z得点・相関係数・Q-Qプロット）</a></li>
+    <li><a href="#st4">予測と回帰の理論（DiDの解釈・最小2乗法・決定係数）</a></li>
+<!--STAT-TOC-END-->
   </ol>
 </nav>
 
 <main>
+
+<div class="part-head" id="part-r">
+  <h2>Rコード編</h2>
+  <p>第1〜11章のRコードの一般形（テンプレート）</p>
+</div>
 
 <!-- ==================== 第1章 ==================== -->
 <section class="chapter" id="ch1">
@@ -1233,10 +1249,17 @@ feols(irrigation ~ reserved, data = women)
   </div>
 </section>
 
-<!-- ==================== 第12章 ==================== -->
-<section class="chapter" id="ch12">
-  <h2>第12章 因果推論の理論（反事実・RCT・観察研究・差の差分法）</h2>
-  <p class="ref-note">出典：講義スライド 第2章「因果関係」（lecture_2.pdf p.1〜51）。第11章のRコードの背景にある考え方。</p>
+<!--CHAPTERS-END-->
+
+<div class="part-head" id="part-stat">
+  <h2>統計学編</h2>
+  <p>講義スライド（第2章 因果関係・第3章 測定・第4章 予測）の理論・定義・計算問題対策</p>
+</div>
+
+<!-- ==================== 統計学 第1章 ==================== -->
+<section class="chapter" id="st1">
+  <h2>統計学 第1章 因果推論の理論（反事実・RCT・観察研究・差の差分法）</h2>
+  <p class="ref-note">出典：講義スライド 第2章「因果関係」（lecture_2.pdf p.1〜51）。Rコード編 第11章のRコードの背景にある考え方。</p>
 
   <h3>要点</h3>
   <div class="summary"><ul>
@@ -1317,7 +1340,7 @@ feols(irrigation ~ reserved, data = women)
     投票推進メッセージをランダムに割り当てた。投票率は ①社会的プレッシャー（投票したかを隣人に知らせる）<b>38%</b>、②市民の義務 <b>31%</b>、③被験者であることを伝える（ホーソン効果）<b>32%</b>、④メッセージなし <b>30%</b>。社会的プレッシャーが最も効果的で、市民の義務の効果は限定的。
   </div>
   <div class="example"><span class="label">例：最低賃金と雇用（Card &amp; Krueger, 1994）</span>
-    1992年にニュージャージー州（NJ）だけが最低賃金を引き上げ、隣のペンシルベニア州（PA）は引き上げなかった。州境を挟むファストフード店の雇用の変化を差の差分法で比較：①NJ の事前・事後の差、②PA の事前・事後の差、③①−②。経済理論では、最低賃金が均衡賃金より高いと労働供給量が需要量を上回り失業が発生する（供給超過）。分析結果は元PDF p.51 と、第15章の「第2回課題の振り返り」を参照。
+    1992年にニュージャージー州（NJ）だけが最低賃金を引き上げ、隣のペンシルベニア州（PA）は引き上げなかった。州境を挟むファストフード店の雇用の変化を差の差分法で比較：①NJ の事前・事後の差、②PA の事前・事後の差、③①−②。経済理論では、最低賃金が均衡賃金より高いと労働供給量が需要量を上回り失業が発生する（供給超過）。分析結果は元PDF p.51 と、統計学 第4章の「第2回課題の振り返り」を参照。
   </div>
   <div class="example"><span class="label">計算例：差の差分法</span>
     NJ：事前 20、事後 21、PA：事前 23、事後 21（1店あたりの雇用。説明用の数値で、実際の結果ではない）<br>
@@ -1341,9 +1364,9 @@ feols(irrigation ~ reserved, data = women)
   </div>
 </section>
 
-<!-- ==================== 第13章 ==================== -->
-<section class="chapter" id="ch13">
-  <h2>第13章 記述統計と測定（中央値・分位数・ヒストグラム・標本調査）</h2>
+<!-- ==================== 統計学 第2章 ==================== -->
+<section class="chapter" id="st2">
+  <h2>統計学 第2章 記述統計と測定（中央値・分位数・ヒストグラム・標本調査）</h2>
   <p class="ref-note">出典：講義スライド 第2章 2.6「1変数の記述統計量」（lecture_2.pdf p.52〜59）、第3章「測定」3.1〜3.5（lecture_3.pdf p.1〜28）。</p>
 
   <h3>要点</h3>
@@ -1365,7 +1388,7 @@ feols(irrigation ~ reserved, data = women)
     <dt>分位数・四分位数・十分位数</dt>
     <dd>分位数＝データを大きさの順に並べ、特定の割合で分割する値。四分位数は4等分（第1＝25%、第2＝50%、第3＝75%）、十分位数は10等分。第 $p$ 分位の位置は $1+(n-1)\times p$ 番目（定義は複数あり、ソフトによって値が異なることがある）。</dd>
     <dt>二乗平均平方根（RMS）</dt>
-    <dd>$$\text{RMS}=\sqrt{\frac{1}{n}\sum_{i=1}^{n}x_i^2}$$ 変数の絶対的な大きさや変動の規模を測る指標。予測誤差に使ったものが RMSE（第9章・第15章）。</dd>
+    <dd>$$\text{RMS}=\sqrt{\frac{1}{n}\sum_{i=1}^{n}x_i^2}$$ 変数の絶対的な大きさや変動の規模を測る指標。予測誤差に使ったものが RMSE（Rコード編 第9章・統計学 第4章）。</dd>
     <dt>標準偏差（標本標準偏差）</dt>
     <dd>$$s=\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar x)^2}$$ 偏差の2乗の平均（分散）の正の平方根。大きいほどデータが平均から広く散らばっている。</dd>
     <dt>ヒストグラム・ビン・密度</dt>
@@ -1429,10 +1452,10 @@ feols(irrigation ~ reserved, data = women)
   </div>
 </section>
 
-<!-- ==================== 第14章 ==================== -->
-<section class="chapter" id="ch14">
-  <h2>第14章 2変量関係の要約（ジニ係数・z得点・相関係数・Q-Qプロット）</h2>
-  <p class="ref-note">出典：講義スライド 第3章 3.6「2変量関係の要約」（lecture_3.pdf p.29〜52）。第7章のRコードの背景にある考え方。</p>
+<!-- ==================== 統計学 第3章 ==================== -->
+<section class="chapter" id="st3">
+  <h2>統計学 第3章 2変量関係の要約（ジニ係数・z得点・相関係数・Q-Qプロット）</h2>
+  <p class="ref-note">出典：講義スライド 第3章 3.6「2変量関係の要約」（lecture_3.pdf p.29〜52）。Rコード編 第7章のRコードの背景にある考え方。</p>
 
   <h3>要点</h3>
   <div class="summary"><ul>
@@ -1524,10 +1547,10 @@ feols(irrigation ~ reserved, data = women)
   </div>
 </section>
 
-<!-- ==================== 第15章 ==================== -->
-<section class="chapter" id="ch15">
-  <h2>第15章 予測と回帰の理論（DiDの解釈・最小2乗法・決定係数）</h2>
-  <p class="ref-note">出典：講義スライド 第4章「予測」（lecture_4.pdf p.1〜47）。第9〜11章のRコードの背景にある数式。</p>
+<!-- ==================== 統計学 第4章 ==================== -->
+<section class="chapter" id="st4">
+  <h2>統計学 第4章 予測と回帰の理論（DiDの解釈・最小2乗法・決定係数）</h2>
+  <p class="ref-note">出典：講義スライド 第4章「予測」（lecture_4.pdf p.1〜47）。Rコード編 第9〜11章のRコードの背景にある数式。</p>
 
   <h3>要点</h3>
   <div class="summary"><ul>
@@ -1598,7 +1621,7 @@ feols(irrigation ~ reserved, data = women)
     $R^2$ が同じでも予測変数が多いほど調整済み $R^2$ は小さくなる。
   </div>
   <div class="example"><span class="label">例：女性政治家の因果効果（Chattopadhyay &amp; Duflo, 2004）</span>
-    女性政治家を選んだ選挙区はもともとリベラルかもしれない（選挙区のイデオロギーが交絡）ので単純比較はできない。インドでは村議会議長のポストの <b>1/3</b> が女性に無作為に割り当てられたため、この実験的政策を利用。女性は飲用水の質、男性は灌漑設備に不満が多く、「女性政治家は女性有権者の求める政策を支持しやすい」という仮説を検証した（Rでの結果は第11章）。
+    女性政治家を選んだ選挙区はもともとリベラルかもしれない（選挙区のイデオロギーが交絡）ので単純比較はできない。インドでは村議会議長のポストの <b>1/3</b> が女性に無作為に割り当てられたため、この実験的政策を利用。女性は飲用水の質、男性は灌漑設備に不満が多く、「女性政治家は女性有権者の求める政策を支持しやすい」という仮説を検証した（Rでの結果は Rコード編 第11章）。
   </div>
 
   <h3>つまずきポイント</h3>
@@ -1616,7 +1639,7 @@ feols(irrigation ~ reserved, data = women)
   </div>
 </section>
 
-<!--CHAPTERS-END-->
+<!--STAT-CHAPTERS-END-->
 </main>
 
 <footer class="page">test-prep システムで生成 ｜ 元資料とあわせて使ってください</footer>
